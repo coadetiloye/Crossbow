@@ -30,26 +30,27 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class FilledBlockTest {
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation() {
-		FilledBlock p = new FilledBlock(100, new BigDecimal("8.0"),
-				new DateTime(500));
-		assertEquals(100, p.getSize());
-		assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
-		assertEquals(new DateTime(500), p.getTime());
-	}
-
-	/**
-	 * Test of calculateValue method, of class FilledBlock.
-	 */
-	@Test
-	public void testCalculateValue() {
-		FilledBlock p = new FilledBlock(100, new BigDecimal("8.501"),
-				new DateTime(500));
-		assertTrue((new BigDecimal("850.1")).compareTo(p.calculateValue()) == 0);
-	}
+public class FilledBlockTest
+{
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation()
+   {
+      FilledBlock p = new FilledBlock(100, new BigDecimal("8.0"), new DateTime(500));
+      assertEquals(100, p.getSize());
+      assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
+      assertEquals(new DateTime(500), p.getTime());
+   }
+   
+   /**
+    * Test of calculateValue method, of class FilledBlock.
+    */
+   @Test
+   public void testCalculateValue()
+   {
+      FilledBlock p = new FilledBlock(100, new BigDecimal("8.501"), new DateTime(500));
+      assertTrue((new BigDecimal("850.1")).compareTo(p.calculateValue()) == 0);
+   }
 }

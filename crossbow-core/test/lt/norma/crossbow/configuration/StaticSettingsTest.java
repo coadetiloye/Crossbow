@@ -30,69 +30,68 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * 
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class StaticSettingsTest {
-	/**
-	 * Test StaticSettings.dateFormat.
-	 */
-	@Test
-	public void testDateFormat() {
-		DateTimeFormatter formatter = DateTimeFormat
-				.forPattern(StaticSettings.dateFormat);
-		LocalDate parsedDate = formatter.parseDateTime("2009-12-31")
-				.toLocalDate();
-		LocalDate testDate = new LocalDate(2009, 12, 31);
-		assertEquals(testDate, parsedDate);
-	}
-
-	/**
-	 * Test StaticSettings.timeFormat.
-	 */
-	@Test
-	public void testTimeFormat() {
-		DateTimeFormatter formatter = DateTimeFormat
-				.forPattern(StaticSettings.timeFormat);
-		LocalTime parsedTime = formatter.parseDateTime("14:00:51")
-				.toLocalTime();
-		LocalTime testTime = new LocalTime(14, 0, 51);
-		assertEquals(testTime, parsedTime);
-	}
-
-	/**
-	 * Test StaticSettings.dateTimeFormat.
-	 */
-	@Test
-	public void testDateTimeFormat() {
-		DateTimeFormatter formatter = DateTimeFormat
-				.forPattern(StaticSettings.dateTimeFormat);
-		LocalDateTime parsedDateTime = formatter.parseDateTime(
-				"2009-12-31 14:00:51").toLocalDateTime();
-		LocalDateTime testDateTime = new LocalDateTime(2009, 12, 31, 14, 0, 51);
-		assertEquals(testDateTime, parsedDateTime);
-	}
-
-	/**
-	 * Test StaticSettings.pricePrecision.
-	 */
-	@Test
-	public void testPricePrecision() {
-		assertTrue(StaticSettings.pricePrecision >= 0);
-	}
-
-	/**
-	 * Test StaticSettings.priceRoundingMode.
-	 */
-	@Test
-	public void testPriceRoundingMode() {
-		assertTrue(StaticSettings.priceRoundingMode == BigDecimal.ROUND_CEILING
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_DOWN
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_UP
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_FLOOR
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_DOWN
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_EVEN
-				|| StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_UP);
-	}
+public class StaticSettingsTest
+{
+   /**
+    * Test StaticSettings.dateFormat.
+    */
+   @Test
+   public void testDateFormat()
+   {
+      DateTimeFormatter formatter = DateTimeFormat.forPattern(StaticSettings.dateFormat);
+      LocalDate parsedDate = formatter.parseDateTime("2009-12-31").toLocalDate();
+      LocalDate testDate = new LocalDate(2009, 12, 31);
+      assertEquals(testDate, parsedDate);
+   }
+   
+   /**
+    * Test StaticSettings.timeFormat.
+    */
+   @Test
+   public void testTimeFormat()
+   {
+      DateTimeFormatter formatter = DateTimeFormat.forPattern(StaticSettings.timeFormat);
+      LocalTime parsedTime = formatter.parseDateTime("14:00:51").toLocalTime();
+      LocalTime testTime = new LocalTime(14, 0, 51);
+      assertEquals(testTime, parsedTime);
+   }
+   
+   /**
+    * Test StaticSettings.dateTimeFormat.
+    */
+   @Test
+   public void testDateTimeFormat()
+   {
+      DateTimeFormatter formatter = DateTimeFormat.forPattern(StaticSettings.dateTimeFormat);
+      LocalDateTime parsedDateTime =
+            formatter.parseDateTime("2009-12-31 14:00:51").toLocalDateTime();
+      LocalDateTime testDateTime = new LocalDateTime(2009, 12, 31, 14, 0, 51);
+      assertEquals(testDateTime, parsedDateTime);
+   }
+   
+   /**
+    * Test StaticSettings.pricePrecision.
+    */
+   @Test
+   public void testPricePrecision()
+   {
+      assertTrue(StaticSettings.pricePrecision >= 0);
+   }
+   
+   /**
+    * Test StaticSettings.priceRoundingMode.
+    */
+   @Test
+   public void testPriceRoundingMode()
+   {
+      assertTrue(StaticSettings.priceRoundingMode == BigDecimal.ROUND_CEILING
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_DOWN
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_UP
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_FLOOR
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_DOWN
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_EVEN
+                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_UP);
+   }
 }

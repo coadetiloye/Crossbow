@@ -25,63 +25,66 @@ import org.joda.time.DateTime;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class FilledBlock {
-	/** Number of contracts filled. */
-	private final int size;
-	/** Average price at which the block was filled. */
-	private final BigDecimal price;
-	/** Time when the block was filled. */
-	private final DateTime time;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param size
-	 *            number of contracts filled
-	 * @param price
-	 *            average price at which the block was filled
-	 * @param time
-	 *            time when the block was filled
-	 */
-	public FilledBlock(int size, BigDecimal price, DateTime time) {
-		this.size = size;
-		this.price = price;
-		this.time = time;
-	}
-
-	/**
-	 * Calculates value of the block. Value = Size * Price
-	 * 
-	 * @return size multiplied by the price
-	 */
-	public BigDecimal calculateValue() {
-		return price.multiply(new BigDecimal(size));
-	}
-
-	/**
-	 * Gets number of contracts filled.
-	 * 
-	 * @return number of contracts filled
-	 */
-	public int getSize() {
-		return size;
-	}
-
-	/**
-	 * Gets average price at which the block was filled.
-	 * 
-	 * @return averge price
-	 */
-	public BigDecimal getAveragePrice() {
-		return price;
-	}
-
-	/**
-	 * Gets time when the block was filled.
-	 * 
-	 * @return time when the block was filled
-	 */
-	public DateTime getTime() {
-		return time;
-	}
+public final class FilledBlock
+{
+   /** Number of contracts filled. */
+   private final int size;
+   /** Average price at which the block was filled. */
+   private final BigDecimal price;
+   /** Time when the block was filled. */
+   private final DateTime time;
+   
+   /**
+    * Constructor.
+    * 
+    * @param size number of contracts filled
+    * @param price average price at which the block was filled
+    * @param time time when the block was filled
+    */
+   public FilledBlock(int size, BigDecimal price, DateTime time)
+   {
+      this.size = size;
+      this.price = price;
+      this.time = time;
+   }
+   
+   /**
+    * Calculates value of the block. Value = Size * Price
+    * 
+    * @return size multiplied by the price
+    */
+   public BigDecimal calculateValue()
+   {
+      return price.multiply(new BigDecimal(size));
+   }
+   
+   /**
+    * Gets number of contracts filled.
+    * 
+    * @return number of contracts filled
+    */
+   public int getSize()
+   {
+      return size;
+   }
+   
+   /**
+    * Gets average price at which the block was filled.
+    * 
+    * @return averge price
+    */
+   public BigDecimal getAveragePrice()
+   {
+      return price;
+   }
+   
+   /**
+    * Gets time when the block was filled.
+    * 
+    * @return time when the block was filled
+    */
+   public DateTime getTime()
+   {
+      return time;
+   }
 }

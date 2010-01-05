@@ -25,67 +25,70 @@ import java.util.List;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OcaGroup {
-	/**
-	 * Title of the OCA group. Titles must be unique as they are used to
-	 * identify the OCA group.
-	 */
-	private String title;
-	/** List of orders. */
-	private List<Order> orders;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param title
-	 *            title of the OCA group. Make sure the title is unique, as it
-	 *            is used to identify the group
-	 */
-	public OcaGroup(String title) {
-		this.title = title;
-		orders = new LinkedList<Order>();
-	}
-
-	/**
-	 * Adds a new order to this OCA group.
-	 * 
-	 * @param order
-	 *            a new order to be added
-	 */
-	public void addOrder(Order order) {
-		if (order != null) {
-			orders.add(order);
-		}
-	}
-
-	/**
-	 * Gets a text string containing title and number of orders assigned to this
-	 * group.
-	 * <p>
-	 * Example: <code>OCA group A (3)</code>
-	 * 
-	 * @return a text string representing this OCA group
-	 */
-	@Override
-	public String toString() {
-		return "OCA group " + title + " (" + orders.size() + ")";
-	}
-
-	/**
-	 * Gets list of orders contained in thi OCA group.
-	 * 
-	 * @return list of orders
-	 */
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	/**
-	 * Gets title of the OCA group.
-	 * 
-	 * @return title of the OCA group
-	 */
-	public String getTitle() {
-		return title;
-	}
+public class OcaGroup
+{
+   /**
+    * Title of the OCA group. Titles must be unique as they are used to identify the OCA group.
+    */
+   private String title;
+   /** List of orders. */
+   private List<Order> orders;
+   
+   /**
+    * Constructor.
+    * 
+    * @param title title of the OCA group. Make sure the title is unique, as it is used to identify
+    *           the group
+    */
+   public OcaGroup(String title)
+   {
+      this.title = title;
+      orders = new LinkedList<Order>();
+   }
+   
+   /**
+    * Adds a new order to this OCA group.
+    * 
+    * @param order a new order to be added
+    */
+   public void addOrder(Order order)
+   {
+      if (order != null)
+      {
+         orders.add(order);
+      }
+   }
+   
+   /**
+    * Gets a text string containing title and number of orders assigned to this group.
+    * <p>
+    * Example: <code>OCA group A (3)</code>
+    * 
+    * @return a text string representing this OCA group
+    */
+   @Override
+   public String toString()
+   {
+      return "OCA group " + title + " (" + orders.size() + ")";
+   }
+   
+   /**
+    * Gets list of orders contained in thi OCA group.
+    * 
+    * @return list of orders
+    */
+   public List<Order> getOrders()
+   {
+      return orders;
+   }
+   
+   /**
+    * Gets title of the OCA group.
+    * 
+    * @return title of the OCA group
+    */
+   public String getTitle()
+   {
+      return title;
+   }
 }

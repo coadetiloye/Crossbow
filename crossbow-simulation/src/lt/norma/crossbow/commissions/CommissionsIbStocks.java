@@ -24,34 +24,40 @@ import lt.norma.crossbow.configuration.StaticSettings;
  * Simplified Interactive Brokers method to calculate equities commissions.
  * <ul>
  * <li>0.005 USD per share
- * <li>Maximum 0.5% of trade value per order (exchange, ECN, and specialist fees
- * are <b>not</b> included)
+ * <li>Maximum 0.5% of trade value per order (exchange, ECN, and specialist fees are <b>not</b>
+ * included)
  * <li>Minimum 1.0 USD per order
  * </ul>
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CommissionsIbStocks implements Commissions {
-	private BigDecimal ratePerShare = new BigDecimal("0.005");
-	private BigDecimal minimumPerOrder = new BigDecimal("1.00");
-	private BigDecimal maximumPercentPerOrder = new BigDecimal("0.50");
-
-	@Override
-	public BigDecimal calculate(int size, BigDecimal price) {
-		BigDecimal c;
-		BigDecimal s = new BigDecimal(size);
-
-		BigDecimal max = price.multiply(s).multiply(maximumPercentPerOrder)
-				.divide(new BigDecimal("100"), StaticSettings.pricePrecision,
-						StaticSettings.priceRoundingMode);
-		c = ratePerShare.multiply(s);
-		if (c.compareTo(max) > 0) {
-			c = max;
-		}
-		if (c.compareTo(minimumPerOrder) < 0) {
-			c = minimumPerOrder;
-		}
-
-		return c;
-	}
+public class CommissionsIbStocks implements Commissions
+{
+   private BigDecimal ratePerShare = new BigDecimal("0.005");
+   private BigDecimal minimumPerOrder = new BigDecimal("1.00");
+   private BigDecimal maximumPercentPerOrder = new BigDecimal("0.50");
+   
+   @Override
+   public BigDecimal calculate(int size, BigDecimal price)
+   {
+      BigDecimal c;
+      BigDecimal s = new BigDecimal(size);
+      
+      BigDecimal max =
+            price.multiply(s).multiply(maximumPercentPerOrder).divide(
+                                                                      new BigDecimal("100"),
+                                                                      StaticSettings.pricePrecision,
+                                                                      StaticSettings.priceRoundingMode);
+      c = ratePerShare.multiply(s);
+      if (c.compareTo(max) > 0)
+      {
+         c = max;
+      }
+      if (c.compareTo(minimumPerOrder) < 0)
+      {
+         c = minimumPerOrder;
+      }
+      
+      return c;
+   }
 }

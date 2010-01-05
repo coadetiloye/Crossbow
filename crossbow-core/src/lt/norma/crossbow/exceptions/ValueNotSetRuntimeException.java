@@ -22,58 +22,55 @@ package lt.norma.crossbow.exceptions;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ValueNotSetRuntimeException extends CrossbowRuntimeException {
-	private String fieldName;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param fieldName
-	 *            name of the field that caused this exception
-	 * @param message
-	 *            exception message. Use this field to explain the value should
-	 *            be set to avoid this exception.
-	 * @param cause
-	 *            an exception that caused this invalid argument exception, may
-	 *            be null.
-	 */
-	public ValueNotSetRuntimeException(String fieldName, String message,
-			Throwable cause) {
-		super("Value of " + fieldName + " is not set. " + message, cause);
-		this.fieldName = String.valueOf(fieldName);
-	}
-
-	/**
-	 * Constructor. No cause specified.
-	 * 
-	 * @param fieldName
-	 *            name of the field that caused this exception
-	 * @param message
-	 *            exception message. Use this field to explain the value should
-	 *            be set to avoid this exception.
-	 */
-	public ValueNotSetRuntimeException(String fieldName, String message) {
-		super("Value of " + fieldName + " is not set. " + message);
-		this.fieldName = String.valueOf(fieldName);
-	}
-
-	/**
-	 * Constructor. No cause or message specified.
-	 * 
-	 * @param fieldName
-	 *            name of the field that caused this exception
-	 */
-	public ValueNotSetRuntimeException(String fieldName) {
-		super("Value of " + fieldName + " is not set.");
-		this.fieldName = String.valueOf(fieldName);
-	}
-
-	/**
-	 * Gets name of the field.
-	 * 
-	 * @return name of the field
-	 */
-	public String getFieldName() {
-		return fieldName;
-	}
+public class ValueNotSetRuntimeException extends CrossbowRuntimeException
+{
+   private String fieldName;
+   
+   /**
+    * Constructor.
+    * 
+    * @param fieldName name of the field that caused this exception
+    * @param message exception message. Use this field to explain the value should be set to avoid
+    *           this exception.
+    * @param cause an exception that caused this invalid argument exception, may be null.
+    */
+   public ValueNotSetRuntimeException(String fieldName, String message, Throwable cause)
+   {
+      super("Value of " + fieldName + " is not set. " + message, cause);
+      this.fieldName = String.valueOf(fieldName);
+   }
+   
+   /**
+    * Constructor. No cause specified.
+    * 
+    * @param fieldName name of the field that caused this exception
+    * @param message exception message. Use this field to explain the value should be set to avoid
+    *           this exception.
+    */
+   public ValueNotSetRuntimeException(String fieldName, String message)
+   {
+      super("Value of " + fieldName + " is not set. " + message);
+      this.fieldName = String.valueOf(fieldName);
+   }
+   
+   /**
+    * Constructor. No cause or message specified.
+    * 
+    * @param fieldName name of the field that caused this exception
+    */
+   public ValueNotSetRuntimeException(String fieldName)
+   {
+      super("Value of " + fieldName + " is not set.");
+      this.fieldName = String.valueOf(fieldName);
+   }
+   
+   /**
+    * Gets name of the field.
+    * 
+    * @return name of the field
+    */
+   public String getFieldName()
+   {
+      return fieldName;
+   }
 }

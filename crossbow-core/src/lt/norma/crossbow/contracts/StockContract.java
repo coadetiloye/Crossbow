@@ -24,31 +24,30 @@ import lt.norma.crossbow.exceptions.ContractException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class StockContract extends Contract {
-	/**
-	 * Constructor.
-	 * 
-	 * @param symbol
-	 *            symbol of an underlying asset
-	 * @param exchange
-	 *            exchange of the contract
-	 * @param currency
-	 *            base currency of the contract
-	 * @throws ContractException
-	 *             throws an exception if invalid contract details are specified
-	 */
-	public StockContract(String symbol, Exchange exchange, Currency currency)
-			throws ContractException {
-		super(symbol, "STOCK", exchange, currency);
-	}
-
-	/**
-	 * Returns stock symbol.
-	 * 
-	 * @return stock symbol
-	 */
-	@Override
-	public String toString() {
-		return symbol;
-	}
+public class StockContract extends Contract
+{
+   /**
+    * Constructor.
+    * 
+    * @param symbol symbol of an underlying asset
+    * @param exchange exchange of the contract
+    * @param currency base currency of the contract
+    * @throws ContractException throws an exception if invalid contract details are specified
+    */
+   public StockContract(String symbol, Exchange exchange, Currency currency)
+         throws ContractException
+   {
+      super(symbol, "STOCK", exchange, currency);
+   }
+   
+   /**
+    * Returns stock symbol.
+    * 
+    * @return stock symbol
+    */
+   @Override
+   public String toString()
+   {
+      return symbol;
+   }
 }

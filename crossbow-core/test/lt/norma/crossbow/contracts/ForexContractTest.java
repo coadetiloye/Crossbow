@@ -30,111 +30,118 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ForexContractTest {
-	/**
-	 * Test constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test
-	public void testCreation() throws ContractException {
-		Currency currency1 = Currency.createEur();
-		Currency currency2 = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(currency1, currency2, exchange);
-
-		assertEquals(currency1, c.getCurrency1());
-		assertEquals(new Currency("EUR"), c.getCurrency1());
-		assertEquals(currency2, c.getCurrency2());
-		assertEquals(new Currency("JPY"), c.getCurrency2());
-		assertEquals("FOREX", c.type);
-	}
-
-	/**
-	 * Test constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test(expected = ContractException.class)
-	public void testCreation2() throws ContractException {
-		Currency currency2 = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(null, currency2, exchange);
-	}
-
-	/**
-	 * Test constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test(expected = ContractException.class)
-	public void testCreation3() throws ContractException {
-		Currency currency1 = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(currency1, null, exchange);
-	}
-
-	/**
-	 * Test constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test(expected = ContractException.class)
-	public void testCreation4() throws ContractException {
-		Currency currency1 = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(currency1, currency1, exchange);
-	}
-
-	/**
-	 * Test constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test(expected = ContractException.class)
-	public void testCreation5() throws ContractException {
-		Currency currency1 = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(currency1, new Currency("JPY"),
-				exchange);
-	}
-
-	/**
-	 * Test of toString method, of class ForexContract.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test
-	public void testToString() throws ContractException {
-		Currency currency1 = Currency.createUsd();
-		Currency currency2 = Currency.createGbp();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c = new ForexContract(currency1, currency2, exchange);
-		assertEquals("USD/GBP", c.toString());
-	}
-
-	/**
-	 * Test of compareTo method, of class ForexContract.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test
-	public void testCompareTo() throws ContractException {
-		Currency currency1 = Currency.createJpy();
-		Currency currency2 = Currency.createGbp();
-		Currency currency3 = Currency.createEur();
-		Currency currency4 = Currency.createUsd();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		ForexContract c1 = new ForexContract(currency1, currency2, exchange);
-		ForexContract c2 = new ForexContract(currency1, currency2, exchange);
-		ForexContract c3 = new ForexContract(currency3, currency2, exchange);
-		ForexContract c4 = new ForexContract(currency1, currency4, exchange);
-
-		assertEquals(c1, c1);
-		assertEquals(c1, c2);
-		assertEquals(0, c1.compareTo(c1));
-		assertEquals(0, c1.compareTo(c2));
-		assertTrue(c1.compareTo(c3) > 0);
-		assertTrue(c1.compareTo(c4) < 0);
-	}
+public class ForexContractTest
+{
+   /**
+    * Test constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testCreation() throws ContractException
+   {
+      Currency currency1 = Currency.createEur();
+      Currency currency2 = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      ForexContract c = new ForexContract(currency1, currency2, exchange);
+      
+      assertEquals(currency1, c.getCurrency1());
+      assertEquals(new Currency("EUR"), c.getCurrency1());
+      assertEquals(currency2, c.getCurrency2());
+      assertEquals(new Currency("JPY"), c.getCurrency2());
+      assertEquals("FOREX", c.type);
+   }
+   
+   /**
+    * Test constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test(expected = ContractException.class)
+   public void testCreation2() throws ContractException
+   {
+      Currency currency2 = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      new ForexContract(null, currency2, exchange);
+   }
+   
+   /**
+    * Test constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test(expected = ContractException.class)
+   public void testCreation3() throws ContractException
+   {
+      Currency currency1 = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      new ForexContract(currency1, null, exchange);
+   }
+   
+   /**
+    * Test constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test(expected = ContractException.class)
+   public void testCreation4() throws ContractException
+   {
+      Currency currency1 = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      new ForexContract(currency1, currency1, exchange);
+   }
+   
+   /**
+    * Test constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test(expected = ContractException.class)
+   public void testCreation5() throws ContractException
+   {
+      Currency currency1 = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      new ForexContract(currency1, new Currency("JPY"), exchange);
+   }
+   
+   /**
+    * Test of toString method, of class ForexContract.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testToString() throws ContractException
+   {
+      Currency currency1 = Currency.createUsd();
+      Currency currency2 = Currency.createGbp();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      ForexContract c = new ForexContract(currency1, currency2, exchange);
+      assertEquals("USD/GBP", c.toString());
+   }
+   
+   /**
+    * Test of compareTo method, of class ForexContract.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testCompareTo() throws ContractException
+   {
+      Currency currency1 = Currency.createJpy();
+      Currency currency2 = Currency.createGbp();
+      Currency currency3 = Currency.createEur();
+      Currency currency4 = Currency.createUsd();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      ForexContract c1 = new ForexContract(currency1, currency2, exchange);
+      ForexContract c2 = new ForexContract(currency1, currency2, exchange);
+      ForexContract c3 = new ForexContract(currency3, currency2, exchange);
+      ForexContract c4 = new ForexContract(currency1, currency4, exchange);
+      
+      assertEquals(c1, c1);
+      assertEquals(c1, c2);
+      assertEquals(0, c1.compareTo(c1));
+      assertEquals(0, c1.compareTo(c2));
+      assertTrue(c1.compareTo(c3) > 0);
+      assertTrue(c1.compareTo(c4) < 0);
+   }
 }

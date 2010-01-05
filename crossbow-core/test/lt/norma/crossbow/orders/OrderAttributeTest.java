@@ -30,40 +30,43 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderAttributeTest {
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation() {
-		OrderAttribute<String> a = new OrderAttribute<String>("n", "v",
-				OrderAttributeFlag.DESCRIPTIVE);
-		assertEquals(OrderAttributeFlag.DESCRIPTIVE, a.getFlag());
-
-		OrderAttribute<String> a2 = new OrderAttribute<String>("n", "v", "d",
-				OrderAttributeFlag.OBLIGATORY);
-		assertEquals(OrderAttributeFlag.OBLIGATORY, a2.getFlag());
-	}
-
-	/**
-	 * Tests attributes added to list of properties.
-	 * 
-	 * @throws CrossbowException
-	 */
-	@Test
-	public void testProperties() throws CrossbowException {
-		OrderAttribute<String> a = new OrderAttribute<String>("n1", "v",
-				OrderAttributeFlag.DESCRIPTIVE);
-		OrderAttribute<String> a2 = new OrderAttribute<String>("n2", "v", "d",
-				OrderAttributeFlag.OBLIGATORY);
-
-		Properties pl = new Properties();
-		pl.add(a);
-		pl.add(a2);
-
-		assertEquals(OrderAttributeFlag.DESCRIPTIVE, ((OrderAttribute) pl
-				.getByName("n1")).getFlag());
-		assertEquals(OrderAttributeFlag.OBLIGATORY, ((OrderAttribute) pl
-				.getByName("n2")).getFlag());
-	}
+public class OrderAttributeTest
+{
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation()
+   {
+      OrderAttribute<String> a =
+            new OrderAttribute<String>("n", "v", OrderAttributeFlag.DESCRIPTIVE);
+      assertEquals(OrderAttributeFlag.DESCRIPTIVE, a.getFlag());
+      
+      OrderAttribute<String> a2 =
+            new OrderAttribute<String>("n", "v", "d", OrderAttributeFlag.OBLIGATORY);
+      assertEquals(OrderAttributeFlag.OBLIGATORY, a2.getFlag());
+   }
+   
+   /**
+    * Tests attributes added to list of properties.
+    * 
+    * @throws CrossbowException
+    */
+   @Test
+   public void testProperties() throws CrossbowException
+   {
+      OrderAttribute<String> a =
+            new OrderAttribute<String>("n1", "v", OrderAttributeFlag.DESCRIPTIVE);
+      OrderAttribute<String> a2 =
+            new OrderAttribute<String>("n2", "v", "d", OrderAttributeFlag.OBLIGATORY);
+      
+      Properties pl = new Properties();
+      pl.add(a);
+      pl.add(a2);
+      
+      assertEquals(OrderAttributeFlag.DESCRIPTIVE,
+                   ((OrderAttribute<?>) pl.getByName("n1")).getFlag());
+      assertEquals(OrderAttributeFlag.OBLIGATORY,
+                   ((OrderAttribute<?>) pl.getByName("n2")).getFlag());
+   }
 }

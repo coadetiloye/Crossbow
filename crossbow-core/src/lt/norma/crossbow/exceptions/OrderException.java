@@ -24,60 +24,57 @@ import lt.norma.crossbow.orders.Order;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderException extends Exception {
-	private Order order;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param order
-	 *            order data
-	 * @param message
-	 *            error message
-	 * @param cause
-	 *            cause of the exception
-	 */
-	public OrderException(Order order, String message, Throwable cause) {
-		super("Order '" + String.valueOf(order) + "' is invalid. " + message,
-				cause);
-		this.order = order;
-	}
-
-	/**
-	 * Constructor. No cause specified.
-	 * <p>
-	 * Do not use this constructor if this exception is caused by other
-	 * exception.
-	 * 
-	 * @param order
-	 *            order data
-	 * @param message
-	 *            error message
-	 */
-	public OrderException(Order order, String message) {
-		super("Order '" + String.valueOf(order) + "' is invalid. " + message);
-		this.order = order;
-	}
-
-	/**
-	 * Constructor. No cause or order specified.
-	 * <p>
-	 * Use this exception when the order that caused this exception is not yet
-	 * fully initiated. For example when the constructor of the order fails.
-	 * 
-	 * @param message
-	 *            error message
-	 */
-	public OrderException(String message) {
-		super("Invalid order. " + message);
-	}
-
-	/**
-	 * Gets the order that caused this exception.
-	 * 
-	 * @return order, may be null if no order is set by the constructor
-	 */
-	public Order getOrder() {
-		return order;
-	}
+public class OrderException extends Exception
+{
+   private Order order;
+   
+   /**
+    * Constructor.
+    * 
+    * @param order order data
+    * @param message error message
+    * @param cause cause of the exception
+    */
+   public OrderException(Order order, String message, Throwable cause)
+   {
+      super("Order '" + String.valueOf(order) + "' is invalid. " + message, cause);
+      this.order = order;
+   }
+   
+   /**
+    * Constructor. No cause specified.
+    * <p>
+    * Do not use this constructor if this exception is caused by other exception.
+    * 
+    * @param order order data
+    * @param message error message
+    */
+   public OrderException(Order order, String message)
+   {
+      super("Order '" + String.valueOf(order) + "' is invalid. " + message);
+      this.order = order;
+   }
+   
+   /**
+    * Constructor. No cause or order specified.
+    * <p>
+    * Use this exception when the order that caused this exception is not yet fully initiated. For
+    * example when the constructor of the order fails.
+    * 
+    * @param message error message
+    */
+   public OrderException(String message)
+   {
+      super("Invalid order. " + message);
+   }
+   
+   /**
+    * Gets the order that caused this exception.
+    * 
+    * @return order, may be null if no order is set by the constructor
+    */
+   public Order getOrder()
+   {
+      return order;
+   }
 }

@@ -28,95 +28,90 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ValueNotSetRuntimeExceptionTest {
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation1() {
-		ContractException cause = new ContractException("Test cause.");
-		ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException(
-				"name", "Test exception.", cause);
-		assertEquals("name", e1.getFieldName());
-		assertEquals("Value of name is not set. Test exception.", e1
-				.getMessage());
-		assertEquals(cause, e1.getCause());
-
-		ValueNotSetRuntimeException e4 = new ValueNotSetRuntimeException(null,
-				"Test exception.", cause);
-		assertEquals("null", e4.getFieldName());
-		ValueNotSetRuntimeException e5 = new ValueNotSetRuntimeException("",
-				"Test exception.", cause);
-		assertEquals("", e5.getFieldName());
-
-		ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException(
-				"name", null, cause);
-		assertEquals("Value of name is not set. null", e6.getMessage());
-		ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException(
-				"name", "", cause);
-		assertEquals("Value of name is not set. ", e7.getMessage());
-
-		ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException(
-				"name", "Test exception.", null);
-		assertNull(e8.getCause());
-	}
-
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation2() {
-		ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException(
-				"name", "Test exception.");
-		assertEquals("name", e1.getFieldName());
-		assertEquals("Value of name is not set. Test exception.", e1
-				.getMessage());
-
-		ValueNotSetRuntimeException e4 = new ValueNotSetRuntimeException(null,
-				"Test exception.");
-		assertEquals("null", e4.getFieldName());
-		ValueNotSetRuntimeException e5 = new ValueNotSetRuntimeException("",
-				"Test exception.");
-		assertEquals("", e5.getFieldName());
-
-		ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException(
-				"name", null);
-		assertEquals("Value of name is not set. null", e6.getMessage());
-		ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException(
-				"name", "");
-		assertEquals("Value of name is not set. ", e7.getMessage());
-
-		ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException(
-				"name", "Test exception.");
-		assertNull(e8.getCause());
-	}
-
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation3() {
-		ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException("name");
-		assertEquals("name", e1.getFieldName());
-		assertEquals("Value of name is not set.", e1.getMessage());
-
-		ValueNotSetRuntimeException e4 = new ValueNotSetRuntimeException(null);
-		assertEquals("null", e4.getFieldName());
-		ValueNotSetRuntimeException e5 = new ValueNotSetRuntimeException("");
-		assertEquals("", e5.getFieldName());
-
-		ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException("name");
-		assertNull(e8.getCause());
-	}
-
-	/**
-	 * Test throwing.
-	 */
-	@Test(expected = ValueNotSetRuntimeException.class)
-	public void testThrowing() {
-		ContractException cause = new ContractException("Test cause.");
-		ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException(
-				"name", "Test exception.", cause);
-		throw e1;
-	}
+public class ValueNotSetRuntimeExceptionTest
+{
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation1()
+   {
+      ContractException cause = new ContractException("Test cause.");
+      ValueNotSetRuntimeException e1 =
+            new ValueNotSetRuntimeException("name", "Test exception.", cause);
+      assertEquals("name", e1.getFieldName());
+      assertEquals("Value of name is not set. Test exception.", e1.getMessage());
+      assertEquals(cause, e1.getCause());
+      
+      ValueNotSetRuntimeException e4 =
+            new ValueNotSetRuntimeException(null, "Test exception.", cause);
+      assertEquals("null", e4.getFieldName());
+      ValueNotSetRuntimeException e5 =
+            new ValueNotSetRuntimeException("", "Test exception.", cause);
+      assertEquals("", e5.getFieldName());
+      
+      ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException("name", null, cause);
+      assertEquals("Value of name is not set. null", e6.getMessage());
+      ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException("name", "", cause);
+      assertEquals("Value of name is not set. ", e7.getMessage());
+      
+      ValueNotSetRuntimeException e8 =
+            new ValueNotSetRuntimeException("name", "Test exception.", null);
+      assertNull(e8.getCause());
+   }
+   
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation2()
+   {
+      ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException("name", "Test exception.");
+      assertEquals("name", e1.getFieldName());
+      assertEquals("Value of name is not set. Test exception.", e1.getMessage());
+      
+      ValueNotSetRuntimeException e4 = new ValueNotSetRuntimeException(null, "Test exception.");
+      assertEquals("null", e4.getFieldName());
+      ValueNotSetRuntimeException e5 = new ValueNotSetRuntimeException("", "Test exception.");
+      assertEquals("", e5.getFieldName());
+      
+      ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException("name", null);
+      assertEquals("Value of name is not set. null", e6.getMessage());
+      ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException("name", "");
+      assertEquals("Value of name is not set. ", e7.getMessage());
+      
+      ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException("name", "Test exception.");
+      assertNull(e8.getCause());
+   }
+   
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation3()
+   {
+      ValueNotSetRuntimeException e1 = new ValueNotSetRuntimeException("name");
+      assertEquals("name", e1.getFieldName());
+      assertEquals("Value of name is not set.", e1.getMessage());
+      
+      ValueNotSetRuntimeException e4 = new ValueNotSetRuntimeException(null);
+      assertEquals("null", e4.getFieldName());
+      ValueNotSetRuntimeException e5 = new ValueNotSetRuntimeException("");
+      assertEquals("", e5.getFieldName());
+      
+      ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException("name");
+      assertNull(e8.getCause());
+   }
+   
+   /**
+    * Test throwing.
+    */
+   @Test(expected = ValueNotSetRuntimeException.class)
+   public void testThrowing()
+   {
+      ContractException cause = new ContractException("Test cause.");
+      ValueNotSetRuntimeException e1 =
+            new ValueNotSetRuntimeException("name", "Test exception.", cause);
+      throw e1;
+   }
 }

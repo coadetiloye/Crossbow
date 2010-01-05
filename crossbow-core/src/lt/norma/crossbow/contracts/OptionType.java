@@ -22,9 +22,10 @@ package lt.norma.crossbow.contracts;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public enum OptionType {
-	/** Call option */
-	CALL,
-	/** Put option */
-	PUT
+public enum OptionType
+{
+   /** Call option */
+   CALL,
+   /** Put option */
+   PUT
 }

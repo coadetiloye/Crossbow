@@ -20,65 +20,55 @@ package lt.norma.crossbow.orders;
 import lt.norma.crossbow.properties.Property;
 
 /**
- * Carries additional information about an order. Make sure the order executor
- * knows how to interpret custom attributes.
+ * Carries additional information about an order. Make sure the order executor knows how to
+ * interpret custom attributes.
  * 
- * @param <Type>
- *            type of value this attribute can contain
- * 
+ * @param <Type> type of value this attribute can contain
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderAttribute<Type> extends Property<Type> {
-	/** Marks importance of this attribute. */
-	private OrderAttributeFlag flag;
-
-	/**
-	 * Constructor.
-	 * <p>
-	 * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is
-	 * null or empty.
-	 * 
-	 * @param name
-	 *            name by wich the attribute is referred, cannot be null or
-	 *            empty.
-	 * @param value
-	 *            attribute value, can be null
-	 * @param description
-	 *            a short description of the attribute
-	 * @param flag
-	 *            marks importance of the attribute
-	 */
-	public OrderAttribute(String name, Type value, String description,
-			OrderAttributeFlag flag) {
-		super(name, value, description);
-		this.flag = flag;
-	}
-
-	/**
-	 * Constructor. Description is set to an empty string.
-	 * <p>
-	 * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is
-	 * null or empty.
-	 * 
-	 * @param name
-	 *            name by wich the attribute is referred, cannot be null or
-	 *            empty.
-	 * @param value
-	 *            attribute value, can be null
-	 * @param flag
-	 *            marks importance of the attribute
-	 */
-	public OrderAttribute(String name, Type value, OrderAttributeFlag flag) {
-		super(name, value);
-		this.flag = flag;
-	}
-
-	/**
-	 * Gets importance flag of this attribute.
-	 * 
-	 * @return importance flag
-	 */
-	public OrderAttributeFlag getFlag() {
-		return flag;
-	}
+public class OrderAttribute<Type> extends Property<Type>
+{
+   /** Marks importance of this attribute. */
+   private OrderAttributeFlag flag;
+   
+   /**
+    * Constructor.
+    * <p>
+    * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is null or empty.
+    * 
+    * @param name name by wich the attribute is referred, cannot be null or empty.
+    * @param value attribute value, can be null
+    * @param description a short description of the attribute
+    * @param flag marks importance of the attribute
+    */
+   public OrderAttribute(String name, Type value, String description, OrderAttributeFlag flag)
+   {
+      super(name, value, description);
+      this.flag = flag;
+   }
+   
+   /**
+    * Constructor. Description is set to an empty string.
+    * <p>
+    * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is null or empty.
+    * 
+    * @param name name by wich the attribute is referred, cannot be null or empty.
+    * @param value attribute value, can be null
+    * @param flag marks importance of the attribute
+    */
+   public OrderAttribute(String name, Type value, OrderAttributeFlag flag)
+   {
+      super(name, value);
+      this.flag = flag;
+   }
+   
+   /**
+    * Gets importance flag of this attribute.
+    * 
+    * @return importance flag
+    */
+   public OrderAttributeFlag getFlag()
+   {
+      return flag;
+   }
 }

@@ -35,23 +35,24 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class LimitOrderTest {
-	/**
-	 * Test the constructor.
-	 * 
-	 * @throws ContractException
-	 * @throws OrderException
-	 */
-	@Test
-	public void testCreation() throws ContractException, OrderException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-		LimitOrder o = new LimitOrder(-50, c, OrderDirection.BUY, 500,
-				new BigDecimal("15.01"));
-
-		assertTrue(o.getLimitPrice().compareTo(new BigDecimal("15.010")) == 0);
-		assertTrue(o.toString().endsWith(" at 15.01"));
-		assertEquals("limit", o.getType());
-	}
+public class LimitOrderTest
+{
+   /**
+    * Test the constructor.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test
+   public void testCreation() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      LimitOrder o = new LimitOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("15.01"));
+      
+      assertTrue(o.getLimitPrice().compareTo(new BigDecimal("15.010")) == 0);
+      assertTrue(o.toString().endsWith(" at 15.01"));
+      assertEquals("limit", o.getType());
+   }
 }

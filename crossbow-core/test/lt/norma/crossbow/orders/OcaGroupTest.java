@@ -35,49 +35,54 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OcaGroupTest {
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testCreation() {
-		OcaGroup o = new OcaGroup("AAA");
-		assertEquals("AAA", o.getTitle());
-	}
-
-	/**
-	 * Test of addOrder method, of class OcaGroup.
-	 * 
-	 * @throws ContractException
-	 * @throws OrderException
-	 */
-	@Test
-	public void testAddOrder() throws ContractException, OrderException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-		Order o1 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-		Order o2 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-
-		OcaGroup og = new OcaGroup("AAA");
-
-		assertEquals(0, og.getOrders().size());
-		og.addOrder(o1);
-		og.addOrder(o2);
-		assertEquals(2, og.getOrders().size());
-		assertEquals(o1, og.getOrders().get(0));
-		assertEquals("OCA group AAA (2)", og.toString());
-		assertEquals("AAA", og.getTitle());
-	}
-
-	/**
-	 * Dummy order.
-	 */
-	private class DummyOrder extends Order {
-		public DummyOrder(long id, Contract contract, String type,
-				OrderDirection direction, int size) throws OrderException {
-			super(id, contract, type, direction, size);
-		}
-	}
-
+public class OcaGroupTest
+{
+   /**
+    * Test the constructor.
+    */
+   @Test
+   public void testCreation()
+   {
+      OcaGroup o = new OcaGroup("AAA");
+      assertEquals("AAA", o.getTitle());
+   }
+   
+   /**
+    * Test of addOrder method, of class OcaGroup.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test
+   public void testAddOrder() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      Order o1 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o2 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      
+      OcaGroup og = new OcaGroup("AAA");
+      
+      assertEquals(0, og.getOrders().size());
+      og.addOrder(o1);
+      og.addOrder(o2);
+      assertEquals(2, og.getOrders().size());
+      assertEquals(o1, og.getOrders().get(0));
+      assertEquals("OCA group AAA (2)", og.toString());
+      assertEquals("AAA", og.getTitle());
+   }
+   
+   /**
+    * Dummy order.
+    */
+   private class DummyOrder extends Order
+   {
+      public DummyOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+            throws OrderException
+      {
+         super(id, contract, type, direction, size);
+      }
+   }
+   
 }

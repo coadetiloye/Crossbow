@@ -20,20 +20,19 @@ package lt.norma.crossbow.commissions;
 import java.math.BigDecimal;
 
 /**
- * Interface for commissions calculation. Implement this interface to create
- * custom commissions calculation methods.
+ * Interface for commissions calculation. Implement this interface to create custom commissions
+ * calculation methods.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public interface Commissions {
-	/**
-	 * Calculates commissions.
-	 * 
-	 * @param size
-	 *            size of a trade
-	 * @param price
-	 *            price of a trade
-	 * @return commissions paid to execute a trade
-	 */
-	public BigDecimal calculate(int size, BigDecimal price);
+public interface Commissions
+{
+   /**
+    * Calculates commissions.
+    * 
+    * @param size size of a trade
+    * @param price price of a trade
+    * @return commissions paid to execute a trade
+    */
+   public BigDecimal calculate(int size, BigDecimal price);
 }

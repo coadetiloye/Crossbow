@@ -25,28 +25,25 @@ import lt.norma.crossbow.exceptions.OrderException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class MarketOrder extends Order {
-	/** Order type. */
-	private static final String ORDER_TYPE = "market";
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param id
-	 *            local order ID. Make sure to set unique IDs for each order
-	 *            within context of the application.
-	 * @param contract
-	 *            contract of a traded instrument
-	 * @param direction
-	 *            direction of the trade
-	 * @param size
-	 *            size of an order. Negative value means short trade, positive -
-	 *            long. Cannot be zero
-	 * @throws OrderException
-	 *             on invalid order details
-	 */
-	public MarketOrder(long id, Contract contract, OrderDirection direction,
-			int size) throws OrderException {
-		super(id, contract, ORDER_TYPE, direction, size);
-	}
+public final class MarketOrder extends Order
+{
+   /** Order type. */
+   private static final String ORDER_TYPE = "market";
+   
+   /**
+    * Constructor.
+    * 
+    * @param id local order ID. Make sure to set unique IDs for each order within context of the
+    *           application.
+    * @param contract contract of a traded instrument
+    * @param direction direction of the trade
+    * @param size size of an order. Negative value means short trade, positive - long. Cannot be
+    *           zero
+    * @throws OrderException on invalid order details
+    */
+   public MarketOrder(long id, Contract contract, OrderDirection direction, int size)
+         throws OrderException
+   {
+      super(id, contract, ORDER_TYPE, direction, size);
+   }
 }

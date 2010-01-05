@@ -28,83 +28,92 @@ import org.joda.time.DateMidnight;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class FuturesContract extends DerivativesContract {
-	/**
-	 * Constructor.
-	 * 
-	 * @param symbol
-	 *            symbol of an underlying asset
-	 * @param maturityDate
-	 *            expiration date of a derivatives contract
-	 * @param exchange
-	 *            exchange of the contract
-	 * @param currency
-	 *            base currency of the contract
-	 * @param multiplier
-	 *            price multiplier
-	 * @throws ContractException
-	 *             throws an exception if invalid contract details are specified
-	 */
-	public FuturesContract(String symbol, DateMidnight maturityDate,
-			Exchange exchange, Currency currency, BigDecimal multiplier)
-			throws ContractException {
-		super(symbol, "FUTURES", maturityDate, exchange, currency, multiplier);
-	}
-
-	/**
-	 * Returns futures contract formated as "Symbol MaturityDate" string.
-	 * 
-	 * @return futures contract as string
-	 */
-	@Override
-	public String toString() {
-		return symbol + " " + maturityDate.toString(dateFormatter);
-	}
-
-	@Override
-	public int compareTo(Contract contract) {
-		// The same contract
-		if (this == contract) {
-			return 0;
-		} else {
-			int k;
-			// Compare types
-			k = type.compareTo(contract.type);
-			if (k != 0) {
-				return k;
-			}
-			// Compare symbols
-			k = symbol.compareTo(contract.symbol);
-			if (k != 0) {
-				return k;
-			}
-			// Compare formated maturity dates
-			if (contract instanceof DerivativesContract) {
-				DerivativesContract derivative = (DerivativesContract) contract;
-				k = maturityDate.toString(dateFormatter).compareTo(
-						derivative.maturityDate.toString(dateFormatter));
-				if (k != 0) {
-					return k;
-				}
-			}
-			// Compare exchanges
-			k = exchange.compareTo(contract.exchange);
-			if (k != 0) {
-				return k;
-			}
-			// Compare currencies
-			k = currency.compareTo(contract.currency);
-			if (k != 0) {
-				return k;
-			}
-			// Compare multipliers
-			if (contract instanceof DerivativesContract) {
-				return multiplier
-						.compareTo(((DerivativesContract) contract).multiplier);
-			} else {
-				// Contracts are equal
-				return 0;
-			}
-		}
-	}
+public class FuturesContract extends DerivativesContract
+{
+   /**
+    * Constructor.
+    * 
+    * @param symbol symbol of an underlying asset
+    * @param maturityDate expiration date of a derivatives contract
+    * @param exchange exchange of the contract
+    * @param currency base currency of the contract
+    * @param multiplier price multiplier
+    * @throws ContractException throws an exception if invalid contract details are specified
+    */
+   public FuturesContract(String symbol, DateMidnight maturityDate, Exchange exchange,
+                          Currency currency, BigDecimal multiplier) throws ContractException
+   {
+      super(symbol, "FUTURES", maturityDate, exchange, currency, multiplier);
+   }
+   
+   /**
+    * Returns futures contract formated as "Symbol MaturityDate" string.
+    * 
+    * @return futures contract as string
+    */
+   @Override
+   public String toString()
+   {
+      return symbol + " " + maturityDate.toString(dateFormatter);
+   }
+   
+   @Override
+   public int compareTo(Contract contract)
+   {
+      // The same contract
+      if (this == contract)
+      {
+         return 0;
+      }
+      else
+      {
+         int k;
+         // Compare types
+         k = type.compareTo(contract.type);
+         if (k != 0)
+         {
+            return k;
+         }
+         // Compare symbols
+         k = symbol.compareTo(contract.symbol);
+         if (k != 0)
+         {
+            return k;
+         }
+         // Compare formated maturity dates
+         if (contract instanceof DerivativesContract)
+         {
+            DerivativesContract derivative = (DerivativesContract) contract;
+            k =
+                  maturityDate.toString(dateFormatter).compareTo(
+                                                                 derivative.maturityDate.toString(dateFormatter));
+            if (k != 0)
+            {
+               return k;
+            }
+         }
+         // Compare exchanges
+         k = exchange.compareTo(contract.exchange);
+         if (k != 0)
+         {
+            return k;
+         }
+         // Compare currencies
+         k = currency.compareTo(contract.currency);
+         if (k != 0)
+         {
+            return k;
+         }
+         // Compare multipliers
+         if (contract instanceof DerivativesContract)
+         {
+            return multiplier.compareTo(((DerivativesContract) contract).multiplier);
+         }
+         else
+         {
+            // Contracts are equal
+            return 0;
+         }
+      }
+   }
 }

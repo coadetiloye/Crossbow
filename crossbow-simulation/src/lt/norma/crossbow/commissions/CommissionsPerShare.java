@@ -24,21 +24,23 @@ import java.math.BigDecimal;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CommissionsPerShare implements Commissions {
-	private BigDecimal ratePerShare;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param ratePerShare
-	 *            per-share rate applied to every trade
-	 */
-	public CommissionsPerShare(BigDecimal ratePerShare) {
-		this.ratePerShare = ratePerShare;
-	}
-
-	@Override
-	public BigDecimal calculate(int size, BigDecimal price) {
-		return ratePerShare.multiply(new BigDecimal(size));
-	}
+public class CommissionsPerShare implements Commissions
+{
+   private BigDecimal ratePerShare;
+   
+   /**
+    * Constructor.
+    * 
+    * @param ratePerShare per-share rate applied to every trade
+    */
+   public CommissionsPerShare(BigDecimal ratePerShare)
+   {
+      this.ratePerShare = ratePerShare;
+   }
+   
+   @Override
+   public BigDecimal calculate(int size, BigDecimal price)
+   {
+      return ratePerShare.multiply(new BigDecimal(size));
+   }
 }

@@ -30,32 +30,35 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class StockContractTest {
-	/**
-	 * Test the constructor.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test
-	public void testCreation() throws ContractException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-
-		assertEquals("STOCK", c.type);
-	}
-
-	/**
-	 * Test of toString method, of class IndexContract.
-	 * 
-	 * @throws ContractException
-	 */
-	@Test
-	public void testToString() throws ContractException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-
-		assertEquals("ABC", c.toString());
-	}
+public class StockContractTest
+{
+   /**
+    * Test the constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testCreation() throws ContractException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      
+      assertEquals("STOCK", c.type);
+   }
+   
+   /**
+    * Test of toString method, of class IndexContract.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testToString() throws ContractException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      
+      assertEquals("ABC", c.toString());
+   }
 }

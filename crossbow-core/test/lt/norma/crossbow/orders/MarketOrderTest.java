@@ -17,39 +17,35 @@
 
 package lt.norma.crossbow.orders;
 
-import java.math.BigDecimal;
-
+import static org.junit.Assert.assertEquals;
 import lt.norma.crossbow.contracts.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.orders.MarketOrder;
-import lt.norma.crossbow.orders.OrderDirection;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Test MarketOrderTest class.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class MarketOrderTest {
-	/**
-	 * Test the constructor.
-	 * 
-	 * @throws ContractException
-	 * @throws OrderException
-	 */
-	@Test
-	public void testCreation() throws ContractException, OrderException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-		MarketOrder o = new MarketOrder(0, c, OrderDirection.BUY, 500);
-		assertEquals("market", o.getType());
-	}
+public class MarketOrderTest
+{
+   /**
+    * Test the constructor.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test
+   public void testCreation() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      MarketOrder o = new MarketOrder(0, c, OrderDirection.BUY, 500);
+      assertEquals("market", o.getType());
+   }
 }

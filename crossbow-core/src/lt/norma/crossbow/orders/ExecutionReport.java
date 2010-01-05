@@ -25,80 +25,87 @@ import java.util.List;
 import lt.norma.crossbow.configuration.StaticSettings;
 
 /**
- * Order execution report. Sent by trade executor to the listener as the order
- * gets completely or partially filled.
+ * Order execution report. Sent by trade executor to the listener as the order gets completely or
+ * partially filled.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ExecutionReport {
-	/** Order. */
-	private Order order;
-	/** Portion of the order that has been filled. */
-	private List<FilledBlock> filledBlocks;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param order
-	 *            executed order
-	 */
-	public ExecutionReport(Order order) {
-		this.order = order;
-		filledBlocks = new LinkedList<FilledBlock>();
-	}
-
-	/**
-	 * Adds a new filled block of the order.
-	 * 
-	 * @param block
-	 *            filled block
-	 */
-	public void addFilledBlock(FilledBlock block) {
-		filledBlocks.add(block);
-	}
-
-	/**
-	 * Gets total number of filled contracts.
-	 * 
-	 * @return total number of filled contracts
-	 */
-	public int calculateTotalSize() {
-		int total = 0;
-		for (FilledBlock block : filledBlocks) {
-			total += block.getSize();
-		}
-		return total;
-	}
-
-	/**
-	 * Calculates average execution price.
-	 * 
-	 * @return average execution price
-	 */
-	public BigDecimal calculateAveragePrice() {
-		BigDecimal totalValue = BigDecimal.ZERO;
-		for (FilledBlock block : filledBlocks) {
-			totalValue = totalValue.add(block.calculateValue());
-		}
-		return totalValue.divide(new BigDecimal(calculateTotalSize()),
-				StaticSettings.pricePrecision, RoundingMode.HALF_UP);
-	}
-
-	/**
-	 * Gets list of blocks.
-	 * 
-	 * @return list of block
-	 */
-	public List<FilledBlock> getFilledBlocks() {
-		return filledBlocks;
-	}
-
-	/**
-	 * Gets order attached to this report.
-	 * 
-	 * @return order
-	 */
-	public Order getOrder() {
-		return order;
-	}
+public class ExecutionReport
+{
+   /** Order. */
+   private Order order;
+   /** Portion of the order that has been filled. */
+   private List<FilledBlock> filledBlocks;
+   
+   /**
+    * Constructor.
+    * 
+    * @param order executed order
+    */
+   public ExecutionReport(Order order)
+   {
+      this.order = order;
+      filledBlocks = new LinkedList<FilledBlock>();
+   }
+   
+   /**
+    * Adds a new filled block of the order.
+    * 
+    * @param block filled block
+    */
+   public void addFilledBlock(FilledBlock block)
+   {
+      filledBlocks.add(block);
+   }
+   
+   /**
+    * Gets total number of filled contracts.
+    * 
+    * @return total number of filled contracts
+    */
+   public int calculateTotalSize()
+   {
+      int total = 0;
+      for (FilledBlock block : filledBlocks)
+      {
+         total += block.getSize();
+      }
+      return total;
+   }
+   
+   /**
+    * Calculates average execution price.
+    * 
+    * @return average execution price
+    */
+   public BigDecimal calculateAveragePrice()
+   {
+      BigDecimal totalValue = BigDecimal.ZERO;
+      for (FilledBlock block : filledBlocks)
+      {
+         totalValue = totalValue.add(block.calculateValue());
+      }
+      return totalValue.divide(new BigDecimal(calculateTotalSize()), StaticSettings.pricePrecision,
+                               RoundingMode.HALF_UP);
+   }
+   
+   /**
+    * Gets list of blocks.
+    * 
+    * @return list of block
+    */
+   public List<FilledBlock> getFilledBlocks()
+   {
+      return filledBlocks;
+   }
+   
+   /**
+    * Gets order attached to this report.
+    * 
+    * @return order
+    */
+   public Order getOrder()
+   {
+      return order;
+   }
 }

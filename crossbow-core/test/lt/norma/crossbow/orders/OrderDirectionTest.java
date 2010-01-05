@@ -27,18 +27,20 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderDirectionTest {
-	/**
-	 * Test of toString method, of class OrderDirection.
-	 */
-	@Test
-	public void testToString() {
-		OrderDirection b = OrderDirection.BUY;
-		OrderDirection s = OrderDirection.SELL;
-
-		assertEquals("buy", b.toString());
-		assertEquals("buy", b.getTitle());
-		assertEquals("sell", s.toString());
-		assertEquals("sell", s.getTitle());
-	}
+public class OrderDirectionTest
+{
+   /**
+    * Test of toString method, of class OrderDirection.
+    */
+   @Test
+   public void testToString()
+   {
+      OrderDirection b = OrderDirection.BUY;
+      OrderDirection s = OrderDirection.SELL;
+      
+      assertEquals("buy", b.toString());
+      assertEquals("buy", b.getTitle());
+      assertEquals("sell", s.toString());
+      assertEquals("sell", s.getTitle());
+   }
 }

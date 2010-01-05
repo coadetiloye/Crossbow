@@ -27,47 +27,45 @@ import lt.norma.crossbow.exceptions.OrderException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class LimitOrder extends Order {
-	/** Limit price. */
-	private final BigDecimal limitPrice;
-	/** Order type. */
-	private static final String ORDER_TYPE = "limit";
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param id
-	 *            local order ID. Make sure to set unique IDs for each order
-	 *            within context of the application.
-	 * @param contract
-	 *            contract of a traded instrument
-	 * @param direction
-	 *            direction of the trade
-	 * @param limitPrice
-	 *            limit price
-	 * @param size
-	 *            size of an order. Negative value means short trade, positive -
-	 *            long. Cannot be zero
-	 * @throws OrderException
-	 *             on invalid order details
-	 */
-	public LimitOrder(long id, Contract contract, OrderDirection direction,
-			int size, BigDecimal limitPrice) throws OrderException {
-		super(id, contract, ORDER_TYPE, direction, size);
-		this.limitPrice = limitPrice;
-	}
-
-	/**
-	 * Gets limit price.
-	 * 
-	 * @return limit price
-	 */
-	public BigDecimal getLimitPrice() {
-		return limitPrice;
-	}
-
-	@Override
-	public String toString() {
-		return super.toString() + " at " + limitPrice.toPlainString();
-	}
+public final class LimitOrder extends Order
+{
+   /** Limit price. */
+   private final BigDecimal limitPrice;
+   /** Order type. */
+   private static final String ORDER_TYPE = "limit";
+   
+   /**
+    * Constructor.
+    * 
+    * @param id local order ID. Make sure to set unique IDs for each order within context of the
+    *           application.
+    * @param contract contract of a traded instrument
+    * @param direction direction of the trade
+    * @param limitPrice limit price
+    * @param size size of an order. Negative value means short trade, positive - long. Cannot be
+    *           zero
+    * @throws OrderException on invalid order details
+    */
+   public LimitOrder(long id, Contract contract, OrderDirection direction, int size,
+                     BigDecimal limitPrice) throws OrderException
+   {
+      super(id, contract, ORDER_TYPE, direction, size);
+      this.limitPrice = limitPrice;
+   }
+   
+   /**
+    * Gets limit price.
+    * 
+    * @return limit price
+    */
+   public BigDecimal getLimitPrice()
+   {
+      return limitPrice;
+   }
+   
+   @Override
+   public String toString()
+   {
+      return super.toString() + " at " + limitPrice.toPlainString();
+   }
 }

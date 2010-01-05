@@ -24,9 +24,11 @@ import java.math.BigDecimal;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CommissionsZero implements Commissions {
-	@Override
-	public BigDecimal calculate(int size, BigDecimal price) {
-		return BigDecimal.ZERO;
-	}
+public class CommissionsZero implements Commissions
+{
+   @Override
+   public BigDecimal calculate(int size, BigDecimal price)
+   {
+      return BigDecimal.ZERO;
+   }
 }

@@ -27,20 +27,22 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderStatusTest {
-	/**
-	 * Test of toString method, of class OrderStatus.
-	 */
-	@Test
-	public void testToString() {
-		OrderStatus s1 = OrderStatus.PARTIALLY_FILLED;
-		assertEquals("partially filled", s1.toString());
-		assertEquals("partially filled", s1.getTitle());
-		assertEquals("Order is partially filled.", s1.getDescription());
-
-		OrderStatus s2 = OrderStatus.CANCELED;
-		assertEquals("canceled", s2.toString());
-		assertEquals("canceled", s2.getTitle());
-		assertEquals("Order is canceled by the executor.", s2.getDescription());
-	}
+public class OrderStatusTest
+{
+   /**
+    * Test of toString method, of class OrderStatus.
+    */
+   @Test
+   public void testToString()
+   {
+      OrderStatus s1 = OrderStatus.PARTIALLY_FILLED;
+      assertEquals("partially filled", s1.toString());
+      assertEquals("partially filled", s1.getTitle());
+      assertEquals("Order is partially filled.", s1.getDescription());
+      
+      OrderStatus s2 = OrderStatus.CANCELED;
+      assertEquals("canceled", s2.toString());
+      assertEquals("canceled", s2.getTitle());
+      assertEquals("Order is canceled by the executor.", s2.getDescription());
+   }
 }

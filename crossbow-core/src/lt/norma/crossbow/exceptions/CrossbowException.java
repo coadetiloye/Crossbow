@@ -18,32 +18,31 @@
 package lt.norma.crossbow.exceptions;
 
 /**
- * A base class for all checked exceptions used withing the library. Extend this
- * class to create custom exceptions or throw CrossbowException with a plain
- * text message.
+ * A base class for all checked exceptions used withing the library. Extend this class to create
+ * custom exceptions or throw CrossbowException with a plain text message.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CrossbowException extends Exception {
-	/**
-	 * Constructor.
-	 * 
-	 * @param message
-	 *            exception message
-	 */
-	public CrossbowException(String message) {
-		super(message);
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param message
-	 *            exception message
-	 * @param cause
-	 *            the cause of the exception
-	 */
-	public CrossbowException(String message, Throwable cause) {
-		super(message, cause);
-	}
+public class CrossbowException extends Exception
+{
+   /**
+    * Constructor.
+    * 
+    * @param message exception message
+    */
+   public CrossbowException(String message)
+   {
+      super(message);
+   }
+   
+   /**
+    * Constructor.
+    * 
+    * @param message exception message
+    * @param cause the cause of the exception
+    */
+   public CrossbowException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
 }

@@ -32,101 +32,104 @@ import org.joda.time.format.DateTimeFormatter;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Trade {
-	/** Time of the quote. */
-	private DateTime time;
-	/** Contract specification. */
-	private Contract contract;
-	/** Price of the trade. */
-	private BigDecimal price;
-	/** Size of the trade. */
-	private int size;
-	/** Maturity date formatter. */
-	private DateTimeFormatter timeFormatter;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param contract
-	 *            contract specification
-	 * @param price
-	 *            price of the trade
-	 * @param size
-	 *            size of the trade
-	 * @param time
-	 *            time of the trade
-	 */
-	public Trade(Contract contract, BigDecimal price, int size, DateTime time) {
-		if (contract == null) {
-			throw new InvalidArgumentRuntimeException("contract", String
-					.valueOf(contract));
-		}
-		if (price == null) {
-			throw new InvalidArgumentRuntimeException("price", String
-					.valueOf(price));
-		}
-		if (time == null) {
-			throw new InvalidArgumentRuntimeException("time", String
-					.valueOf(time));
-		}
-
-		this.contract = contract;
-		this.price = price;
-		this.size = size;
-		this.time = time;
-
-		timeFormatter = DateTimeFormat
-				.forPattern(StaticSettings.dateTimeFormat).withZone(
-						contract.getExchange().getTimeZone());
-	}
-
-	/**
-	 * Returns trade data as text. Example:
-	 * <p>
-	 * Trade MSFT 800 @ 30.2 [2009-12-19 09:45:52]
-	 * 
-	 * @return trade data as text
-	 */
-	@Override
-	public String toString() {
-		return contract.toString() + "  " + size + " @ " + price + "  ["
-				+ time.toString(timeFormatter) + "]";
-	}
-
-	/**
-	 * Get contract.
-	 * 
-	 * @return contract
-	 */
-	public Contract getContract() {
-		return contract;
-	}
-
-	/**
-	 * Get trade price.
-	 * 
-	 * @return trade price
-	 */
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	/**
-	 * Get trade size.
-	 * 
-	 * @return trade size
-	 */
-	public int getSize() {
-		return size;
-	}
-
-	/**
-	 * Gets time of the quote.
-	 * 
-	 * @return time of the quote
-	 */
-	public DateTime getTime() {
-		return time;
-	}
-
+public class Trade
+{
+   /** Time of the quote. */
+   private DateTime time;
+   /** Contract specification. */
+   private Contract contract;
+   /** Price of the trade. */
+   private BigDecimal price;
+   /** Size of the trade. */
+   private int size;
+   /** Maturity date formatter. */
+   private DateTimeFormatter timeFormatter;
+   
+   /**
+    * Constructor.
+    * 
+    * @param contract contract specification
+    * @param price price of the trade
+    * @param size size of the trade
+    * @param time time of the trade
+    */
+   public Trade(Contract contract, BigDecimal price, int size, DateTime time)
+   {
+      if (contract == null)
+      {
+         throw new InvalidArgumentRuntimeException("contract", String.valueOf(contract));
+      }
+      if (price == null)
+      {
+         throw new InvalidArgumentRuntimeException("price", String.valueOf(price));
+      }
+      if (time == null)
+      {
+         throw new InvalidArgumentRuntimeException("time", String.valueOf(time));
+      }
+      
+      this.contract = contract;
+      this.price = price;
+      this.size = size;
+      this.time = time;
+      
+      timeFormatter =
+            DateTimeFormat.forPattern(StaticSettings.dateTimeFormat).withZone(
+                                                                              contract.getExchange().getTimeZone());
+   }
+   
+   /**
+    * Returns trade data as text. Example:
+    * <p>
+    * Trade MSFT 800 @ 30.2 [2009-12-19 09:45:52]
+    * 
+    * @return trade data as text
+    */
+   @Override
+   public String toString()
+   {
+      return contract.toString() + "  " + size + " @ " + price + "  ["
+             + time.toString(timeFormatter) + "]";
+   }
+   
+   /**
+    * Get contract.
+    * 
+    * @return contract
+    */
+   public Contract getContract()
+   {
+      return contract;
+   }
+   
+   /**
+    * Get trade price.
+    * 
+    * @return trade price
+    */
+   public BigDecimal getPrice()
+   {
+      return price;
+   }
+   
+   /**
+    * Get trade size.
+    * 
+    * @return trade size
+    */
+   public int getSize()
+   {
+      return size;
+   }
+   
+   /**
+    * Gets time of the quote.
+    * 
+    * @return time of the quote
+    */
+   public DateTime getTime()
+   {
+      return time;
+   }
+   
 }

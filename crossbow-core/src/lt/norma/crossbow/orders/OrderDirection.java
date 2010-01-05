@@ -20,49 +20,49 @@ package lt.norma.crossbow.orders;
 /**
  * Order directions.
  * <p>
- * Use <code>toString</code> method to get a human readable string
- * representation of the direction.
+ * Use <code>toString</code> method to get a human readable string representation of the direction.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public enum OrderDirection {
-	/** Buy order direction. */
-	BUY("buy"),
-	/** Sell order direction. */
-	SELL("sell");
-	/** A human readable title. */
-	private final String title;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param title
-	 *            a human readable title. This title is returned by
-	 *            <code>toString</code> method. Actual field names, like
-	 *            <code>BUY</code> or <code>SELL</code> should not be displayed
-	 *            to the user but can be used for persistence and similar
-	 *            purposes.
-	 */
-	private OrderDirection(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * Gets a human readable string representation of the direction.
-	 * 
-	 * @return a human readable string representation of the direction
-	 */
-	@Override
-	public String toString() {
-		return title;
-	}
-
-	/**
-	 * Gets a human readable string representation of the direction.
-	 * 
-	 * @return a human readable string representation of the direction
-	 */
-	public String getTitle() {
-		return title;
-	}
+public enum OrderDirection
+{
+   /** Buy order direction. */
+   BUY("buy"),
+   /** Sell order direction. */
+   SELL("sell");
+   /** A human readable title. */
+   private final String title;
+   
+   /**
+    * Constructor.
+    * 
+    * @param title a human readable title. This title is returned by <code>toString</code> method.
+    *           Actual field names, like <code>BUY</code> or <code>SELL</code> should not be
+    *           displayed to the user but can be used for persistence and similar purposes.
+    */
+   private OrderDirection(String title)
+   {
+      this.title = title;
+   }
+   
+   /**
+    * Gets a human readable string representation of the direction.
+    * 
+    * @return a human readable string representation of the direction
+    */
+   @Override
+   public String toString()
+   {
+      return title;
+   }
+   
+   /**
+    * Gets a human readable string representation of the direction.
+    * 
+    * @return a human readable string representation of the direction
+    */
+   public String getTitle()
+   {
+      return title;
+   }
 }

@@ -24,27 +24,29 @@ import java.math.BigDecimal;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class StaticSettings {
-	/** Date format. */
-	public static final String dateFormat = "yyyy-MM-dd";
-	/** Time format. */
-	public static final String timeFormat = "HH:mm:ss";
-	/** Date-time format. */
-	public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-	/**
-	 * Pecision of price calculations. Used for price calculations with
-	 * <code>BigDecimal</code> numbers.
-	 */
-	public static final int pricePrecision = 15;
-	/**
-	 * Rounding mode of price calculations. Used for price calculations with
-	 * <code>BigDecimal</code> numbers.
-	 */
-	public static final int priceRoundingMode = BigDecimal.ROUND_HALF_UP;
-
-	/**
-	 * A private constructor. This class cannot not be instantiated.
-	 */
-	private StaticSettings() {
-	}
+public final class StaticSettings
+{
+   /** Date format. */
+   public static final String dateFormat = "yyyy-MM-dd";
+   /** Time format. */
+   public static final String timeFormat = "HH:mm:ss";
+   /** Date-time format. */
+   public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+   /**
+    * Precision of price calculations. Used for price calculations with <code>BigDecimal</code>
+    * numbers.
+    */
+   public static final int pricePrecision = 15;
+   /**
+    * Rounding mode of price calculations. Used for price calculations with <code>BigDecimal</code>
+    * numbers.
+    */
+   public static final int priceRoundingMode = BigDecimal.ROUND_HALF_UP;
+   
+   /**
+    * A private constructor. This class cannot not be instantiated.
+    */
+   private StaticSettings()
+   {
+   }
 }

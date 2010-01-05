@@ -20,21 +20,21 @@ package lt.norma.crossbow.orders;
 /**
  * Marks importance of the attributes.
  */
-public enum OrderAttributeFlag {
-	/**
-	 * Marks attributes used for informational purposes only. Order executors
-	 * ingore such attributes.
-	 */
-	DESCRIPTIVE,
-	/**
-	 * Marks optional attributes. These attributes are safe to ignore, but some
-	 * executors may use them.
-	 */
-	OPTIONAL,
-	/**
-	 * Marks obligatory attributes. These attributes cannot be ignored by order
-	 * executors. Executors throw an exception and/or mark the order as rejected
-	 * if they find any unrecognized obligatory attributes within the order.
-	 */
-	OBLIGATORY;
+public enum OrderAttributeFlag
+{
+   /**
+    * Marks attributes used for informational purposes only. Order executors ingore such attributes.
+    */
+   DESCRIPTIVE,
+   /**
+    * Marks optional attributes. These attributes are safe to ignore, but some executors may use
+    * them.
+    */
+   OPTIONAL,
+   /**
+    * Marks obligatory attributes. These attributes cannot be ignored by order executors. Executors
+    * throw an exception and/or mark the order as rejected if they find any unrecognized obligatory
+    * attributes within the order.
+    */
+   OBLIGATORY;
 }

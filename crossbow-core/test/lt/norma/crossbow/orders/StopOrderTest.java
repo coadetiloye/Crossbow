@@ -35,23 +35,24 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class StopOrderTest {
-	/**
-	 * Test the constructor.
-	 * 
-	 * @throws ContractException
-	 * @throws OrderException
-	 */
-	@Test
-	public void testCreation() throws ContractException, OrderException {
-		Currency currency = Currency.createJpy();
-		Exchange exchange = Exchange.createNasdaqExchange();
-		StockContract c = new StockContract("ABC", exchange, currency);
-		StopOrder o = new StopOrder(-50, c, OrderDirection.BUY, 500,
-				new BigDecimal("-5"));
-
-		assertTrue(o.getStopPrice().compareTo(new BigDecimal("-5.0")) == 0);
-		assertTrue(o.toString().endsWith(" at -5"));
-		assertEquals("stop", o.getType());
-	}
+public class StopOrderTest
+{
+   /**
+    * Test the constructor.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test
+   public void testCreation() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaqExchange();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      StopOrder o = new StopOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("-5"));
+      
+      assertTrue(o.getStopPrice().compareTo(new BigDecimal("-5.0")) == 0);
+      assertTrue(o.toString().endsWith(" at -5"));
+      assertEquals("stop", o.getType());
+   }
 }

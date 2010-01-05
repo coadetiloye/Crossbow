@@ -23,39 +23,46 @@ import java.math.BigDecimal;
  * Interactive Brokers method to calculate options commissions.
  * <ul>
  * <li>0.70 USD per contract, if premium >= 0.10 USD
- * <li>0.50 USD per contract, if premium >= 0.05 USD and premium {@literal <}
- * 0.10 USD
+ * <li>0.50 USD per contract, if premium >= 0.05 USD and premium {@literal <} 0.10 USD
  * <li>0.25 USD per contract, if premium {@literal <} 0.05 USD
  * <li>Minimum 1.0 USD per order
  * </ul>
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CommissionsIbOptions implements Commissions {
-	private BigDecimal premiumHigh = new BigDecimal("0.10");
-	private BigDecimal premiumLow = new BigDecimal("0.05");
-	private BigDecimal rateHigh = new BigDecimal("0.70");
-	private BigDecimal rateMedium = new BigDecimal("0.50");
-	private BigDecimal rateLow = new BigDecimal("0.25");
-	private BigDecimal minimumPerOrder = new BigDecimal("1.00");
-
-	@Override
-	public BigDecimal calculate(int size, BigDecimal price) {
-		BigDecimal c;
-		BigDecimal s = new BigDecimal(size);
-
-		if (price.compareTo(premiumHigh) >= 0) {
-			c = rateHigh.multiply(s);
-		} else if (price.compareTo(premiumLow) < 0) {
-			c = rateLow.multiply(s);
-		} else {
-			c = rateMedium.multiply(s);
-		}
-
-		if (c.compareTo(minimumPerOrder) < 0) {
-			c = minimumPerOrder;
-		}
-
-		return c;
-	}
+public class CommissionsIbOptions implements Commissions
+{
+   private BigDecimal premiumHigh = new BigDecimal("0.10");
+   private BigDecimal premiumLow = new BigDecimal("0.05");
+   private BigDecimal rateHigh = new BigDecimal("0.70");
+   private BigDecimal rateMedium = new BigDecimal("0.50");
+   private BigDecimal rateLow = new BigDecimal("0.25");
+   private BigDecimal minimumPerOrder = new BigDecimal("1.00");
+   
+   @Override
+   public BigDecimal calculate(int size, BigDecimal price)
+   {
+      BigDecimal c;
+      BigDecimal s = new BigDecimal(size);
+      
+      if (price.compareTo(premiumHigh) >= 0)
+      {
+         c = rateHigh.multiply(s);
+      }
+      else if (price.compareTo(premiumLow) < 0)
+      {
+         c = rateLow.multiply(s);
+      }
+      else
+      {
+         c = rateMedium.multiply(s);
+      }
+      
+      if (c.compareTo(minimumPerOrder) < 0)
+      {
+         c = minimumPerOrder;
+      }
+      
+      return c;
+   }
 }

@@ -29,191 +29,199 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Currency implements Comparable<Currency> {
-	/** ISO 4217 currency code. */
-	private String code;
-	/** ISO 4217 currency name. */
-	private String name;
-	/** Number of decimal digits. */
-	private int digits;
-
-	/**
-	 * Constructor. Name of the currency is set to an empty string.
-	 * 
-	 * @param code
-	 *            ISO 4217 currency code
-	 */
-	public Currency(String code) {
-		if (code == null || code.length() < 1) {
-			throw new InvalidArgumentRuntimeException("code", code);
-		}
-
-		this.code = code;
-		name = "";
-		digits = 2;
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param code
-	 *            ISO 4217 currency code
-	 * @param name
-	 *            ISO 4217 currency name
-	 */
-	public Currency(String code, String name) {
-		if (code == null || code.length() < 1) {
-			throw new InvalidArgumentRuntimeException("code", null);
-		}
-
-		this.code = code;
-		this.name = name != null ? name : "";
-		digits = 2;
-	}
-
-	/**
-	 * Set number of decimal places.
-	 * 
-	 * @param decimalPlaces
-	 *            number of decimal places
-	 */
-	public void setDecimalPlaces(int decimalPlaces) {
-		digits = decimalPlaces;
-	}
-
-	/**
-	 * Formats a number with specified decimal places.
-	 * 
-	 * @param number
-	 *            number to be formatted
-	 * @return formatted number
-	 */
-	public String formatNumber(BigDecimal number) {
-		return number.setScale(digits, StaticSettings.priceRoundingMode)
-				.toString();
-	}
-
-	/**
-	 * Formats a number with specified decimal places. Add currency code.
-	 * 
-	 * @param number
-	 *            number to be formatted
-	 * @return formatted number
-	 */
-	public String formatNumberWithCurrency(BigDecimal number) {
-		return number.setScale(digits, StaticSettings.priceRoundingMode)
-				.toString()
-				+ code;
-	}
-
-	/**
-	 * Returns currency code.
-	 * 
-	 * @return currency code
-	 */
-	@Override
-	public String toString() {
-		return code;
-	}
-
-	/**
-	 * Get currency code.
-	 * 
-	 * @return ISO 4217 currency code
-	 */
-	public String getCode() {
-		return code;
-	}
-
-	/**
-	 * Get full currency name.
-	 * 
-	 * @return ISO 4217 currency name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Check if the other currency is equal to this instance. Two currencies are
-	 * equal if they have the save currency code.
-	 * 
-	 * @param object
-	 *            currency to be compared to this currency
-	 * @return true if codes of both currencies are the same, false otherwise
-	 */
-	@Override
-	public boolean equals(Object object) {
-		if (object == null || !this.getClass().equals(object.getClass())) {
-			return false;
-		}
-		if (this == object) {
-			return true;
-		}
-		return this.code.equals(((Currency) object).code);
-	}
-
-	/**
-	 * Hash code of the currency.
-	 * 
-	 * @return hash code
-	 */
-	@Override
-	public int hashCode() {
-		return code.hashCode();
-	}
-
-	/**
-	 * Alphabetically compares codes of this and other currency.
-	 * 
-	 * @param o
-	 *            currency to be compared to this currency
-	 * @return 0 if codes of both currencies are the same; a negative integer if
-	 *         the code of this currency is "less" than that of the other
-	 *         currency; a positive integer if the code of this currency is
-	 *         "greater";
-	 */
-	@Override
-	public int compareTo(Currency o) {
-		return this.code.compareTo(o.code);
-	}
-
-	/**
-	 * Creates US dollar currency.
-	 * 
-	 * @return USD currency
-	 */
-	public static Currency createUsd() {
-		return new Currency("USD", "US dollar");
-	}
-
-	/**
-	 * Creates euro currency.
-	 * 
-	 * @return EUR currency
-	 */
-	public static Currency createEur() {
-		return new Currency("EUR", "euro");
-	}
-
-	/**
-	 * Creates Pound sterling currency.
-	 * 
-	 * @return GBP currency
-	 */
-	public static Currency createGbp() {
-		return new Currency("GBP", "Pound sterling");
-	}
-
-	/**
-	 * Creates Japanese yen currency.
-	 * 
-	 * @return JPY currency
-	 */
-	public static Currency createJpy() {
-		Currency currency = new Currency("JPY", "Japanese yen");
-		currency.setDecimalPlaces(0);
-		return currency;
-	}
-
+public class Currency implements Comparable<Currency>
+{
+   /** ISO 4217 currency code. */
+   private String code;
+   /** ISO 4217 currency name. */
+   private String name;
+   /** Number of decimal digits. */
+   private int digits;
+   
+   /**
+    * Constructor. Name of the currency is set to an empty string.
+    * 
+    * @param code ISO 4217 currency code
+    */
+   public Currency(String code)
+   {
+      if (code == null || code.length() < 1)
+      {
+         throw new InvalidArgumentRuntimeException("code", code);
+      }
+      
+      this.code = code;
+      name = "";
+      digits = 2;
+   }
+   
+   /**
+    * Constructor.
+    * 
+    * @param code ISO 4217 currency code
+    * @param name ISO 4217 currency name
+    */
+   public Currency(String code, String name)
+   {
+      if (code == null || code.length() < 1)
+      {
+         throw new InvalidArgumentRuntimeException("code", null);
+      }
+      
+      this.code = code;
+      this.name = name != null ? name : "";
+      digits = 2;
+   }
+   
+   /**
+    * Set number of decimal places.
+    * 
+    * @param decimalPlaces number of decimal places
+    */
+   public void setDecimalPlaces(int decimalPlaces)
+   {
+      digits = decimalPlaces;
+   }
+   
+   /**
+    * Formats a number with specified decimal places.
+    * 
+    * @param number number to be formatted
+    * @return formatted number
+    */
+   public String formatNumber(BigDecimal number)
+   {
+      return number.setScale(digits, StaticSettings.priceRoundingMode).toString();
+   }
+   
+   /**
+    * Formats a number with specified decimal places. Add currency code.
+    * 
+    * @param number number to be formatted
+    * @return formatted number
+    */
+   public String formatNumberWithCurrency(BigDecimal number)
+   {
+      return number.setScale(digits, StaticSettings.priceRoundingMode).toString() + code;
+   }
+   
+   /**
+    * Returns currency code.
+    * 
+    * @return currency code
+    */
+   @Override
+   public String toString()
+   {
+      return code;
+   }
+   
+   /**
+    * Get currency code.
+    * 
+    * @return ISO 4217 currency code
+    */
+   public String getCode()
+   {
+      return code;
+   }
+   
+   /**
+    * Get full currency name.
+    * 
+    * @return ISO 4217 currency name
+    */
+   public String getName()
+   {
+      return name;
+   }
+   
+   /**
+    * Check if the other currency is equal to this instance. Two currencies are equal if they have
+    * the save currency code.
+    * 
+    * @param object currency to be compared to this currency
+    * @return true if codes of both currencies are the same, false otherwise
+    */
+   @Override
+   public boolean equals(Object object)
+   {
+      if (object == null || !this.getClass().equals(object.getClass()))
+      {
+         return false;
+      }
+      if (this == object)
+      {
+         return true;
+      }
+      return this.code.equals(((Currency) object).code);
+   }
+   
+   /**
+    * Hash code of the currency.
+    * 
+    * @return hash code
+    */
+   @Override
+   public int hashCode()
+   {
+      return code.hashCode();
+   }
+   
+   /**
+    * Alphabetically compares codes of this and other currency.
+    * 
+    * @param o currency to be compared to this currency
+    * @return 0 if codes of both currencies are the same; a negative integer if the code of this
+    *         currency is "less" than that of the other currency; a positive integer if the code of
+    *         this currency is "greater";
+    */
+   @Override
+   public int compareTo(Currency o)
+   {
+      return this.code.compareTo(o.code);
+   }
+   
+   /**
+    * Creates US dollar currency.
+    * 
+    * @return USD currency
+    */
+   public static Currency createUsd()
+   {
+      return new Currency("USD", "US dollar");
+   }
+   
+   /**
+    * Creates euro currency.
+    * 
+    * @return EUR currency
+    */
+   public static Currency createEur()
+   {
+      return new Currency("EUR", "euro");
+   }
+   
+   /**
+    * Creates Pound sterling currency.
+    * 
+    * @return GBP currency
+    */
+   public static Currency createGbp()
+   {
+      return new Currency("GBP", "Pound sterling");
+   }
+   
+   /**
+    * Creates Japanese yen currency.
+    * 
+    * @return JPY currency
+    */
+   public static Currency createJpy()
+   {
+      Currency currency = new Currency("JPY", "Japanese yen");
+      currency.setDecimalPlaces(0);
+      return currency;
+   }
+   
 }

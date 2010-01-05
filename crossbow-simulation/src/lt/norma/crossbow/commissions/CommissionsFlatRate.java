@@ -24,21 +24,23 @@ import java.math.BigDecimal;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CommissionsFlatRate implements Commissions {
-	private BigDecimal rate;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param rate
-	 *            flat rate in base currency applied to every order
-	 */
-	public CommissionsFlatRate(BigDecimal rate) {
-		this.rate = rate;
-	}
-
-	@Override
-	public BigDecimal calculate(int size, BigDecimal price) {
-		return rate;
-	}
+public class CommissionsFlatRate implements Commissions
+{
+   private BigDecimal rate;
+   
+   /**
+    * Constructor.
+    * 
+    * @param rate flat rate in base currency applied to every order
+    */
+   public CommissionsFlatRate(BigDecimal rate)
+   {
+      this.rate = rate;
+   }
+   
+   @Override
+   public BigDecimal calculate(int size, BigDecimal price)
+   {
+      return rate;
+   }
 }

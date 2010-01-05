@@ -24,64 +24,59 @@ import lt.norma.crossbow.contracts.Contract;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ContractException extends CrossbowException {
-	private Contract contract;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param contract
-	 *            contract that raised an exception or null if the contract is
-	 *            not initiated at the time of exception
-	 * @param message
-	 *            exception message
-	 * @param cause
-	 *            cause of the exception
-	 */
-	public ContractException(Contract contract, String message, Throwable cause) {
-		super("Contract " + String.valueOf(contract) + " is invalid. "
-				+ message, cause);
-		this.contract = contract;
-	}
-
-	/**
-	 * Constructor. No cause specified.
-	 * <p>
-	 * Do not use this constructor if this exception is caused by other
-	 * exception.
-	 * 
-	 * @param contract
-	 *            contract that raised an exception or null if the contract is
-	 *            not initiated at the time of exception
-	 * @param message
-	 *            exception message
-	 */
-	public ContractException(Contract contract, String message) {
-		super("Contract " + String.valueOf(contract) + " is invalid. "
-				+ message);
-		this.contract = contract;
-	}
-
-	/**
-	 * Constructor. No cause or contract specified.
-	 * <p>
-	 * Use this exception when the contract that caused this exception is not
-	 * yet fully initiated. For example when the constructor of the contract
-	 * fails.
-	 * 
-	 * @param message
-	 *            exception message
-	 */
-	public ContractException(String message) {
-		super("Invalid contract. " + message);
-	}
-
-	/**
-	 * Gets the contract that caused this exception.
-	 * 
-	 * @return contract, may be null if no contract set by the constructor
-	 */
-	public Contract getContract() {
-		return contract;
-	}
+public class ContractException extends CrossbowException
+{
+   private Contract contract;
+   
+   /**
+    * Constructor.
+    * 
+    * @param contract contract that raised an exception or null if the contract is not initiated at
+    *           the time of exception
+    * @param message exception message
+    * @param cause cause of the exception
+    */
+   public ContractException(Contract contract, String message, Throwable cause)
+   {
+      super("Contract " + String.valueOf(contract) + " is invalid. " + message, cause);
+      this.contract = contract;
+   }
+   
+   /**
+    * Constructor. No cause specified.
+    * <p>
+    * Do not use this constructor if this exception is caused by other exception.
+    * 
+    * @param contract contract that raised an exception or null if the contract is not initiated at
+    *           the time of exception
+    * @param message exception message
+    */
+   public ContractException(Contract contract, String message)
+   {
+      super("Contract " + String.valueOf(contract) + " is invalid. " + message);
+      this.contract = contract;
+   }
+   
+   /**
+    * Constructor. No cause or contract specified.
+    * <p>
+    * Use this exception when the contract that caused this exception is not yet fully initiated.
+    * For example when the constructor of the contract fails.
+    * 
+    * @param message exception message
+    */
+   public ContractException(String message)
+   {
+      super("Invalid contract. " + message);
+   }
+   
+   /**
+    * Gets the contract that caused this exception.
+    * 
+    * @return contract, may be null if no contract set by the constructor
+    */
+   public Contract getContract()
+   {
+      return contract;
+   }
 }

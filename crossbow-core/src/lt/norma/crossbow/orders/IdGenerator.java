@@ -20,11 +20,12 @@ package lt.norma.crossbow.orders;
 /**
  * Interface for ID generators.
  */
-public interface IdGenerator {
-	/**
-	 * Generates a unique ID.
-	 * 
-	 * @return unique ID
-	 */
-	public long generateId();
+public interface IdGenerator
+{
+   /**
+    * Generates a unique ID.
+    * 
+    * @return unique ID
+    */
+   public long generateId();
 }
