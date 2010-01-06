@@ -76,7 +76,7 @@ public class Trade
       this.time = time;
       timeFormatter =
             DateTimeFormat.forPattern(StaticSettings.dateTimeFormat).withZone(
-                                                                              contract.getExchange().getTimeZone());
+            contract.getExchange().getTimeZone());
    }
    
    /**

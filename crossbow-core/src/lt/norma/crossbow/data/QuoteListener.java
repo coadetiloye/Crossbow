@@ -20,15 +20,17 @@ package lt.norma.crossbow.data;
 import java.util.EventListener;
 
 /**
- * Interface for <code>TradeEvent</code> listeners.
+ * Interface for <code>QuoteEvent</code> listeners.
  * 
  * @author Vilius Normantas <code@norma.lt>
- * @see TradeEvent
+ * @see QuoteEvent
  */
-public interface TradeEventListener extends EventListener
+public interface QuoteListener extends EventListener
 {
    /**
-    * Called by source of <code>TradeEvent</code>.
+    * Called by source of <code>QuoteEvent</code>.
+    * 
+    * @param event quote event data
     */
-   public void tradeEventOccurred();
+   public void quoteReceived(QuoteEvent event);
 }
