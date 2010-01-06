@@ -86,9 +86,8 @@ public class Quote
       this.bidSize = bidSize;
       this.time = time;
       
-      timeFormatter =
-            DateTimeFormat.forPattern(StaticSettings.dateTimeFormat).withZone(
-                                                                              contract.getExchange().getTimeZone());
+      timeFormatter = DateTimeFormat.forPattern(StaticSettings.dateTimeFormat).withZone(
+            contract.getExchange().getTimeZone());
    }
    
    /**
@@ -186,5 +185,4 @@ public class Quote
    {
       return time;
    }
-   
 }

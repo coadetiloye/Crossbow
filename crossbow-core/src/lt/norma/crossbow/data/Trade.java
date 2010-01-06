@@ -28,9 +28,12 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- * Trade data.
+ * Trade data. Together with <code>Quote</code> carries information about events on the exchange.
+ * Usually trade data is delivered by <code>TradeEvent</code>.
  * 
  * @author Vilius Normantas <code@norma.lt>
+ * @see Quote
+ * @see TradeEvent
  */
 public class Trade
 {
@@ -67,12 +70,10 @@ public class Trade
       {
          throw new InvalidArgumentRuntimeException("time", String.valueOf(time));
       }
-      
       this.contract = contract;
       this.price = price;
       this.size = size;
       this.time = time;
-      
       timeFormatter =
             DateTimeFormat.forPattern(StaticSettings.dateTimeFormat).withZone(
                                                                               contract.getExchange().getTimeZone());
@@ -131,5 +132,4 @@ public class Trade
    {
       return time;
    }
-   
 }
