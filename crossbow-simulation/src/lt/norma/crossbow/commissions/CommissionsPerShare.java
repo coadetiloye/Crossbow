@@ -31,7 +31,8 @@ public class CommissionsPerShare implements Commissions
    /**
     * Constructor.
     * 
-    * @param ratePerShare per-share rate applied to every trade
+    * @param ratePerShare
+    *           per-share rate applied to every trade
     */
    public CommissionsPerShare(BigDecimal ratePerShare)
    {

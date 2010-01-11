@@ -188,7 +188,7 @@ public class DerivativesContractTest
        *            throws an exception if invalid symbol is specified
        */
       public MockDerivativesContract(DateMidnight maturityDate,
-                                     BigDecimal multiplier, Contract underlyingContract)
+            BigDecimal multiplier, Contract underlyingContract)
             throws ContractException
       {
          super("MSFT", "FUTURES", maturityDate, Exchange.createNasdaq(),
@@ -206,7 +206,7 @@ public class DerivativesContractTest
        *            throws an exception if invalid symbol is specified
        */
       public MockDerivativesContract(DateMidnight maturityDate,
-                                     BigDecimal multiplier) throws ContractException
+            BigDecimal multiplier) throws ContractException
       {
          super("MSFT", "FUTURES", maturityDate, Exchange.createNasdaq(),
                Currency.createJpy(), multiplier);

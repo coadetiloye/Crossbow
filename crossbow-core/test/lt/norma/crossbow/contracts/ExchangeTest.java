@@ -40,7 +40,7 @@ public class ExchangeTest
    {
       Exchange exchange =
             new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                         new LocalTime(16, 0, 0));
+            new LocalTime(16, 0, 0));
       assertEquals("A", exchange.getName());
       assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
    }
@@ -52,7 +52,7 @@ public class ExchangeTest
    public void testCreatetion2()
    {
       new Exchange(null, DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                   new LocalTime(16, 0, 0));
+            new LocalTime(16, 0, 0));
    }
    
    /**
@@ -62,7 +62,7 @@ public class ExchangeTest
    public void testCreatetion3()
    {
       new Exchange("", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                   new LocalTime(16, 0, 0));
+            new LocalTime(16, 0, 0));
    }
    
    /**
@@ -93,26 +93,26 @@ public class ExchangeTest
    }
    
    /**
-       * Test of createNasdaqExchange method, of class Exchange.
-       */
-      @Test
-      public void testCreateNasdaq()
-      {
-         Exchange exchange = Exchange.createNasdaq();
-         assertEquals("Nasdaq", exchange.getName());
-         assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
-      }
+    * Test of createNasdaqExchange method, of class Exchange.
+    */
+   @Test
+   public void testCreateNasdaq()
+   {
+      Exchange exchange = Exchange.createNasdaq();
+      assertEquals("Nasdaq", exchange.getName());
+      assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
+   }
    
    /**
-       * Test of createNyseExchange method, of class Exchange.
-       */
-      @Test
-      public void testCreateNyse()
-      {
-         Exchange exchange = Exchange.createNyse();
-         assertEquals("Nyse", exchange.getName());
-         assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
-      }
+    * Test of createNyseExchange method, of class Exchange.
+    */
+   @Test
+   public void testCreateNyse()
+   {
+      Exchange exchange = Exchange.createNyse();
+      assertEquals("Nyse", exchange.getName());
+      assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
+   }
    
    /**
     * Test of isTradingHours method, of class Exchange.
@@ -122,7 +122,7 @@ public class ExchangeTest
    {
       Exchange exchange =
             new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                         new LocalTime(16, 0, 0));
+            new LocalTime(16, 0, 0));
       assertFalse(exchange.isTradingHours(new LocalTime(0, 0, 0)));
       assertFalse(exchange.isTradingHours(new LocalTime(7, 15, 0)));
       assertTrue(exchange.isTradingHours(new LocalTime(9, 30, 0))); // Inclusive.
@@ -135,7 +135,7 @@ public class ExchangeTest
       // Exchange does not close
       Exchange exchange2 =
             new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                         new LocalTime(0, 0, 0));
+            new LocalTime(0, 0, 0));
       assertFalse(exchange2.isTradingHours(new LocalTime(0, 0, 0)));
       assertFalse(exchange2.isTradingHours(new LocalTime(7, 15, 0)));
       assertTrue(exchange2.isTradingHours(new LocalTime(9, 30, 0))); // Inclusive.
@@ -148,7 +148,7 @@ public class ExchangeTest
       // Exchange is always open
       Exchange exchange3 =
             new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(0, 0, 0),
-                         new LocalTime(0, 0, 0));
+            new LocalTime(0, 0, 0));
       assertTrue(exchange3.isTradingHours(new LocalTime(0, 0, 0)));
       assertTrue(exchange3.isTradingHours(new LocalTime(7, 15, 0)));
       assertTrue(exchange3.isTradingHours(new LocalTime(9, 30, 0))); // Inclusive.
@@ -167,7 +167,7 @@ public class ExchangeTest
    {
       Exchange exchange =
             new Exchange("A", DateTimeZone.forID("America/New_York"), LocalTime.MIDNIGHT,
-                         LocalTime.MIDNIGHT);
+            LocalTime.MIDNIGHT);
       assertTrue(exchange.isTradingHours(new LocalTime(0, 0, 0)));
       assertTrue(exchange.isTradingHours(new LocalTime(7, 15, 0)));
       assertTrue(exchange.isTradingHours(new LocalTime(9, 30, 0)));
@@ -179,7 +179,7 @@ public class ExchangeTest
       
       Exchange exchange2 =
             new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(0, 0, 0),
-                         new LocalTime(0, 0, 0));
+            new LocalTime(0, 0, 0));
       assertTrue(exchange2.isTradingHours(new LocalTime(0, 0, 0)));
       assertTrue(exchange2.isTradingHours(new LocalTime(7, 15, 0)));
       assertTrue(exchange2.isTradingHours(new LocalTime(9, 30, 0)));
@@ -198,7 +198,7 @@ public class ExchangeTest
    {
       Exchange exchange =
             new Exchange("AAAAAAaaaa", DateTimeZone.forID("America/New_York"), LocalTime.MIDNIGHT,
-                         LocalTime.MIDNIGHT);
+            LocalTime.MIDNIGHT);
       assertEquals(exchange.getName(), exchange.toString());
    }
    
@@ -210,15 +210,15 @@ public class ExchangeTest
    {
       Exchange exchange1 =
             new Exchange("AAAAAAaaaa", DateTimeZone.forID("America/New_York"), LocalTime.MIDNIGHT,
-                         LocalTime.MIDNIGHT);
+            LocalTime.MIDNIGHT);
       Exchange exchange2 =
             new Exchange("AAAAAAaaaa", DateTimeZone.forID("America/New_York"), new LocalTime(1, 1,
-                                                                                             1),
-                         new LocalTime(2, 2, 2));
+            1),
+            new LocalTime(2, 2, 2));
       Exchange exchange3 =
             new Exchange("BAAAAAaaaa", DateTimeZone.forID("America/New_York"), new LocalTime(1, 1,
-                                                                                             1),
-                         new LocalTime(2, 2, 2));
+            1),
+            new LocalTime(2, 2, 2));
       assertEquals(exchange1, exchange1);
       assertEquals(exchange1.hashCode(), exchange1.hashCode());
       assertEquals(exchange1, exchange2);
@@ -236,16 +236,16 @@ public class ExchangeTest
    {
       Exchange exchange1 =
             new Exchange("BB", DateTimeZone.forID("America/New_York"), LocalTime.MIDNIGHT,
-                         LocalTime.MIDNIGHT);
+            LocalTime.MIDNIGHT);
       Exchange exchange2 =
             new Exchange("BB", DateTimeZone.forID("America/New_York"), new LocalTime(1, 1, 1),
-                         new LocalTime(2, 2, 2));
+            new LocalTime(2, 2, 2));
       Exchange exchange3 =
             new Exchange("AA", DateTimeZone.forID("America/New_York"), new LocalTime(1, 1, 1),
-                         new LocalTime(2, 2, 2));
+            new LocalTime(2, 2, 2));
       Exchange exchange4 =
             new Exchange("CC", DateTimeZone.forID("America/New_York"), new LocalTime(1, 1, 1),
-                         new LocalTime(2, 2, 2));
+            new LocalTime(2, 2, 2));
       assertEquals(0, exchange1.compareTo(exchange2));
       assertTrue(exchange1.compareTo(exchange3) > 0);
       assertTrue(exchange1.compareTo(exchange4) < 0);

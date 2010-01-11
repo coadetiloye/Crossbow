@@ -31,10 +31,13 @@ public class ContractException extends CrossbowException
    /**
     * Constructor.
     * 
-    * @param contract contract that raised an exception or null if the contract is not initiated at
+    * @param contract
+    *           contract that raised an exception or null if the contract is not initiated at
     *           the time of exception
-    * @param message exception message
-    * @param cause cause of the exception
+    * @param message
+    *           exception message
+    * @param cause
+    *           cause of the exception
     */
    public ContractException(Contract contract, String message, Throwable cause)
    {
@@ -47,9 +50,11 @@ public class ContractException extends CrossbowException
     * <p>
     * Do not use this constructor if this exception is caused by other exception.
     * 
-    * @param contract contract that raised an exception or null if the contract is not initiated at
+    * @param contract
+    *           contract that raised an exception or null if the contract is not initiated at
     *           the time of exception
-    * @param message exception message
+    * @param message
+    *           exception message
     */
    public ContractException(Contract contract, String message)
    {
@@ -63,7 +68,8 @@ public class ContractException extends CrossbowException
     * Use this exception when the contract that caused this exception is not yet fully initiated.
     * For example when the constructor of the contract fails.
     * 
-    * @param message exception message
+    * @param message
+    *           exception message
     */
    public ContractException(String message)
    {

@@ -37,7 +37,8 @@ public class OcaGroup
    /**
     * Constructor.
     * 
-    * @param title title of the OCA group. Make sure the title is unique, as it is used to identify
+    * @param title
+    *           title of the OCA group. Make sure the title is unique, as it is used to identify
     *           the group
     */
    public OcaGroup(String title)
@@ -49,7 +50,8 @@ public class OcaGroup
    /**
     * Adds a new order to this OCA group.
     * 
-    * @param order a new order to be added
+    * @param order
+    *           a new order to be added
     */
    public void addOrder(Order order)
    {

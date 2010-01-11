@@ -36,8 +36,8 @@ public class OptionTypeTest
    {
       assertEquals(2, OptionType.values().length);
       assertEquals("CALL", OptionType.values()[0].toString());
-      assertEquals("PUT", OptionType.values()[1].toString());      
-      assertEquals(OptionType.CALL, OptionType.valueOf("CALL"));      
-      assertEquals(OptionType.PUT, OptionType.valueOf("PUT"));      
+      assertEquals("PUT", OptionType.values()[1].toString());
+      assertEquals(OptionType.CALL, OptionType.valueOf("CALL"));
+      assertEquals(OptionType.PUT, OptionType.valueOf("PUT"));
    }
 }

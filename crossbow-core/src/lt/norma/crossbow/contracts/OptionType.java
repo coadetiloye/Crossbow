@@ -26,6 +26,6 @@ public enum OptionType
 {
    /** Call option */
    CALL,
-   /** Put option */
+      /** Put option */
    PUT
 }

@@ -52,15 +52,21 @@ public class Quote
    /**
     * Constructor.
     * 
-    * @param contract contract specification
-    * @param askPrice ask price
-    * @param askSize ask size
-    * @param bidPrice bid price
-    * @param bidSize bid size
-    * @param time time of the quote
+    * @param contract
+    *           contract specification
+    * @param askPrice
+    *           ask price
+    * @param askSize
+    *           ask size
+    * @param bidPrice
+    *           bid price
+    * @param bidSize
+    *           bid size
+    * @param time
+    *           time of the quote
     */
    public Quote(Contract contract, BigDecimal askPrice, int askSize, BigDecimal bidPrice,
-                int bidSize, DateTime time)
+         int bidSize, DateTime time)
    {
       if (contract == null)
       {

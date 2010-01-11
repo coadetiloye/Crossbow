@@ -33,13 +33,18 @@ public final class MarketOrder extends Order
    /**
     * Constructor.
     * 
-    * @param id local order ID. Make sure to set unique IDs for each order within context of the
+    * @param id
+    *           local order ID. Make sure to set unique IDs for each order within context of the
     *           application.
-    * @param contract contract of a traded instrument
-    * @param direction direction of the trade
-    * @param size size of an order. Negative value means short trade, positive - long. Cannot be
+    * @param contract
+    *           contract of a traded instrument
+    * @param direction
+    *           direction of the trade
+    * @param size
+    *           size of an order. Negative value means short trade, positive - long. Cannot be
     *           zero
-    * @throws OrderException on invalid order details
+    * @throws OrderException
+    *            on invalid order details
     */
    public MarketOrder(long id, Contract contract, OrderDirection direction, int size)
          throws OrderException

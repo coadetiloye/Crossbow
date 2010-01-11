@@ -33,7 +33,8 @@ public abstract class TradeProvider
    /**
     * Adds trade listener.
     * 
-    * @param listener trade listener
+    * @param listener
+    *           trade listener
     */
    public synchronized void addTradeListener(TradeListener listener)
    {
@@ -43,7 +44,8 @@ public abstract class TradeProvider
    /**
     * Removes trade listener.
     * 
-    * @param listener trade listener
+    * @param listener
+    *           trade listener
     */
    public synchronized void removeTradeListener(TradeListener listener)
    {
@@ -53,7 +55,8 @@ public abstract class TradeProvider
    /**
     * Fires trade event. Call this method from concrete trade providers.
     * 
-    * @param trade trade data to be sent to all listeners.
+    * @param trade
+    *           trade data to be sent to all listeners.
     */
    protected final synchronized void fireTradeEvent(Trade trade)
    {

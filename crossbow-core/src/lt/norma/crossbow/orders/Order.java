@@ -62,14 +62,20 @@ public abstract class Order
    /**
     * Constructor.
     * 
-    * @param id local order ID. Make sure to set unique IDs for each order within context of the
+    * @param id
+    *           local order ID. Make sure to set unique IDs for each order within context of the
     *           application.
-    * @param contract contract of a traded instrument
-    * @param type type of an order
-    * @param direction direction of the trade
-    * @param size size of an order. Negative value means short trade, positive - long. Cannot be
+    * @param contract
+    *           contract of a traded instrument
+    * @param type
+    *           type of an order
+    * @param direction
+    *           direction of the trade
+    * @param size
+    *           size of an order. Negative value means short trade, positive - long. Cannot be
     *           zero
-    * @throws OrderException on invalid order details
+    * @throws OrderException
+    *            on invalid order details
     */
    public Order(long id, Contract contract, String type, OrderDirection direction, int size)
          throws OrderException
@@ -150,7 +156,8 @@ public abstract class Order
    /**
     * Sets order comment.
     * 
-    * @param comment order comment
+    * @param comment
+    *           order comment
     */
    public void setComment(String comment)
    {
@@ -180,7 +187,8 @@ public abstract class Order
    /**
     * Set time when the order was submited.
     * 
-    * @param time submit time
+    * @param time
+    *           submit time
     */
    public void setSubmitTime(DateTime time)
    {
@@ -210,7 +218,8 @@ public abstract class Order
    /**
     * Set order status.
     * 
-    * @param status order status
+    * @param status
+    *           order status
     */
    public void setStatus(OrderStatus status)
    {

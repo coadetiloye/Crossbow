@@ -23,7 +23,8 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  * Generic property. Contains property value, name by wich the property is referred and a short
  * description.
  * 
- * @param <Type> type of value this property can contain
+ * @param <Type>
+ *           type of value this property can contain
  * @author Vilius Normantas <code@norma.lt>
  */
 public class Property<Type> implements Comparable<Property<?>>
@@ -40,16 +41,19 @@ public class Property<Type> implements Comparable<Property<?>>
     * <p>
     * Throws <code>InvalidArgumentRuntimeException</code> if property name is null or empty.
     * 
-    * @param name name by wich the property is referred, cannot be null or empty.
-    * @param value property value, can be null
-    * @param description a short description of the property
+    * @param name
+    *           name by wich the property is referred, cannot be null or empty.
+    * @param value
+    *           property value, can be null
+    * @param description
+    *           a short description of the property
     */
    public Property(String name, Type value, String description)
    {
       if (name == null || name.isEmpty())
       {
          throw new InvalidArgumentRuntimeException("name", name,
-                                                   "Property name cannot be null or empty.");
+               "Property name cannot be null or empty.");
       }
       
       this.name = name;
@@ -62,8 +66,10 @@ public class Property<Type> implements Comparable<Property<?>>
     * <p>
     * Throws <code>InvalidArgumentRuntimeException</code> if property name is null or empty.
     * 
-    * @param name name by wich the property is referred, cannot be null or empty.
-    * @param value a short description of the property
+    * @param name
+    *           name by wich the property is referred, cannot be null or empty.
+    * @param value
+    *           a short description of the property
     */
    public Property(String name, Type value)
    {
@@ -90,7 +96,8 @@ public class Property<Type> implements Comparable<Property<?>>
     * Example (delimiter is set to " = "): <br>
     * <code>MyProperty = 8</code>
     * 
-    * @param delimiter delimiter string
+    * @param delimiter
+    *           delimiter string
     * @return property as text
     */
    public String toString(String delimiter)
@@ -121,7 +128,8 @@ public class Property<Type> implements Comparable<Property<?>>
    /**
     * Alphabetically compares name of the specified property to name of this property.
     * 
-    * @param property a property to be compared to this property
+    * @param property
+    *           a property to be compared to this property
     * @return 0 if both properties are have the same name;<br>
     *         a negative integer if this property is "less" than the specified property;<br>
     *         a positive integer if this property is "greater";
@@ -155,7 +163,8 @@ public class Property<Type> implements Comparable<Property<?>>
    /**
     * Sets property value.
     * 
-    * @param value property value
+    * @param value
+    *           property value
     */
    public void setValue(Type value)
    {

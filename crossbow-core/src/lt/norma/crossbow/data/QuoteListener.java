@@ -30,7 +30,8 @@ public interface QuoteListener extends EventListener
    /**
     * Called by source of <code>QuoteEvent</code>.
     * 
-    * @param event quote event data
+    * @param event
+    *           quote event data
     */
    public void quoteReceived(QuoteEvent event);
 }

@@ -31,7 +31,8 @@ public class CommissionsFlatRate implements Commissions
    /**
     * Constructor.
     * 
-    * @param rate flat rate in base currency applied to every order
+    * @param rate
+    *           flat rate in base currency applied to every order
     */
    public CommissionsFlatRate(BigDecimal rate)
    {

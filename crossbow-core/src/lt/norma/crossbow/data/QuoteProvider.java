@@ -33,7 +33,8 @@ public abstract class QuoteProvider
    /**
     * Adds quote listener.
     * 
-    * @param listener quote listener
+    * @param listener
+    *           quote listener
     */
    public synchronized void addQuoteListener(QuoteListener listener)
    {
@@ -43,7 +44,8 @@ public abstract class QuoteProvider
    /**
     * Removes quote listener.
     * 
-    * @param listener quote listener
+    * @param listener
+    *           quote listener
     */
    public synchronized void removeQuoteListener(QuoteListener listener)
    {
@@ -53,7 +55,8 @@ public abstract class QuoteProvider
    /**
     * Fires quote event. Call this method from concrete quote providers.
     * 
-    * @param quote quote data to be sent to all listeners.
+    * @param quote
+    *           quote data to be sent to all listeners.
     */
    protected final synchronized void fireQuoteEvent(Quote quote)
    {

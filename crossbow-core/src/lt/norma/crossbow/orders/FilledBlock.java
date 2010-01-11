@@ -37,9 +37,12 @@ public final class FilledBlock
    /**
     * Constructor.
     * 
-    * @param size number of contracts filled
-    * @param price average price at which the block was filled
-    * @param time time when the block was filled
+    * @param size
+    *           number of contracts filled
+    * @param price
+    *           average price at which the block was filled
+    * @param time
+    *           time when the block was filled
     */
    public FilledBlock(int size, BigDecimal price, DateTime time)
    {

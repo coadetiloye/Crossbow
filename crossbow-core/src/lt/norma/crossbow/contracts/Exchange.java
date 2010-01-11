@@ -43,13 +43,17 @@ public class Exchange implements Comparable<Exchange>
    /**
     * Constructor.
     * 
-    * @param name name of the exchange
-    * @param tradingStarts beginning of trading day
-    * @param tradingEnds end of trading day
-    * @param timeZone time zone at the exchange
+    * @param name
+    *           name of the exchange
+    * @param tradingStarts
+    *           beginning of trading day
+    * @param tradingEnds
+    *           end of trading day
+    * @param timeZone
+    *           time zone at the exchange
     */
    public Exchange(String name, DateTimeZone timeZone, LocalTime tradingStarts,
-                   LocalTime tradingEnds)
+         LocalTime tradingEnds)
    {
       // Data control
       if (name == null)
@@ -88,7 +92,7 @@ public class Exchange implements Comparable<Exchange>
    public static Exchange createNasdaq()
    {
       return new Exchange("Nasdaq", DateTimeZone.forID("America/New_York"),
-                          new LocalTime(9, 30, 0), new LocalTime(16, 0, 0));
+            new LocalTime(9, 30, 0), new LocalTime(16, 0, 0));
    }
    
    /**
@@ -99,13 +103,14 @@ public class Exchange implements Comparable<Exchange>
    public static Exchange createNyse()
    {
       return new Exchange("Nyse", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
-                          new LocalTime(16, 0, 0));
+            new LocalTime(16, 0, 0));
    }
    
    /**
     * Is specified time inside trading hours of the exchange.
     * 
-    * @param time time to be checked
+    * @param time
+    *           time to be checked
     * @return true if the specified time equals to or is after trading start time, and is before
     *         trading end time.
     */
@@ -136,7 +141,8 @@ public class Exchange implements Comparable<Exchange>
    /**
     * Checks if the exchange is equal to this exchange. Exchanges with the same name are equal.
     * 
-    * @param object exchange to be compared to this exchange
+    * @param object
+    *           exchange to be compared to this exchange
     * @return true if the names of the exchanges are equal, false otherwise
     */
    @Override
@@ -160,7 +166,8 @@ public class Exchange implements Comparable<Exchange>
    /**
     * Alphabetically compares name of this exchange to the other exchange's name.
     * 
-    * @param exchange exchange to be compared to this exchange
+    * @param exchange
+    *           exchange to be compared to this exchange
     * @return 0 if names of both exchanges are the same; a negative integer if name of this exchange
     *         is "less" than that of the other exchange; a positive integer if name of this exchange
     *         is "greater";

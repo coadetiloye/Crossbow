@@ -45,9 +45,9 @@ public class CommissionsIbStocks implements Commissions
       
       BigDecimal max =
             price.multiply(s).multiply(maximumPercentPerOrder).divide(
-                                                                      new BigDecimal("100"),
-                                                                      StaticSettings.pricePrecision,
-                                                                      StaticSettings.priceRoundingMode);
+            new BigDecimal("100"),
+            StaticSettings.pricePrecision,
+            StaticSettings.priceRoundingMode);
       c = ratePerShare.multiply(s);
       if (c.compareTo(max) > 0)
       {

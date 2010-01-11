@@ -44,8 +44,10 @@ public class Properties
    /**
     * Add a new property.
     * 
-    * @param property property to be added
-    * @throws CrossbowException on duplicate property names
+    * @param property
+    *           property to be added
+    * @throws CrossbowException
+    *            on duplicate property names
     */
    public void add(Property<?> property) throws CrossbowException
    {
@@ -62,8 +64,10 @@ public class Properties
     * exists, it will be overriden by a new property. Use <code>add</code> to safely add a new
     * property or <code>propertyExists</code> to check for existing properties.
     * 
-    * @param property property to be set or added
-    * @throws CrossbowException on duplicate property with different type
+    * @param property
+    *           property to be set or added
+    * @throws CrossbowException
+    *            on duplicate property with different type
     */
    public void set(Property<?> property) throws CrossbowException
    {
@@ -95,7 +99,8 @@ public class Properties
    /**
     * Removes the property by specified name.
     * 
-    * @param propertyName property name
+    * @param propertyName
+    *           property name
     */
    public void removeByName(String propertyName)
    {
@@ -105,7 +110,8 @@ public class Properties
    /**
     * Checks if the property with a specified name already exists.
     * 
-    * @param propertyName property name
+    * @param propertyName
+    *           property name
     * @return true if the property exists, false otherwise
     */
    public boolean propertyExists(String propertyName)
@@ -116,9 +122,11 @@ public class Properties
    /**
     * Gets property by name.
     * 
-    * @param propertyName property name
+    * @param propertyName
+    *           property name
     * @return property
-    * @throws CrossbowException if no property is found by specified name
+    * @throws CrossbowException
+    *            if no property is found by specified name
     */
    public Property<?> getByName(String propertyName) throws CrossbowException
    {

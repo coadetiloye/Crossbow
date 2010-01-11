@@ -30,8 +30,10 @@ public interface Commissions
    /**
     * Calculates commissions.
     * 
-    * @param size size of a trade
-    * @param price price of a trade
+    * @param size
+    *           size of a trade
+    * @param price
+    *           price of a trade
     * @return commissions paid to execute a trade
     */
    public BigDecimal calculate(int size, BigDecimal price);

@@ -23,7 +23,8 @@ import lt.norma.crossbow.properties.Property;
  * Carries additional information about an order. Make sure the order executor knows how to
  * interpret custom attributes.
  * 
- * @param <Type> type of value this attribute can contain
+ * @param <Type>
+ *           type of value this attribute can contain
  * @author Vilius Normantas <code@norma.lt>
  */
 public class OrderAttribute<Type> extends Property<Type>
@@ -36,10 +37,14 @@ public class OrderAttribute<Type> extends Property<Type>
     * <p>
     * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is null or empty.
     * 
-    * @param name name by wich the attribute is referred, cannot be null or empty.
-    * @param value attribute value, can be null
-    * @param description a short description of the attribute
-    * @param flag marks importance of the attribute
+    * @param name
+    *           name by wich the attribute is referred, cannot be null or empty.
+    * @param value
+    *           attribute value, can be null
+    * @param description
+    *           a short description of the attribute
+    * @param flag
+    *           marks importance of the attribute
     */
    public OrderAttribute(String name, Type value, String description, OrderAttributeFlag flag)
    {
@@ -52,9 +57,12 @@ public class OrderAttribute<Type> extends Property<Type>
     * <p>
     * Throws <code>InvalidArgumentRuntimeException</code> if attribute name is null or empty.
     * 
-    * @param name name by wich the attribute is referred, cannot be null or empty.
-    * @param value attribute value, can be null
-    * @param flag marks importance of the attribute
+    * @param name
+    *           name by wich the attribute is referred, cannot be null or empty.
+    * @param value
+    *           attribute value, can be null
+    * @param flag
+    *           marks importance of the attribute
     */
    public OrderAttribute(String name, Type value, OrderAttributeFlag flag)
    {

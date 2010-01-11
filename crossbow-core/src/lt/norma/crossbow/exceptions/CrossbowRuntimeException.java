@@ -27,7 +27,8 @@ public class CrossbowRuntimeException extends Error
    /**
     * Constructor.
     * 
-    * @param message exception message
+    * @param message
+    *           exception message
     */
    public CrossbowRuntimeException(String message)
    {
@@ -37,8 +38,10 @@ public class CrossbowRuntimeException extends Error
    /**
     * Constructor.
     * 
-    * @param message exception message
-    * @param cause the cause of the exception
+    * @param message
+    *           exception message
+    * @param cause
+    *           the cause of the exception
     */
    public CrossbowRuntimeException(String message, Throwable cause)
    {

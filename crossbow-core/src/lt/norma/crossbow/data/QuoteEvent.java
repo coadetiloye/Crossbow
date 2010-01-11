@@ -32,8 +32,10 @@ public class QuoteEvent extends EventObject
    /**
     * Constructor.
     * 
-    * @param source event sender
-    * @param quote quote data
+    * @param source
+    *           event sender
+    * @param quote
+    *           quote data
     */
    public QuoteEvent(Object source, Quote quote)
    {

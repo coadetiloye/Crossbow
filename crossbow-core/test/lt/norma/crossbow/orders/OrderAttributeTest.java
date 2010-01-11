@@ -65,8 +65,8 @@ public class OrderAttributeTest
       pl.add(a2);
       
       assertEquals(OrderAttributeFlag.DESCRIPTIVE,
-                   ((OrderAttribute<?>) pl.getByName("n1")).getFlag());
+            ((OrderAttribute<?>) pl.getByName("n1")).getFlag());
       assertEquals(OrderAttributeFlag.OBLIGATORY,
-                   ((OrderAttribute<?>) pl.getByName("n2")).getFlag());
+            ((OrderAttribute<?>) pl.getByName("n2")).getFlag());
    }
 }

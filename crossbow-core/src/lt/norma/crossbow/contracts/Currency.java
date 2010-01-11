@@ -41,7 +41,8 @@ public class Currency implements Comparable<Currency>
    /**
     * Constructor. Name of the currency is set to an empty string.
     * 
-    * @param code ISO 4217 currency code
+    * @param code
+    *           ISO 4217 currency code
     */
    public Currency(String code)
    {
@@ -58,8 +59,10 @@ public class Currency implements Comparable<Currency>
    /**
     * Constructor.
     * 
-    * @param code ISO 4217 currency code
-    * @param name ISO 4217 currency name
+    * @param code
+    *           ISO 4217 currency code
+    * @param name
+    *           ISO 4217 currency name
     */
    public Currency(String code, String name)
    {
@@ -76,7 +79,8 @@ public class Currency implements Comparable<Currency>
    /**
     * Set number of decimal places.
     * 
-    * @param decimalPlaces number of decimal places
+    * @param decimalPlaces
+    *           number of decimal places
     */
    public void setDecimalPlaces(int decimalPlaces)
    {
@@ -86,7 +90,8 @@ public class Currency implements Comparable<Currency>
    /**
     * Formats a number with specified decimal places.
     * 
-    * @param number number to be formatted
+    * @param number
+    *           number to be formatted
     * @return formatted number
     */
    public String formatNumber(BigDecimal number)
@@ -97,7 +102,8 @@ public class Currency implements Comparable<Currency>
    /**
     * Formats a number with specified decimal places. Add currency code.
     * 
-    * @param number number to be formatted
+    * @param number
+    *           number to be formatted
     * @return formatted number
     */
    public String formatNumberWithCurrency(BigDecimal number)
@@ -140,7 +146,8 @@ public class Currency implements Comparable<Currency>
     * Check if the other currency is equal to this instance. Two currencies are equal if they have
     * the save currency code.
     * 
-    * @param object currency to be compared to this currency
+    * @param object
+    *           currency to be compared to this currency
     * @return true if codes of both currencies are the same, false otherwise
     */
    @Override
@@ -171,7 +178,8 @@ public class Currency implements Comparable<Currency>
    /**
     * Alphabetically compares codes of this and other currency.
     * 
-    * @param o currency to be compared to this currency
+    * @param o
+    *           currency to be compared to this currency
     * @return 0 if codes of both currencies are the same; a negative integer if the code of this
     *         currency is "less" than that of the other currency; a positive integer if the code of
     *         this currency is "greater";

@@ -111,6 +111,6 @@ public class ForexContract extends Contract
    {
       ForexContract forexContract = (ForexContract) contract;
       return currency1.equals(forexContract.getCurrency1());
-      // Second currency is compared as currency field of Contract class. 
+      // Second currency is compared as currency field of Contract class.
    }
 }

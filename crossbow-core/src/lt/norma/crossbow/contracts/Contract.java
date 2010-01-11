@@ -41,12 +41,17 @@ public abstract class Contract
    /**
     * Constructor.
     * 
-    * @param symbol contract symbol
-    * @param type type of the contract. Used only to provide human readable type of the contract.
+    * @param symbol
+    *           contract symbol
+    * @param type
+    *           type of the contract. Used only to provide human readable type of the contract.
     *           Internally contract types are identified by class.
-    * @param exchange exchange of the contract
-    * @param currency base currency of the contract
-    * @throws ContractException on invalid contract details are specified
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @throws ContractException
+    *            on invalid contract details are specified
     */
    public Contract(String symbol, String type, Exchange exchange, Currency currency)
          throws ContractException
@@ -110,7 +115,8 @@ public abstract class Contract
     * Field <code>type</code> is not used in comparison, contracts are compared by class instead.
     * Contracts with different classes cannot be equal.
     * 
-    * @param object a contract to be compared to this contract
+    * @param object
+    *           a contract to be compared to this contract
     * @return true if specified contract is equal to this contract, false otherwise
     * @see #equals(Contract)
     */
@@ -147,7 +153,8 @@ public abstract class Contract
     * Contracts with different classes cannot be equal. Child class can safely cast the specified
     * contract to it's own class.
     * 
-    * @param contract a contract to be compared to this contract
+    * @param contract
+    *           a contract to be compared to this contract
     * @return true if specified contract is equal to this contract, false otherwise
     * @see #equals(Object)
     */

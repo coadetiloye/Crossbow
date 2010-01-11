@@ -35,22 +35,22 @@ public enum OrderStatus
     * status.
     */
    NEW("new", "Order is created and ready for sending."),
-   /** Order is sent to the executor, but not yet confirmed as submitted. */
+      /** Order is sent to the executor, but not yet confirmed as submitted. */
    PENDING("pending", "Order is sent to the executor, but not yet confirmed as submitted."),
-   /** Order is sent and confirmed by the executor. */
+      /** Order is sent and confirmed by the executor. */
    SUBMITTED("submitted", "Order is sent and confirmed by the executor."),
-   /** Order is partially filled. */
+      /** Order is partially filled. */
    PARTIALLY_FILLED("partially filled", "Order is partially filled."),
-   /** Order is completely filled. */
+      /** Order is completely filled. */
    FILLED("filled", "Order is completely filled."),
-   /** Order is submitted, but for some reason deactivated by the executor. */
+      /** Order is submitted, but for some reason deactivated by the executor. */
    INACTIVE("inactive", "Order is submitted, but for some reason deactivated by the executor."),
-   /** Order cancellation is sent but not yet confirmed by the executor. */
+      /** Order cancellation is sent but not yet confirmed by the executor. */
    CANCELLATION_PENDING("cancelation pending", "Order cancellation is sent but not yet confirmed "
                                                + "by the executor."),
-   /** Order is canceled by the executor. */
+      /** Order is canceled by the executor. */
    CANCELED("canceled", "Order is canceled by the executor."),
-   /** Order is rejected by the executor. */
+      /** Order is rejected by the executor. */
    REJECTED("rejected", "Order is rejected by the executor.");
    /** A human readable status title. */
    private final String title;
@@ -60,11 +60,13 @@ public enum OrderStatus
    /**
     * Constructor.
     * 
-    * @param title a human readable status title. This title is returned by <code>toString</code>
+    * @param title
+    *           a human readable status title. This title is returned by <code>toString</code>
     *           method. Actual field names, like <code>PENDING</code> or
     *           <code>PARTIALLY_FILLED</code> should not be displayed to the user but can be used
     *           for persistence and similar purposes.
-    * @param description a more detailed description of the order status
+    * @param description
+    *           a more detailed description of the order status
     */
    private OrderStatus(String title, String description)
    {

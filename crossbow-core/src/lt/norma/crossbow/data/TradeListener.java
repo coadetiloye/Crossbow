@@ -30,7 +30,8 @@ public interface TradeListener extends EventListener
    /**
     * Called by source of <code>TradeEvent</code>.
     * 
-    * @param event quote event data
+    * @param event
+    *           quote event data
     */
    public void tradeReceived(TradeEvent event);
 }

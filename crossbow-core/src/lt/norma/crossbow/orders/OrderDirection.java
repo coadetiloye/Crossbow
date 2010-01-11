@@ -28,7 +28,7 @@ public enum OrderDirection
 {
    /** Buy order direction. */
    BUY("buy"),
-   /** Sell order direction. */
+      /** Sell order direction. */
    SELL("sell");
    /** A human readable title. */
    private final String title;
@@ -36,7 +36,8 @@ public enum OrderDirection
    /**
     * Constructor.
     * 
-    * @param title a human readable title. This title is returned by <code>toString</code> method.
+    * @param title
+    *           a human readable title. This title is returned by <code>toString</code> method.
     *           Actual field names, like <code>BUY</code> or <code>SELL</code> should not be
     *           displayed to the user but can be used for persistence and similar purposes.
     */

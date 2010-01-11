@@ -31,9 +31,12 @@ public class OrderException extends Exception
    /**
     * Constructor.
     * 
-    * @param order order data
-    * @param message error message
-    * @param cause cause of the exception
+    * @param order
+    *           order data
+    * @param message
+    *           error message
+    * @param cause
+    *           cause of the exception
     */
    public OrderException(Order order, String message, Throwable cause)
    {
@@ -46,8 +49,10 @@ public class OrderException extends Exception
     * <p>
     * Do not use this constructor if this exception is caused by other exception.
     * 
-    * @param order order data
-    * @param message error message
+    * @param order
+    *           order data
+    * @param message
+    *           error message
     */
    public OrderException(Order order, String message)
    {
@@ -61,7 +66,8 @@ public class OrderException extends Exception
     * Use this exception when the order that caused this exception is not yet fully initiated. For
     * example when the constructor of the order fails.
     * 
-    * @param message error message
+    * @param message
+    *           error message
     */
    public OrderException(String message)
    {

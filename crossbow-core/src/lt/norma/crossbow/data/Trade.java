@@ -51,10 +51,14 @@ public class Trade
    /**
     * Constructor.
     * 
-    * @param contract contract specification
-    * @param price price of the trade
-    * @param size size of the trade
-    * @param time time of the trade
+    * @param contract
+    *           contract specification
+    * @param price
+    *           price of the trade
+    * @param size
+    *           size of the trade
+    * @param time
+    *           time of the trade
     */
    public Trade(Contract contract, BigDecimal price, int size, DateTime time)
    {

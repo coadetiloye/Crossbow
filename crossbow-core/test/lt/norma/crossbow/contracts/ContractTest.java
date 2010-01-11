@@ -38,7 +38,8 @@ public class ContractTest
    /**
     * Test constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test
    public void testConstructor() throws ContractException
@@ -52,7 +53,8 @@ public class ContractTest
    /**
     * Test constructor ContractException in constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test(expected = ContractException.class)
    public void testConstructorException1() throws ContractException
@@ -63,7 +65,8 @@ public class ContractTest
    /**
     * Test constructor ContractException in constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test(expected = ContractException.class)
    public void testConstructorException2() throws ContractException
@@ -74,7 +77,8 @@ public class ContractTest
    /**
     * Test constructor ContractException in constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test(expected = ContractException.class)
    public void testConstructorException3() throws ContractException
@@ -85,7 +89,8 @@ public class ContractTest
    /**
     * Test constructor ContractException in constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test(expected = ContractException.class)
    public void testConstructorException4() throws ContractException
@@ -96,7 +101,8 @@ public class ContractTest
    /**
     * Test constructor ContractException in constructor.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test(expected = ContractException.class)
    public void testConstructorException5() throws ContractException
@@ -107,7 +113,8 @@ public class ContractTest
    /**
     * Test of toString method, of class Contract.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test
    public void testToString() throws ContractException
@@ -119,7 +126,8 @@ public class ContractTest
    /**
     * Test of equals method, of class Contract. Other cases are tested in testCompareTo.
     * 
-    * @throws ContractException contract is invalid
+    * @throws ContractException
+    *            contract is invalid
     */
    @Test
    public void testEquals() throws ContractException

@@ -33,15 +33,21 @@ public class FuturesContract extends DerivativesContract
    /**
     * Constructor.
     * 
-    * @param symbol symbol of an underlying asset
-    * @param maturityDate expiration date of a derivatives contract
-    * @param exchange exchange of the contract
-    * @param currency base currency of the contract
-    * @param multiplier price multiplier
-    * @throws ContractException throws an exception if invalid contract details are specified
+    * @param symbol
+    *           symbol of an underlying asset
+    * @param maturityDate
+    *           expiration date of a derivatives contract
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @param multiplier
+    *           price multiplier
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
     */
    public FuturesContract(String symbol, DateMidnight maturityDate, Exchange exchange,
-                          Currency currency, BigDecimal multiplier) throws ContractException
+         Currency currency, BigDecimal multiplier) throws ContractException
    {
       super(symbol, "FUTURES", maturityDate, exchange, currency, multiplier);
    }

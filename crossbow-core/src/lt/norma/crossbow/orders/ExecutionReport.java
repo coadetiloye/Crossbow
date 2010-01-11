@@ -40,7 +40,8 @@ public class ExecutionReport
    /**
     * Constructor.
     * 
-    * @param order executed order
+    * @param order
+    *           executed order
     */
    public ExecutionReport(Order order)
    {
@@ -51,7 +52,8 @@ public class ExecutionReport
    /**
     * Adds a new filled block of the order.
     * 
-    * @param block filled block
+    * @param block
+    *           filled block
     */
    public void addFilledBlock(FilledBlock block)
    {
@@ -86,7 +88,7 @@ public class ExecutionReport
          totalValue = totalValue.add(block.calculateValue());
       }
       return totalValue.divide(new BigDecimal(calculateTotalSize()), StaticSettings.pricePrecision,
-                               RoundingMode.HALF_UP);
+            RoundingMode.HALF_UP);
    }
    
    /**

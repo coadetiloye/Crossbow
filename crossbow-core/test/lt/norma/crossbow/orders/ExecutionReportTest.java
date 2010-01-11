@@ -135,7 +135,7 @@ public class ExecutionReportTest
       
       BigDecimal correct =
             (new BigDecimal("1100")).divide(new BigDecimal(3), StaticSettings.pricePrecision,
-                                            RoundingMode.HALF_UP);
+            RoundingMode.HALF_UP);
       
       assertTrue(correct.compareTo(r.calculateAveragePrice()) == 0);
    }

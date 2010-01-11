@@ -29,10 +29,14 @@ public class StockContract extends Contract
    /**
     * Constructor.
     * 
-    * @param symbol symbol of an underlying asset
-    * @param exchange exchange of the contract
-    * @param currency base currency of the contract
-    * @throws ContractException throws an exception if invalid contract details are specified
+    * @param symbol
+    *           symbol of an underlying asset
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
     */
    public StockContract(String symbol, Exchange exchange, Currency currency)
          throws ContractException

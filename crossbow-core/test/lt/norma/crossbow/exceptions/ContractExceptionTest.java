@@ -57,7 +57,7 @@ public class ContractExceptionTest
       ContractException ce = new ContractException(c, "Test exception.", cause);
       assertEquals(c, ce.getContract());
       assertEquals(new StockContract("MSFT", Exchange.createNyse(), Currency.createEur()),
-                   ce.getContract());
+            ce.getContract());
       assertEquals(cause, ce.getCause());
       assertEquals("Contract MSFT is invalid. Test exception.", ce.getMessage());
       ContractException ce2 = new ContractException(null, "Test exception.", cause);

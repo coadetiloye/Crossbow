@@ -68,7 +68,7 @@ public class TradeTest
       Trade t = new Trade(s, new BigDecimal("8.05"), 500, time);
       
       assertEquals(new StockContract("B", Exchange.createNasdaq(), Currency.createEur()),
-                   t.getContract());
+            t.getContract());
       assertTrue(t.getPrice().compareTo(new BigDecimal("8.0500")) == 0);
       assertEquals(500, t.getSize());
       assertEquals(time, t.getTime());

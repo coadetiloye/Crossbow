@@ -68,7 +68,7 @@ public class QuoteTest
       Quote q = new Quote(s, new BigDecimal("8.05"), 500, new BigDecimal("7.0"), 800, t);
       
       assertEquals(new StockContract("B", Exchange.createNasdaq(), Currency.createEur()),
-                   q.getContract());
+            q.getContract());
       assertTrue(q.getAskPrice().compareTo(new BigDecimal("8.0500")) == 0);
       assertEquals(500, q.getAskSize());
       assertTrue(q.getBidPrice().compareTo(new BigDecimal("7")) == 0);

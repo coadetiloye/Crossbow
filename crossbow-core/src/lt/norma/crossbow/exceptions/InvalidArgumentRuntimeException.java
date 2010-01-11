@@ -32,15 +32,19 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
    /**
     * Constructor.
     * 
-    * @param argumentName name of the argument, null value converted to a string "null"
-    * @param argumentValue value of the argument that caused the exception, may be null. If the
+    * @param argumentName
+    *           name of the argument, null value converted to a string "null"
+    * @param argumentValue
+    *           value of the argument that caused the exception, may be null. If the
     *           object does not have a toString method, pass a string representation of the value.
-    * @param message exception message. Use this field to explain why the value of passed argument
+    * @param message
+    *           exception message. Use this field to explain why the value of passed argument
     *           in not valid.
-    * @param cause an exception that caused this invalid argument exception, may be null.
+    * @param cause
+    *           an exception that caused this invalid argument exception, may be null.
     */
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue,
-                                          String message, Throwable cause)
+         String message, Throwable cause)
    {
       super("Invalid argument " + argumentName + "=" + String.valueOf(argumentValue) + ". "
             + message, cause);
@@ -53,10 +57,13 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
     * <p>
     * Do not use this constructor when a causing exception exists.
     * 
-    * @param argumentName name of the argument, null value converted to a string "null"
-    * @param argumentValue value of the argument that caused the exception, may be null. If the
+    * @param argumentName
+    *           name of the argument, null value converted to a string "null"
+    * @param argumentValue
+    *           value of the argument that caused the exception, may be null. If the
     *           object does not have a toString method, pass a string representation of the value.
-    * @param message exception message. Use this field to explain why the value of passed argument
+    * @param message
+    *           exception message. Use this field to explain why the value of passed argument
     *           in not valid.
     */
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue, String message)
@@ -74,8 +81,10 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
     * problem. For example, this exception may be used when unexpected null value is received.
     * However in most cases an explanation of the exception should be specified.
     * 
-    * @param argumentName name of the argument, null value converted to a string "null"
-    * @param argumentValue value of the argument that caused the exception, may be null. If the
+    * @param argumentName
+    *           name of the argument, null value converted to a string "null"
+    * @param argumentValue
+    *           value of the argument that caused the exception, may be null. If the
     *           object does not have a toString method, pass a string representation of the value.
     */
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue)

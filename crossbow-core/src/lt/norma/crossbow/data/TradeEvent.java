@@ -32,8 +32,10 @@ public class TradeEvent extends EventObject
    /**
     * Constructor.
     * 
-    * @param source event sender
-    * @param trade trade data
+    * @param source
+    *           event sender
+    * @param trade
+    *           trade data
     */
    public TradeEvent(Object source, Trade trade)
    {
