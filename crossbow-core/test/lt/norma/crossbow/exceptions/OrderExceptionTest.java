@@ -47,7 +47,7 @@ public class OrderExceptionTest
     */
    public OrderExceptionTest() throws ContractException, OrderException
    {
-      c = new StockContract("MSFT", Exchange.createNyseExchange(), Currency.createEur());
+      c = new StockContract("MSFT", Exchange.createNyse(), Currency.createEur());
       o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
    }
    

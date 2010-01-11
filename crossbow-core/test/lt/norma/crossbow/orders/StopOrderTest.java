@@ -47,7 +47,7 @@ public class StopOrderTest
    public void testCreation() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       StopOrder o = new StopOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("-5"));
       

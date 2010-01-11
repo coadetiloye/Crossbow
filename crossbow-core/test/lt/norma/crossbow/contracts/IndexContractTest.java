@@ -17,13 +17,9 @@
 
 package lt.norma.crossbow.contracts;
 
-import lt.norma.crossbow.contracts.Currency;
-import lt.norma.crossbow.contracts.Exchange;
-import lt.norma.crossbow.contracts.IndexContract;
-import lt.norma.crossbow.exceptions.ContractException;
-
-import org.junit.Test;
 import static org.junit.Assert.*;
+import lt.norma.crossbow.exceptions.ContractException;
+import org.junit.Test;
 
 /**
  * Test IndexContract class.
@@ -41,10 +37,29 @@ public class IndexContractTest
    public void testCreation() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       IndexContract c = new IndexContract("ABC", exchange, currency);
       
       assertEquals("INDEX", c.type);
+   }
+   
+   /**
+    * Test of equals method, of class IndexContract.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testEquals() throws ContractException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      IndexContract c1 = new IndexContract("KKK", exchange, currency);
+      IndexContract c2 = new IndexContract("KKK", exchange, currency);
+      IndexContract c3 = new IndexContract("MMM", exchange, currency);
+      
+      assertTrue(c1.equals(c1));
+      assertTrue(c1.equals(c2));
+      assertFalse(c1.equals(c3));
    }
    
    /**
@@ -56,7 +71,7 @@ public class IndexContractTest
    public void testToString() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       IndexContract c = new IndexContract("ABC", exchange, currency);
       
       assertEquals("$ABC", c.toString());

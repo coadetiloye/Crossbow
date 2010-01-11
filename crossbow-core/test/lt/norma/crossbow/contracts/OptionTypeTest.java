@@ -15,37 +15,29 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.orders;
+package lt.norma.crossbow.contracts;
 
-import static org.junit.Assert.assertEquals;
-import lt.norma.crossbow.contracts.Currency;
-import lt.norma.crossbow.contracts.Exchange;
-import lt.norma.crossbow.contracts.StockContract;
-import lt.norma.crossbow.exceptions.ContractException;
-import lt.norma.crossbow.exceptions.OrderException;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 /**
- * Test MarketOrderTest class.
+ * Test OptionType enumeration.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class MarketOrderTest
+public class OptionTypeTest
 {
    /**
-    * Test the constructor.
     * 
-    * @throws ContractException
-    * @throws OrderException
     */
    @Test
-   public void testCreation() throws ContractException, OrderException
+   public void testValues()
    {
-      Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaq();
-      StockContract c = new StockContract("ABC", exchange, currency);
-      MarketOrder o = new MarketOrder(0, c, OrderDirection.BUY, 500);
-      assertEquals("market", o.getType());
+      assertEquals(2, OptionType.values().length);
+      assertEquals("CALL", OptionType.values()[0].toString());
+      assertEquals("PUT", OptionType.values()[1].toString());      
+      assertEquals(OptionType.CALL, OptionType.valueOf("CALL"));      
+      assertEquals(OptionType.PUT, OptionType.valueOf("PUT"));      
    }
 }

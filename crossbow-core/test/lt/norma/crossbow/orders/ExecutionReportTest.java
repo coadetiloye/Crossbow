@@ -53,7 +53,7 @@ public class ExecutionReportTest
    public void testCreation() throws OrderException, ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       
@@ -72,7 +72,7 @@ public class ExecutionReportTest
    public void testAddFilledPart() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       FilledBlock b1 = new FilledBlock(100, new BigDecimal("550.27"), new DateTime());
@@ -98,7 +98,7 @@ public class ExecutionReportTest
    public void testCalculateTotalSize() throws OrderException, ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       ExecutionReport r = new ExecutionReport(o);
@@ -122,7 +122,7 @@ public class ExecutionReportTest
    public void testCalculateAveragePrice() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       ExecutionReport r = new ExecutionReport(o);

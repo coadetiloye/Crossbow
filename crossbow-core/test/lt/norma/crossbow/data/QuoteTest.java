@@ -51,7 +51,7 @@ public class QuoteTest
     */
    public QuoteTest() throws ContractException
    {
-      e = Exchange.createNasdaqExchange();
+      e = Exchange.createNasdaq();
       c = Currency.createEur();
       s = new StockContract("B", e, c);
       t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
@@ -67,7 +67,7 @@ public class QuoteTest
    {
       Quote q = new Quote(s, new BigDecimal("8.05"), 500, new BigDecimal("7.0"), 800, t);
       
-      assertEquals(new StockContract("B", Exchange.createNasdaqExchange(), Currency.createEur()),
+      assertEquals(new StockContract("B", Exchange.createNasdaq(), Currency.createEur()),
                    q.getContract());
       assertTrue(q.getAskPrice().compareTo(new BigDecimal("8.0500")) == 0);
       assertEquals(500, q.getAskSize());

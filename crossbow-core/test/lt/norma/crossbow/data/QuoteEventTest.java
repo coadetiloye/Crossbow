@@ -21,8 +21,6 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
-import javax.xml.transform.Source;
-
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.contracts.Currency;
 import lt.norma.crossbow.contracts.Exchange;
@@ -51,7 +49,7 @@ public class QuoteEventTest
     */
    public QuoteEventTest() throws ContractException
    {
-      e = Exchange.createNasdaqExchange();
+      e = Exchange.createNasdaq();
       c = Currency.createEur();
       s = new StockContract("B", e, c);
       t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));

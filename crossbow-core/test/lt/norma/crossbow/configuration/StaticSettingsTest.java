@@ -17,6 +17,8 @@
 
 package lt.norma.crossbow.configuration;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 
 import lt.norma.crossbow.configuration.StaticSettings;
@@ -93,5 +95,25 @@ public class StaticSettingsTest
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_DOWN
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_EVEN
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_UP);
+   }
+   
+   /**
+    * Please Emma test coverage :)
+    * 
+    * @throws SecurityException
+    * @throws NoSuchMethodException
+    * @throws InvocationTargetException
+    * @throws IllegalAccessException
+    * @throws InstantiationException
+    * @throws IllegalArgumentException
+    */
+   @Test
+   public void testPleaseEmma() throws SecurityException, NoSuchMethodException,
+         IllegalArgumentException, InstantiationException, IllegalAccessException,
+         InvocationTargetException
+   {
+      Constructor<StaticSettings> c = StaticSettings.class.getDeclaredConstructor();
+      c.setAccessible(true);
+      c.newInstance();
    }
 }

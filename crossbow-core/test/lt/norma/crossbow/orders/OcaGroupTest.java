@@ -57,7 +57,7 @@ public class OcaGroupTest
    public void testAddOrder() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       Order o1 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       Order o2 = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);

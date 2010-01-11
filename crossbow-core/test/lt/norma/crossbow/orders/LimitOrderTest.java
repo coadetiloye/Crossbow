@@ -47,7 +47,7 @@ public class LimitOrderTest
    public void testCreation() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       LimitOrder o = new LimitOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("15.01"));
       

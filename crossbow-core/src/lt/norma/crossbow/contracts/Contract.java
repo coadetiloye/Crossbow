@@ -24,19 +24,19 @@ import lt.norma.crossbow.exceptions.ContractException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class Contract implements Comparable<Contract>
+public abstract class Contract
 {
    /** Contract symbol. */
-   protected String symbol;
+   protected final String symbol;
    /**
     * Type of this contract. Used only to provide human readable type of the contract. Internally
     * contract types are identified by class.
     */
    protected final String type;
    /** Exchange, where the contract is listed. */
-   protected Exchange exchange;
+   protected final Exchange exchange;
    /** Contract`s base currency. */
-   protected Currency currency;
+   protected final Currency currency;
    
    /**
     * Constructor.
@@ -94,81 +94,64 @@ public abstract class Contract implements Comparable<Contract>
    @Override
    public final int hashCode()
    {
-      return symbol.hashCode() * 31 + type.hashCode();
+      return symbol.hashCode() * 31 + getClass().hashCode();
    }
    
    /**
-    * Checks if a specified contract is equal to this contract.
+    * Checks if specified contract is equal to this contract.
     * <p>
-    * <code>equals</code> method is final and cannot be overr idden, however it uses
-    * <code>compareTo</code> to check if two contracts are equal (when types of both contracts match
-    * and this contract is not compared to <code>null</code> or itself). Override
-    * <code>compareTo</code> method to create custom comparison of contracts.
+    * <code>equals(Object)</code> method is final and cannot be overridden, however it uses abstract
+    * <code>equals(Contract)</code> method to check if two custom contracts are equal. It is
+    * essential to implement <code>equals(Contract)</code> method for proper comparison of custom
+    * contract classes. Fields of the base class (<code>symbol</code>, <code>exchange</code> and
+    * <code>currency</code>) are compared before calling the abstract <code>equals(Contract)</code>,
+    * therefore there is no need to compare these fields again in child classes.
+    * <p>
+    * Field <code>type</code> is not used in comparison, contracts are compared by class instead.
+    * Contracts with different classes cannot be equal.
     * 
-    * @param object contract
-    * @return true if the specified contract is equal to this contract, false otherwise
+    * @param object a contract to be compared to this contract
+    * @return true if specified contract is equal to this contract, false otherwise
+    * @see #equals(Contract)
     */
    @Override
    public final boolean equals(Object object)
    {
-      if (object == null || !object.getClass().equals(this.getClass()))
+      if (object == null || !getClass().equals(object.getClass()))
       {
          return false;
       }
-      Contract contract = (Contract) object;
-      if (contract == this)
+      if (object == this)
       {
          return true;
       }
       else
       {
-         return this.compareTo(contract) == 0;
+         Contract contract = (Contract) object;
+         return symbol.equals(contract.symbol)
+                && exchange.equals(contract.exchange)
+                && currency.equals(contract.currency)
+                && contractEquals(contract);
       }
    }
    
    /**
-    * Compares a specified contract to this contract.
+    * Checks if specified contract is equal to this contract. It is essential to implement
+    * <code>contractEquals</code> method for proper comparison of custom contract classes.
     * <p>
-    * Override this method to implement comparison of custom contract types.
+    * Fields of the base class (<code>symbol</code>, <code>exchange</code> and <code>currency</code>
+    * ) are compared before calling the abstract <code>equals(Contract)</code>, therefore there is
+    * no need to compare these fields again in child classes.
+    * <p>
+    * Field <code>type</code> is not used in comparison, contracts are compared by class instead.
+    * Contracts with different classes cannot be equal. Child class can safely cast the specified
+    * contract to it's own class.
     * 
     * @param contract a contract to be compared to this contract
-    * @return 0 if both contracts are the same;<br>
-    *         a negative integer if this contract is "less" than the other contract;<br>
-    *         a positive integer if this contract is "greater";
+    * @return true if specified contract is equal to this contract, false otherwise
+    * @see #equals(Object)
     */
-   @Override
-   public int compareTo(Contract contract)
-   {
-      // The same contract
-      if (this == contract)
-      {
-         return 0;
-      }
-      else
-      {
-         int k;
-         // Compare types
-         k = type.compareTo(contract.type);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare symbols
-         k = symbol.compareTo(contract.symbol);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare exchanges
-         k = exchange.getName().compareTo(contract.exchange.getName());
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare currencies
-         return currency.compareTo(contract.currency);
-      }
-   }
+   protected abstract boolean contractEquals(Contract contract);
    
    /**
     * Get symbol.

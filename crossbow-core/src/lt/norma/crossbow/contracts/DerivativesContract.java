@@ -48,16 +48,23 @@ public abstract class DerivativesContract extends Contract
    /**
     * Constructor.
     * 
-    * @param symbol symbol of an underlying asset
-    * @param type type of the contract
-    * @param maturityDate expiration date of a derivatives contract
-    * @param exchange exchange of the contract
-    * @param currency base currency of the contract
-    * @param multiplier price multiplier
-    * @throws ContractException throws an exception if invalid contract details are specified
+    * @param symbol
+    *           symbol of an underlying asset
+    * @param type
+    *           human readable type of the contract, not used for comparison
+    * @param maturityDate
+    *           expiration date of a derivatives contract
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @param multiplier
+    *           price multiplier
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
     */
    public DerivativesContract(String symbol, String type, DateMidnight maturityDate,
-                              Exchange exchange, Currency currency, BigDecimal multiplier)
+         Exchange exchange, Currency currency, BigDecimal multiplier)
          throws ContractException
    {
       super(symbol, type, exchange, currency);
@@ -67,26 +74,34 @@ public abstract class DerivativesContract extends Contract
    /**
     * Constructor. Sets underlying contract.
     * 
-    * @param symbol symbol of an underlying asset
-    * @param type type of the contract
-    * @param maturityDate expiration date of a derivatives contract
-    * @param exchange exchange of the contract
-    * @param currency base currency of the contract
-    * @param multiplier price multiplier
-    * @param underlyingContract underlying contract
-    * @throws ContractException throws an exception if invalid contract details are specified
+    * @param symbol
+    *           symbol of an underlying asset
+    * @param type
+    *           type of the contract
+    * @param maturityDate
+    *           expiration date of a derivatives contract
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @param multiplier
+    *           price multiplier
+    * @param underlyingContract
+    *           underlying contract
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
     */
    public DerivativesContract(String symbol, String type, DateMidnight maturityDate,
-                              Exchange exchange, Currency currency, BigDecimal multiplier,
-                              Contract underlyingContract) throws ContractException
+         Exchange exchange, Currency currency, BigDecimal multiplier,
+         Contract underlyingContract) throws ContractException
    {
       super(symbol, type, exchange, currency);
       createDerivativesContract(symbol, maturityDate, exchange, multiplier, underlyingContract);
    }
    
    private void createDerivativesContract(String symbol, DateMidnight maturityDate,
-                                          Exchange exchange, BigDecimal multiplier,
-                                          Contract underlyingContract) throws ContractException
+         Exchange exchange, BigDecimal multiplier,
+         Contract underlyingContract) throws ContractException
    {
       if (maturityDate == null)
       {
@@ -109,9 +124,11 @@ public abstract class DerivativesContract extends Contract
     * Calculates years to contracts maturity. Assumes an average year of 365.25 days, or 31557600000
     * milliseconds.
     * 
-    * @param now current date
+    * @param now
+    *           current date
     * @return years to option's maturity
-    * @throws ContractException throws an exception if the contract has expired
+    * @throws ContractException
+    *            throws an exception if the contract has expired
     */
    public double yearsToMaturity(DateMidnight now) throws ContractException
    {
@@ -124,6 +141,41 @@ public abstract class DerivativesContract extends Contract
       
       return (maturityDate.getMillis() - now.getMillis()) / 31557600000.0;
    }
+   
+   @Override
+   protected final boolean contractEquals(Contract contract)
+   {
+      DerivativesContract derivative = (DerivativesContract) contract;
+      return maturityDate.equals(derivative.maturityDate)
+             && multiplier.compareTo(derivative.multiplier) == 0
+             && (underlyingContract == null && derivative.underlyingContract == null
+             || underlyingContract != null && derivative.underlyingContract != null
+                && underlyingContract.equals(derivative.underlyingContract))
+             && derivativeEquals(derivative);
+   }
+   
+   /**
+    * Checks if specified derivatives contract is equal to this contract. It is essential to
+    * implement <code>derivativeEquals</code> method for proper comparison of custom
+    * derivatives contract classes.
+    * <p>
+    * Fields of the base classes (<code>symbol</code>, <code>exchange</code> and
+    * <code>currency</code> from <code>Contract</code> class and <code>maturityDate</code>,
+    * <code>multiplier</code> and <code>underlyingContract</code> from
+    * <code>DerivativesContract</code>) are compared before calling the abstract
+    * <code>derivativeEquals</code>, therefore there is no need to compare these fields again in
+    * child classes.
+    * <p>
+    * Field <code>type</code> is not used in comparison, contracts are compared by class instead.
+    * Contracts with different classes cannot be equal. Child class can safely cast the specified
+    * contract to it's own class.
+    * 
+    * @param derivative
+    *           a derivatives contract to be compared to this contract
+    * @return true if specified derivatives contract is equal to this contract, false otherwise
+    * @see #equals(Contract)
+    */
+   protected abstract boolean derivativeEquals(DerivativesContract derivative);
    
    /**
     * Get maturity date.

@@ -50,7 +50,7 @@ public class QuoteProviderTest
     */
    public QuoteProviderTest() throws ContractException
    {
-      e = Exchange.createNasdaqExchange();
+      e = Exchange.createNasdaq();
       c = Currency.createEur();
       s = new StockContract("B", e, c);
       t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));

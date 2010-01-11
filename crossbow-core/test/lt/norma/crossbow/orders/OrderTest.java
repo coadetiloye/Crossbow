@@ -48,7 +48,7 @@ public class OrderTest
    public void testCreation() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals(55, o.getId());
@@ -85,7 +85,7 @@ public class OrderTest
    public void testCreation2() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       new DummyOrder(55, c, null, OrderDirection.SELL, 800);
    }
@@ -100,7 +100,7 @@ public class OrderTest
    public void testCreation3() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       new DummyOrder(55, c, "", OrderDirection.SELL, 800);
    }
@@ -115,7 +115,7 @@ public class OrderTest
    public void testCreation4() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       new DummyOrder(55, c, "MYORDER", null, 800);
    }
@@ -130,7 +130,7 @@ public class OrderTest
    public void testCreation5() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 0);
    }
@@ -145,7 +145,7 @@ public class OrderTest
    public void testToString() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals("new MYORDER order to sell 800 of 'ABC'", o.toString());
@@ -161,7 +161,7 @@ public class OrderTest
    public void testSetComment() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals("", o.getComment());
@@ -179,7 +179,7 @@ public class OrderTest
    public void testGetSetSubmitTime() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertNull(o.getSubmitTime());
@@ -197,7 +197,7 @@ public class OrderTest
    public void testSetStatus() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals(OrderStatus.NEW, o.getStatus());

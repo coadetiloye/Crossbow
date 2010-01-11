@@ -41,10 +41,29 @@ public class StockContractTest
    public void testCreation() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       
       assertEquals("STOCK", c.type);
+   }
+   
+   /**
+    * Test of equals method, of class StockContract.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testEquals() throws ContractException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      Contract c1 = new StockContract("KKK", exchange, currency);
+      Contract c2 = new StockContract("KKK", exchange, currency);
+      Contract c3 = new StockContract("MMM", exchange, currency);
+      
+      assertTrue(c1.equals(c1));
+      assertTrue(c1.equals(c2));
+      assertFalse(c1.equals(c3));
    }
    
    /**
@@ -56,7 +75,7 @@ public class StockContractTest
    public void testToString() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       
       assertEquals("ABC", c.toString());

@@ -46,6 +46,14 @@ public class FuturesContract extends DerivativesContract
       super(symbol, "FUTURES", maturityDate, exchange, currency, multiplier);
    }
    
+   @Override
+   protected boolean derivativeEquals(DerivativesContract derivative)
+   {
+      // Futures contract has no fields to compare. All fields have already been compared by the
+      // parent classes.
+      return true;
+   }
+   
    /**
     * Returns futures contract formated as "Symbol MaturityDate" string.
     * 
@@ -55,65 +63,5 @@ public class FuturesContract extends DerivativesContract
    public String toString()
    {
       return symbol + " " + maturityDate.toString(dateFormatter);
-   }
-   
-   @Override
-   public int compareTo(Contract contract)
-   {
-      // The same contract
-      if (this == contract)
-      {
-         return 0;
-      }
-      else
-      {
-         int k;
-         // Compare types
-         k = type.compareTo(contract.type);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare symbols
-         k = symbol.compareTo(contract.symbol);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare formated maturity dates
-         if (contract instanceof DerivativesContract)
-         {
-            DerivativesContract derivative = (DerivativesContract) contract;
-            k =
-                  maturityDate.toString(dateFormatter).compareTo(
-                                                                 derivative.maturityDate.toString(dateFormatter));
-            if (k != 0)
-            {
-               return k;
-            }
-         }
-         // Compare exchanges
-         k = exchange.compareTo(contract.exchange);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare currencies
-         k = currency.compareTo(contract.currency);
-         if (k != 0)
-         {
-            return k;
-         }
-         // Compare multipliers
-         if (contract instanceof DerivativesContract)
-         {
-            return multiplier.compareTo(((DerivativesContract) contract).multiplier);
-         }
-         else
-         {
-            // Contracts are equal
-            return 0;
-         }
-      }
    }
 }

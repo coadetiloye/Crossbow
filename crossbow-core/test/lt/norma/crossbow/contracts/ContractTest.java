@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class ContractTest
 {
-   private Exchange exchange = Exchange.createNasdaqExchange();
+   private Exchange exchange = Exchange.createNasdaq();
    private Currency currency = Currency.createUsd();
    
    /**
@@ -46,7 +46,7 @@ public class ContractTest
       Contract contract = new MockContract("AAA", "STOCK", exchange, currency);
       assertEquals("AAA", contract.getSymbol());
       assertEquals("STOCK", contract.getType());
-      assertEquals(Exchange.createNasdaqExchange(), contract.getExchange());
+      assertEquals(Exchange.createNasdaq(), contract.getExchange());
    }
    
    /**
@@ -124,41 +124,28 @@ public class ContractTest
    @Test
    public void testEquals() throws ContractException
    {
-      Contract contract = new MockContract("AAA", "STOCK", exchange, currency);
+      Contract contract1 = new MockContract("AAA", "STOCK", exchange, currency);
       Contract contract2 = new MockContract("AAA", "STOCK", exchange, currency);
-      Contract contract3 = new MockContract("AA", "STOCK", exchange, currency);
+      Contract contract3 = new MockContract("B", "STOCK", exchange, currency);
       Contract contract4 = new MockContract("AAA", "FOREX", exchange, currency);
       Contract contract5 =
-            new MockContract("AAA", "STOCK", Exchange.createNyseExchange(), currency);
+            new MockContract("AAA", "STOCK", Exchange.createNyse(), currency);
+      Contract contract6 = new MockContract2("AAA", "STOCK", exchange, currency);
+      Contract contract7 = new MockContract("AAA", "STOCK", exchange, Currency.createGbp());
       
-      assertEquals(contract, contract);
-      assertEquals(contract.hashCode(), contract.hashCode());
-      assertEquals(contract, contract2);
-      assertEquals(contract.hashCode(), contract2.hashCode());
-      assertFalse(contract.equals(contract3));
-      assertFalse(contract.equals(contract4));
-      assertFalse(contract.equals(contract5));
-      assertFalse(contract.equals(new Object()));
-      assertFalse(contract.equals(null));
-   }
-   
-   /**
-    * Test of compareTo method, of class Contract.
-    * 
-    * @throws ContractException contract is invalid
-    */
-   @Test
-   public void testCompareTo() throws ContractException
-   {
-      Contract contract = new MockContract("AAA", "STOCK", exchange, currency);
-      Contract contract2 = new MockContract("AAA", "STOCK", exchange, currency);
-      Contract contract3 = new MockContract("AAA", "FUTURES", exchange, currency);
-      Contract contract4 = new MockContract("BBB", "STOCK", exchange, currency);
+      assertTrue(contract1.equals(contract1)); // Equals to itself.
+      assertEquals(contract1.hashCode(), contract1.hashCode());
+      assertTrue(contract1.equals(contract2)); // Equals to contract with the same fields.
+      assertEquals(contract1.hashCode(), contract2.hashCode());
+      assertTrue(contract1.equals(contract4)); // Type is not used for comparison.
+      assertEquals(contract1.hashCode(), contract2.hashCode());
       
-      assertEquals(0, contract.compareTo(contract));
-      assertEquals(0, contract.compareTo(contract2));
-      assertTrue(contract.compareTo(contract3) > 0);
-      assertTrue(contract.compareTo(contract4) < 0);
+      assertFalse(contract1.equals(contract3));
+      assertFalse(contract1.equals(contract5));
+      assertFalse(contract1.equals(contract6)); // Classes are different.
+      assertFalse(contract1.equals(contract7));
+      assertFalse(contract1.equals(new Object()));
+      assertFalse(contract1.equals(null));
    }
    
    /**
@@ -171,6 +158,29 @@ public class ContractTest
       {
          super(symbol, type, exchange, currency);
       }
+      
+      @Override
+      public boolean contractEquals(Contract contract)
+      {
+         return true;
+      }
    }
    
+   /**
+    * Mock contract class.
+    */
+   private class MockContract2 extends Contract
+   {
+      public MockContract2(String symbol, String type, Exchange exchange, Currency currency)
+            throws ContractException
+      {
+         super(symbol, type, exchange, currency);
+      }
+      
+      @Override
+      public boolean contractEquals(Contract contract)
+      {
+         return true;
+      }
+   }
 }

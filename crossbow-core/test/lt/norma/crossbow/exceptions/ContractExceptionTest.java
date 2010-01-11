@@ -42,7 +42,7 @@ public class ContractExceptionTest
     */
    public ContractExceptionTest() throws ContractException
    {
-      c = new StockContract("MSFT", Exchange.createNyseExchange(), Currency.createEur());
+      c = new StockContract("MSFT", Exchange.createNyse(), Currency.createEur());
    }
    
    /**
@@ -56,7 +56,7 @@ public class ContractExceptionTest
       Exception cause = new Exception("AAA");
       ContractException ce = new ContractException(c, "Test exception.", cause);
       assertEquals(c, ce.getContract());
-      assertEquals(new StockContract("MSFT", Exchange.createNyseExchange(), Currency.createEur()),
+      assertEquals(new StockContract("MSFT", Exchange.createNyse(), Currency.createEur()),
                    ce.getContract());
       assertEquals(cause, ce.getCause());
       assertEquals("Contract MSFT is invalid. Test exception.", ce.getMessage());

@@ -40,6 +40,14 @@ public class IndexContract extends Contract
       super(symbol, "INDEX", exchange, currency);
    }
    
+   @Override
+   protected boolean contractEquals(Contract contract)
+   {
+      // Index contract has no fields to compare. All fields have already been compared by the
+      // parent class.
+      return true;
+   }
+   
    /**
     * Returns index contract formated as "$Symbol" string.
     * 

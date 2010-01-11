@@ -40,6 +40,14 @@ public class StockContract extends Contract
       super(symbol, "STOCK", exchange, currency);
    }
    
+   @Override
+   protected boolean contractEquals(Contract contract)
+   {
+      // Stock contract has no fields to compare. All fields have already been compared by the
+      // parent class.
+      return true;
+   }
+   
    /**
     * Returns stock symbol.
     * 

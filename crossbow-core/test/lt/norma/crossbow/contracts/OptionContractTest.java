@@ -46,17 +46,39 @@ public class OptionContractTest
    public void testCreation() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       OptionContract c =
             new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
+            exchange, currency, new BigDecimal("100"));
       assertEquals("OPTION", c.type);
       assertEquals(OptionType.CALL, c.getOptionType());
       assertTrue(c.isCall());
       assertFalse(c.isPut());
       assertEquals(new BigDecimal("8.05"), c.getStrike());
+      
+      OptionContract c2 =
+            new OptionContract("S", OptionType.PUT, new BigDecimal("8.05"), maturityDate,
+            exchange, currency, new BigDecimal("100"));
+      assertTrue(c2.isPut());
+      assertFalse(c2.isCall());
+   }
+   
+   /**
+    * Test the constructor.
+    * 
+    * @throws ContractException
+    */
+   @Test(expected = ContractException.class)
+   public void testCreation2() throws ContractException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      DateMidnight maturityDate =
+            new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
+      new OptionContract("S", OptionType.CALL, new BigDecimal("0"), maturityDate, exchange,
+            currency, new BigDecimal("100"));
    }
    
    /**
@@ -68,73 +90,48 @@ public class OptionContractTest
    public void testToString() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       OptionContract c =
             new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
+            exchange, currency, new BigDecimal("100"));
       
       assertEquals("S CALL 2010-01-01@8.05", c.toString());
    }
    
    /**
-    * Test of compareTo method, of class OptionContract.
+    * Test of equals method, of class OptionContract.
     * 
     * @throws ContractException
     */
    @Test
-   public void testCompareTo() throws ContractException
+   public void testEquals() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       
       OptionContract c1 =
             new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
+            exchange, currency, new BigDecimal("100"));
       OptionContract c2 =
             new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
+            exchange, currency, new BigDecimal("100"));
       OptionContract c3 =
-            new OptionContract("S", OptionType.PUT, new BigDecimal("8.05"), maturityDate, exchange,
-                               currency, new BigDecimal("100"));
+            new OptionContract("S", OptionType.PUT, new BigDecimal("8.05"), maturityDate,
+            exchange, currency, new BigDecimal("100"));
+      OptionContract c4 =
+            new OptionContract("S", OptionType.CALL, new BigDecimal("9.05"), maturityDate,
+            exchange, currency, new BigDecimal("100"));
       
-      assertEquals(c1, c1);
-      assertEquals(c1, c2);
-      assertTrue(c1.compareTo(c2) == 0);
-      assertTrue(c1.compareTo(c3) < 0);
-      assertTrue(c3.compareTo(c1) > 0);
-   }
-   
-   /**
-    * Test of compareTo method, of class OptionContract.
-    * 
-    * @throws ContractException
-    */
-   @Test
-   public void testCompareTo2() throws ContractException
-   {
-      Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
-      DateMidnight maturityDate =
-            new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
+      assertTrue(c1.equals(c1));
+      assertEquals(c1.hashCode(), c1.hashCode());
+      assertTrue(c1.equals(c2));
+      assertEquals(c1.hashCode(), c2.hashCode());
       
-      OptionContract c1 =
-            new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
-      OptionContract c2 =
-            new OptionContract("S", OptionType.CALL, new BigDecimal("8.05"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
-      OptionContract c3 =
-            new OptionContract("S", OptionType.CALL, new BigDecimal("8.06"), maturityDate,
-                               exchange, currency, new BigDecimal("100"));
-      
-      assertEquals(c1, c1);
-      assertEquals(c1, c2);
-      assertTrue(c1.compareTo(c2) == 0);
-      assertTrue(c1.compareTo(c3) < 0);
-      assertTrue(c3.compareTo(c1) > 0);
+      assertFalse(c1.equals(c3));
+      assertFalse(c1.equals(c4));
    }
 }

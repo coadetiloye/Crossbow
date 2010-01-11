@@ -28,43 +28,51 @@ public class ForexContract extends Contract
 {
    private Currency currency1;
    private Currency currency2;
+   // Error messages.
+   private static final String FIRST_CURRENCY_ERROR =
+         "The first currency of a forex contract is not set.";
+   private static final String SECOND_CURRENCY_ERROR =
+         "The second currency of a forex contract is not set.";
+   private static final String EQUAL_CURRENCIES_ERROR =
+         "Currencies of a forex contract are equal.";
    
    /**
     * Constructor.
     * 
-    * @param currency1 code of the first currency
-    * @param currency2 code of the second currency
-    * @param exchange exchange of the contract
-    * @throws ContractException throws an exception if invalid contract details are specified
+    * @param currency1
+    *           code of the first currency
+    * @param currency2
+    *           code of the second currency
+    * @param exchange
+    *           exchange of the contract
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
     */
    public ForexContract(Currency currency1, Currency currency2, Exchange exchange)
          throws ContractException
    {
-      super(getCurrencyCode(currency1, "The first currency of a forex contract is not set."),
-            "FOREX", exchange, currency2);
+      super(checkCurrency(currency1, FIRST_CURRENCY_ERROR).getCode(),
+            "FOREX", exchange,
+            checkCurrency(currency2, SECOND_CURRENCY_ERROR));
       
       // Data control
-      if (currency2 == null)
-      {
-         throw new ContractException("The second currency of a forex contract is not set.");
-      }
       if (currency2.equals(currency1))
       {
-         throw new ContractException("Currencies of a forex contract are equal.");
+         throw new ContractException(EQUAL_CURRENCIES_ERROR);
       }
       
       this.currency1 = currency1;
       this.currency2 = currency2;
    }
    
-   private static String getCurrencyCode(Currency currency, String errorMessage)
+   private static Currency checkCurrency(Currency currency, String errorMessage)
          throws ContractException
    {
       if (currency == null)
       {
          throw new ContractException(errorMessage);
       }
-      return currency.getCode();
+      return currency;
    }
    
    /**
@@ -99,58 +107,10 @@ public class ForexContract extends Contract
    }
    
    @Override
-   public int compareTo(Contract contract)
+   protected boolean contractEquals(Contract contract)
    {
-      // The same contract
-      if (this == contract)
-      {
-         return 0;
-      }
-      else
-      {
-         int k;
-         // Compare types
-         k = type.compareTo(contract.type);
-         if (k != 0)
-         {
-            return k;
-         }
-         
-         if (contract instanceof ForexContract)
-         {
-            ForexContract forexContract = (ForexContract) contract;
-            
-            // Compare the first currency
-            k = currency1.compareTo(forexContract.currency1);
-            if (k != 0)
-            {
-               return k;
-            }
-            // Compare the second currency
-            k = currency2.compareTo(forexContract.currency2);
-            if (k != 0)
-            {
-               return k;
-            }
-         }
-         else
-         {
-            // Compare symbol
-            k = symbol.compareTo(contract.symbol);
-            if (k != 0)
-            {
-               return k;
-            }
-            // Compare the second currency
-            k = currency.compareTo(contract.currency);
-            if (k != 0)
-            {
-               return k;
-            }
-         }
-         
-         // Compare exchanges
-         return exchange.compareTo(contract.exchange);
-      }
+      ForexContract forexContract = (ForexContract) contract;
+      return currency1.equals(forexContract.getCurrency1());
+      // Second currency is compared as currency field of Contract class. 
    }
 }

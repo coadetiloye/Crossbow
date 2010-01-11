@@ -85,7 +85,7 @@ public class Exchange implements Comparable<Exchange>
     * 
     * @return Nasdaq exchange
     */
-   public static Exchange createNasdaqExchange()
+   public static Exchange createNasdaq()
    {
       return new Exchange("Nasdaq", DateTimeZone.forID("America/New_York"),
                           new LocalTime(9, 30, 0), new LocalTime(16, 0, 0));
@@ -96,7 +96,7 @@ public class Exchange implements Comparable<Exchange>
     * 
     * @return Nyse exchange
     */
-   public static Exchange createNyseExchange()
+   public static Exchange createNyse()
    {
       return new Exchange("Nyse", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
                           new LocalTime(16, 0, 0));

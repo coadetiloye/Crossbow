@@ -51,7 +51,7 @@ public class TradeTest
     */
    public TradeTest() throws ContractException
    {
-      e = Exchange.createNasdaqExchange();
+      e = Exchange.createNasdaq();
       c = Currency.createEur();
       s = new StockContract("B", e, c);
       time = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
@@ -67,7 +67,7 @@ public class TradeTest
    {
       Trade t = new Trade(s, new BigDecimal("8.05"), 500, time);
       
-      assertEquals(new StockContract("B", Exchange.createNasdaqExchange(), Currency.createEur()),
+      assertEquals(new StockContract("B", Exchange.createNasdaq(), Currency.createEur()),
                    t.getContract());
       assertTrue(t.getPrice().compareTo(new BigDecimal("8.0500")) == 0);
       assertEquals(500, t.getSize());

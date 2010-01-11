@@ -46,7 +46,7 @@ public class FuturesContractTest
    public void testCreation() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       Contract c =
@@ -63,7 +63,7 @@ public class FuturesContractTest
    public void testToString() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       FuturesContract c =
@@ -73,38 +73,39 @@ public class FuturesContractTest
    }
    
    /**
-    * Test of compareTo method, of class FuturesContract.
+    * Test of equals method, of class FuturesContract.
     * 
     * @throws ContractException
     */
    @Test
-   public void testCompareTo() throws ContractException
+   public void testEquals() throws ContractException
    {
       Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       DateMidnight maturityDate1 =
             new DateMidnight(2010, 1, 1, DateTimeZone.forID("America/New_York"));
       DateMidnight maturityDate3 =
             new DateMidnight(2009, 1, 1, DateTimeZone.forID("America/New_York"));
       DateMidnight maturityDate4 =
             new DateMidnight(2011, 1, 1, DateTimeZone.forID("America/New_York"));
-      FuturesContract c1 =
+      Contract c1 =
             new FuturesContract("S", maturityDate1, exchange, currency, new BigDecimal("100"));
-      FuturesContract c2 =
+      Contract c2 =
             new FuturesContract("S", maturityDate1, exchange, currency, new BigDecimal("100"));
-      FuturesContract c3 =
+      Contract c3 =
             new FuturesContract("S", maturityDate3, exchange, currency, new BigDecimal("100"));
-      FuturesContract c4 =
+      Contract c4 =
             new FuturesContract("S", maturityDate4, exchange, currency, new BigDecimal("100"));
-      FuturesContract c5 =
+      Contract c5 =
             new FuturesContract("S", maturityDate1, exchange, currency, new BigDecimal("101"));
       
-      assertEquals(c1, c1);
-      assertEquals(c1, c2);
-      assertEquals(0, c1.compareTo(c1));
-      assertEquals(0, c1.compareTo(c2));
-      assertTrue(c1.compareTo(c3) > 0);
-      assertTrue(c1.compareTo(c4) < 0);
-      assertTrue(c1.compareTo(c5) < 0);
+      assertTrue(c1.equals(c1));
+      assertEquals(c1.hashCode(), c1.hashCode());
+      assertTrue(c1.equals(c2));
+      assertEquals(c1.hashCode(), c2.hashCode());
+      
+      assertFalse(c1.equals(c3));
+      assertFalse(c1.equals(c4));
+      assertFalse(c1.equals(c5));
    }
 }

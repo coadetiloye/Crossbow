@@ -93,26 +93,26 @@ public class ExchangeTest
    }
    
    /**
-    * Test of createNasdaqExchange method, of class Exchange.
-    */
-   @Test
-   public void testCreateNasdaqExchange()
-   {
-      Exchange exchange = Exchange.createNasdaqExchange();
-      assertEquals("Nasdaq", exchange.getName());
-      assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
-   }
+       * Test of createNasdaqExchange method, of class Exchange.
+       */
+      @Test
+      public void testCreateNasdaq()
+      {
+         Exchange exchange = Exchange.createNasdaq();
+         assertEquals("Nasdaq", exchange.getName());
+         assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
+      }
    
    /**
-    * Test of createNyseExchange method, of class Exchange.
-    */
-   @Test
-   public void testCreateNyseExchange()
-   {
-      Exchange exchange = Exchange.createNyseExchange();
-      assertEquals("Nyse", exchange.getName());
-      assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
-   }
+       * Test of createNyseExchange method, of class Exchange.
+       */
+      @Test
+      public void testCreateNyse()
+      {
+         Exchange exchange = Exchange.createNyse();
+         assertEquals("Nyse", exchange.getName());
+         assertEquals(DateTimeZone.forID("America/New_York"), exchange.getTimeZone());
+      }
    
    /**
     * Test of isTradingHours method, of class Exchange.
@@ -129,9 +129,34 @@ public class ExchangeTest
       assertTrue(exchange.isTradingHours(new LocalTime(9, 30, 1)));
       assertTrue(exchange.isTradingHours(new LocalTime(14, 15, 15)));
       assertTrue(exchange.isTradingHours(new LocalTime(15, 59, 59)));
-      assertFalse(exchange.isTradingHours(new LocalTime(16, 0, 0))); // Not
-      // inclusive.
+      assertFalse(exchange.isTradingHours(new LocalTime(16, 0, 0))); // Not inclusive.
       assertFalse(exchange.isTradingHours(new LocalTime(23, 59, 59)));
+      
+      // Exchange does not close
+      Exchange exchange2 =
+            new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(9, 30, 0),
+                         new LocalTime(0, 0, 0));
+      assertFalse(exchange2.isTradingHours(new LocalTime(0, 0, 0)));
+      assertFalse(exchange2.isTradingHours(new LocalTime(7, 15, 0)));
+      assertTrue(exchange2.isTradingHours(new LocalTime(9, 30, 0))); // Inclusive.
+      assertTrue(exchange2.isTradingHours(new LocalTime(9, 30, 1)));
+      assertTrue(exchange2.isTradingHours(new LocalTime(14, 15, 15)));
+      assertTrue(exchange2.isTradingHours(new LocalTime(15, 59, 59)));
+      assertTrue(exchange2.isTradingHours(new LocalTime(16, 0, 0)));
+      assertTrue(exchange2.isTradingHours(new LocalTime(23, 59, 59)));
+      
+      // Exchange is always open
+      Exchange exchange3 =
+            new Exchange("A", DateTimeZone.forID("America/New_York"), new LocalTime(0, 0, 0),
+                         new LocalTime(0, 0, 0));
+      assertTrue(exchange3.isTradingHours(new LocalTime(0, 0, 0)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(7, 15, 0)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(9, 30, 0))); // Inclusive.
+      assertTrue(exchange3.isTradingHours(new LocalTime(9, 30, 1)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(14, 15, 15)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(15, 59, 59)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(16, 0, 0)));
+      assertTrue(exchange3.isTradingHours(new LocalTime(23, 59, 59)));
    }
    
    /**

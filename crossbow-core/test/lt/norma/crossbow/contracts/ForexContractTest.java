@@ -42,7 +42,7 @@ public class ForexContractTest
    {
       Currency currency1 = Currency.createEur();
       Currency currency2 = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       ForexContract c = new ForexContract(currency1, currency2, exchange);
       
       assertEquals(currency1, c.getCurrency1());
@@ -61,7 +61,7 @@ public class ForexContractTest
    public void testCreation2() throws ContractException
    {
       Currency currency2 = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       new ForexContract(null, currency2, exchange);
    }
    
@@ -74,7 +74,7 @@ public class ForexContractTest
    public void testCreation3() throws ContractException
    {
       Currency currency1 = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       new ForexContract(currency1, null, exchange);
    }
    
@@ -87,7 +87,7 @@ public class ForexContractTest
    public void testCreation4() throws ContractException
    {
       Currency currency1 = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       new ForexContract(currency1, currency1, exchange);
    }
    
@@ -100,7 +100,7 @@ public class ForexContractTest
    public void testCreation5() throws ContractException
    {
       Currency currency1 = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       new ForexContract(currency1, new Currency("JPY"), exchange);
    }
    
@@ -114,34 +114,58 @@ public class ForexContractTest
    {
       Currency currency1 = Currency.createUsd();
       Currency currency2 = Currency.createGbp();
-      Exchange exchange = Exchange.createNasdaqExchange();
+      Exchange exchange = Exchange.createNasdaq();
       ForexContract c = new ForexContract(currency1, currency2, exchange);
       assertEquals("USD/GBP", c.toString());
    }
    
    /**
-    * Test of compareTo method, of class ForexContract.
+    * Test of equals method, of class ForexContract.
     * 
     * @throws ContractException
     */
    @Test
-   public void testCompareTo() throws ContractException
+   public void testEquals() throws ContractException
    {
       Currency currency1 = Currency.createJpy();
       Currency currency2 = Currency.createGbp();
       Currency currency3 = Currency.createEur();
       Currency currency4 = Currency.createUsd();
-      Exchange exchange = Exchange.createNasdaqExchange();
-      ForexContract c1 = new ForexContract(currency1, currency2, exchange);
-      ForexContract c2 = new ForexContract(currency1, currency2, exchange);
-      ForexContract c3 = new ForexContract(currency3, currency2, exchange);
-      ForexContract c4 = new ForexContract(currency1, currency4, exchange);
+      Exchange exchange = Exchange.createNasdaq();
       
-      assertEquals(c1, c1);
-      assertEquals(c1, c2);
-      assertEquals(0, c1.compareTo(c1));
-      assertEquals(0, c1.compareTo(c2));
-      assertTrue(c1.compareTo(c3) > 0);
-      assertTrue(c1.compareTo(c4) < 0);
+      Contract c1 = new ForexContract(currency1, currency2, exchange);
+      Contract c2 = new ForexContract(currency1, currency2, exchange);
+      Contract c3 = new ForexContract(currency3, currency2, exchange);
+      Contract c4 = new ForexContract(currency1, currency4, exchange);
+      Contract s = new MockContract("JPY", "MOCK", exchange, currency2);
+      
+      assertTrue(c1.equals(c1));
+      assertEquals(c1.hashCode(), c1.hashCode());
+      assertTrue(c1.equals(c2));
+      assertEquals(c1.hashCode(), c2.hashCode());
+      assertTrue(c2.equals(c1));
+      
+      assertFalse(c1.equals(c3));
+      assertFalse(c1.equals(c4));
+      assertFalse(c3.equals(c4));
+      assertFalse(c1.equals(s));
+   }
+   
+   /**
+    * Mock contract class.
+    */
+   private class MockContract extends Contract
+   {
+      public MockContract(String symbol, String type, Exchange exchange, Currency currency)
+            throws ContractException
+      {
+         super(symbol, type, exchange, currency);
+      }
+      
+      @Override
+      public boolean contractEquals(Contract contract)
+      {
+         return true;
+      }
    }
 }

@@ -26,11 +26,17 @@ import java.math.BigDecimal;
  */
 public final class StaticSettings
 {
-   /** Date format. */
+   /**
+    * Date format.
+    */
    public static final String dateFormat = "yyyy-MM-dd";
-   /** Time format. */
+   /**
+    * Time format.
+    */
    public static final String timeFormat = "HH:mm:ss";
-   /** Date-time format. */
+   /**
+    * Date-time format.
+    */
    public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
    /**
     * Precision of price calculations. Used for price calculations with <code>BigDecimal</code>
