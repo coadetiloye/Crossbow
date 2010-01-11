@@ -73,7 +73,7 @@ public class Property<Type> implements Comparable<Property<?>>
     */
    public Property(String name, Type value)
    {
-      this(name, value, "");
+      this(name, value, null);
    }
    
    /**

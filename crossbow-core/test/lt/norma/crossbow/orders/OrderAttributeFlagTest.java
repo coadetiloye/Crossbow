@@ -17,34 +17,21 @@
 
 package lt.norma.crossbow.orders;
 
-import lt.norma.crossbow.orders.OrderStatus;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
- * Test OrderStatus enumeration.
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderStatusTest
+public class OrderAttributeFlagTest
 {
    /**
-    * Test of toString method, of class OrderStatus.
+    * 
     */
    @Test
-   public void testToString()
+   public void test()
    {
-      OrderStatus s1 = OrderStatus.PARTIALLY_FILLED;
-      assertEquals("partially filled", s1.toString());
-      assertEquals("partially filled", s1.getTitle());
-      assertEquals("Order is partially filled.", s1.getDescription());
-      assertEquals(OrderStatus.PARTIALLY_FILLED, OrderStatus.valueOf("PARTIALLY_FILLED"));
-      
-      OrderStatus s2 = OrderStatus.CANCELED;
-      assertEquals("canceled", s2.toString());
-      assertEquals("canceled", s2.getTitle());
-      assertEquals("Order is canceled by the executor.", s2.getDescription());
-      assertEquals(OrderStatus.CANCELED, OrderStatus.valueOf("CANCELED"));
+      assertEquals("DESCRIPTIVE", OrderAttributeFlag.DESCRIPTIVE.toString());
+      assertEquals(OrderAttributeFlag.DESCRIPTIVE, OrderAttributeFlag.valueOf("DESCRIPTIVE"));
    }
 }

@@ -72,6 +72,25 @@ public class PropertyTest
    }
    
    /**
+    * Test of setValue method, of class Property.
+    */
+   @Test
+   public void testSetValue()
+   {
+      Property<Integer> p1 = new Property<Integer>("p1", 8, "integer property");
+      assertEquals(8, (int)p1.getValue());
+      p1.setValue(15);
+      assertEquals(15, (int)p1.getValue());
+      
+      Object v1 = new Object();
+      Object v2 = new Object();
+      Property<Object> p2 = new Property<Object>("p1", v1, "integer property");
+      assertEquals(v1, p2.getValue());
+      p2.setValue(v2);
+      assertEquals(v2, p2.getValue());
+   }
+   
+   /**
     * Test of toString method, of class Property.
     */
    @Test

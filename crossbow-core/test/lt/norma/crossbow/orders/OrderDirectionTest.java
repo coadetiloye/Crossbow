@@ -30,6 +30,17 @@ import static org.junit.Assert.*;
 public class OrderDirectionTest
 {
    /**
+    * 
+    */
+   @Test
+   public void test()
+   {
+      assertEquals(OrderDirection.BUY, OrderDirection.valueOf("BUY"));
+      assertEquals(OrderDirection.SELL, OrderDirection.valueOf("SELL"));
+      assertEquals(OrderDirection.BUY, OrderDirection.valueOf(OrderDirection.BUY.name()));
+   }
+   
+   /**
     * Test of toString method, of class OrderDirection.
     */
    @Test

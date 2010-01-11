@@ -61,6 +61,10 @@ public class OrderTest
       assertNull(o.getSubmitTime());
       assertEquals("", o.getComment());
       assertNotNull(o.getAttributes());
+      
+      DummyOrder o2 = new DummyOrder(55, c, "MYORDER", OrderDirection.BUY, 800);
+      assertTrue(o2.isBuy());
+      assertFalse(o2.isSell());
    }
    
    /**
