@@ -48,7 +48,7 @@ public class OrderExceptionTest
    public OrderExceptionTest() throws ContractException, OrderException
    {
       c = new StockContract("MSFT", Exchange.createNyse(), Currency.createEur());
-      o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
    }
    
    /**
@@ -111,11 +111,11 @@ public class OrderExceptionTest
    }
    
    /**
-    * Dummy order.
+    * Mock order.
     */
-   private class DummyOrder extends Order
+   private class MockOrder extends Order
    {
-      public DummyOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

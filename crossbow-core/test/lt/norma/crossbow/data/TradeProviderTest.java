@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License along with Crossbow.  If not, 
  * see <http://www.gnu.org/licenses/>.
  */
+
 package lt.norma.crossbow.data;
 
 import static org.junit.Assert.assertEquals;
@@ -32,42 +33,24 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
-
 /**
- * 
  * @author Vilius Normantas <code@norma.lt>
- *
  */
 public class TradeProviderTest
 {
-   private Exchange e;
-   private Currency c;
-   private Contract s;
-   private DateTime t;
-   private Trade t1;
-   private Trade t2;
-   
    /**
-    * Constructor.
-    * 
     * @throws ContractException
     */
-   public TradeProviderTest() throws ContractException
-   {
-      e = Exchange.createNasdaq();
-      c = Currency.createEur();
-      s = new StockContract("B", e, c);
-      t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
-      t1 = new Trade(s, new BigDecimal("500.01"), 1, t);
-      t2 = new Trade(s, new BigDecimal("15.1"), 2, t);
-   }
-   
-   /**
-    * 
-    */
    @Test
-   public void testFireQuoteEvent()
+   public void testFireQuoteEvent() throws ContractException
    {
+      Exchange e = Exchange.createNasdaq();
+      Currency c = Currency.createEur();
+      Contract s = new StockContract("B", e, c);
+      DateTime t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
+      Trade t1 = new Trade(s, new BigDecimal("500.01"), 1, t);
+      Trade t2 = new Trade(s, new BigDecimal("15.1"), 2, t);
+      
       MockTradeProvider provider = new MockTradeProvider();
       MockTradeListener listener1 = new MockTradeListener();
       MockTradeListener listener2 = new MockTradeListener();
@@ -82,8 +65,8 @@ public class TradeProviderTest
       assertNull(listener3.lastTrade);
       assertNull(listener3.lastSender);
       // Add listener1 and listener2
-      provider.addTradeListener(listener1);
-      provider.addTradeListener(listener2);
+      provider.addListener(listener1);
+      provider.addListener(listener2);
       provider.fire(t1);
       assertEquals(t1, listener1.lastTrade);
       assertNotNull(listener1.lastSender);
@@ -92,7 +75,7 @@ public class TradeProviderTest
       assertNull(listener3.lastTrade);
       assertNull(listener3.lastSender);
       // Remove listener2
-      provider.removeTradeListener(listener2);
+      provider.removeListener(listener2);
       provider.fire(t2);
       assertEquals(t2, listener1.lastTrade);
       assertNotNull(listener1.lastSender);

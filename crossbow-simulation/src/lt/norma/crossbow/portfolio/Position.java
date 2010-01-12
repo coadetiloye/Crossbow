@@ -15,23 +15,19 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.data;
+package lt.norma.crossbow.portfolio;
 
-import java.util.EventListener;
+import java.util.List;
+
+import lt.norma.crossbow.orders.FilledBlock;
 
 /**
- * Interface for <code>TradeEvent</code> listeners.
+ * Stores information about a position.
  * 
  * @author Vilius Normantas <code@norma.lt>
- * @see TradeEvent
  */
-public interface TradeListener extends EventListener
+public class Position
 {
-   /**
-    * Called by source of <code>TradeEvent</code>.
-    * 
-    * @param event
-    *           trade event data
-    */
-   public void tradeReceived(TradeEvent event);
+   private List<FilledBlock> filledBlocks;
+   // TODO nebaigta
 }

@@ -55,7 +55,7 @@ public class ExecutionReportTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       
       ExecutionReport r = new ExecutionReport(o);
       assertEquals(o, r.getOrder());
@@ -74,7 +74,7 @@ public class ExecutionReportTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       FilledBlock b1 = new FilledBlock(100, new BigDecimal("550.27"), new DateTime());
       FilledBlock b2 = new FilledBlock(100, new BigDecimal("550.27"), new DateTime());
       
@@ -100,7 +100,7 @@ public class ExecutionReportTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       ExecutionReport r = new ExecutionReport(o);
       FilledBlock b1 = new FilledBlock(200, new BigDecimal("500"), new DateTime());
       FilledBlock b2 = new FilledBlock(300, new BigDecimal("600"), new DateTime());
@@ -124,7 +124,7 @@ public class ExecutionReportTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       ExecutionReport r = new ExecutionReport(o);
       FilledBlock b1 = new FilledBlock(1, new BigDecimal("100"), new DateTime());
       FilledBlock b2 = new FilledBlock(1, new BigDecimal("500"), new DateTime());
@@ -141,11 +141,11 @@ public class ExecutionReportTest
    }
    
    /**
-    * Dummy order.
+    * Mock order.
     */
-   private class DummyOrder extends Order
+   private class MockOrder extends Order
    {
-      public DummyOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

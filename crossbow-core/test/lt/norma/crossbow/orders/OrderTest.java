@@ -50,7 +50,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals(55, o.getId());
       assertEquals(c, o.getContract());
       assertEquals("MYORDER", o.getType());
@@ -62,7 +62,7 @@ public class OrderTest
       assertEquals("", o.getComment());
       assertNotNull(o.getAttributes());
       
-      DummyOrder o2 = new DummyOrder(55, c, "MYORDER", OrderDirection.BUY, 800);
+      MockOrder o2 = new MockOrder(55, c, "MYORDER", OrderDirection.BUY, 800);
       assertTrue(o2.isBuy());
       assertFalse(o2.isSell());
    }
@@ -76,7 +76,7 @@ public class OrderTest
    @Test(expected = OrderException.class)
    public void testCreation1() throws ContractException, OrderException
    {
-      new DummyOrder(55, null, "MYORDER", OrderDirection.SELL, 800);
+      new MockOrder(55, null, "MYORDER", OrderDirection.SELL, 800);
    }
    
    /**
@@ -91,7 +91,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      new DummyOrder(55, c, null, OrderDirection.SELL, 800);
+      new MockOrder(55, c, null, OrderDirection.SELL, 800);
    }
    
    /**
@@ -106,7 +106,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      new DummyOrder(55, c, "", OrderDirection.SELL, 800);
+      new MockOrder(55, c, "", OrderDirection.SELL, 800);
    }
    
    /**
@@ -121,7 +121,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      new DummyOrder(55, c, "MYORDER", null, 800);
+      new MockOrder(55, c, "MYORDER", null, 800);
    }
    
    /**
@@ -136,7 +136,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 0);
+      new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 0);
    }
    
    /**
@@ -151,7 +151,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals("new MYORDER order to sell 800 of 'ABC'", o.toString());
    }
    
@@ -167,7 +167,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals("", o.getComment());
       o.setComment("my comment");
       assertEquals("my comment", o.getComment());
@@ -185,7 +185,7 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertNull(o.getSubmitTime());
       o.setSubmitTime(new DateTime(8));
       assertEquals(new DateTime(8), o.getSubmitTime());
@@ -203,22 +203,21 @@ public class OrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      DummyOrder o = new DummyOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       assertEquals(OrderStatus.NEW, o.getStatus());
       o.setStatus(OrderStatus.CANCELLATION_PENDING);
       assertEquals(OrderStatus.CANCELLATION_PENDING, o.getStatus());
    }
    
    /**
-    * Dummy order.
+    * Mock order.
     */
-   private class DummyOrder extends Order
+   private class MockOrder extends Order
    {
-      public DummyOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);
       }
    }
-   
 }

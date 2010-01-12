@@ -79,8 +79,8 @@ public class QuoteProviderTest
       assertNull(listener3.lastQuote);
       assertNull(listener3.lastSender);
       // Add listener1 and listener2
-      provider.addQuoteListener(listener1);
-      provider.addQuoteListener(listener2);
+      provider.addListener(listener1);
+      provider.addListener(listener2);
       provider.fire(q1);
       assertEquals(q1, listener1.lastQuote);
       assertNotNull(listener1.lastSender);
@@ -89,7 +89,7 @@ public class QuoteProviderTest
       assertNull(listener3.lastQuote);
       assertNull(listener3.lastSender);
       // Remove listener2
-      provider.removeQuoteListener(listener2);
+      provider.removeListener(listener2);
       provider.fire(q2);
       assertEquals(q2, listener1.lastQuote);
       assertNotNull(listener1.lastSender);

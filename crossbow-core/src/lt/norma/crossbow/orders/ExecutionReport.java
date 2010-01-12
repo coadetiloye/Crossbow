@@ -35,7 +35,9 @@ public class ExecutionReport
    /** Order. */
    private Order order;
    /** Portion of the order that has been filled. */
+   private FilledBlock block;
    private List<FilledBlock> filledBlocks;
+   // TODO turi pernesti tik viena bloka. bloku sarasa iskelti i Position klase
    
    /**
     * Constructor.

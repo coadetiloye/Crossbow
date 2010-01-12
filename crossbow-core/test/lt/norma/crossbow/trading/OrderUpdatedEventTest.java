@@ -15,65 +15,45 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.orders;
+package lt.norma.crossbow.trading;
 
+import static org.junit.Assert.assertEquals;
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.contracts.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.orders.OcaGroup;
 import lt.norma.crossbow.orders.Order;
 import lt.norma.crossbow.orders.OrderDirection;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
- * Test OcaGroup class.
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OcaGroupTest
+public class OrderUpdatedEventTest
 {
    /**
-    * Test the constructor.
-    */
-   @Test
-   public void testCreation()
-   {
-      OcaGroup o = new OcaGroup("AAA");
-      assertEquals("AAA", o.getTitle());
-   }
-   
-   /**
-    * Test of addOrder method, of class OcaGroup.
-    * 
     * @throws ContractException
     * @throws OrderException
     */
    @Test
-   public void testAddOrder() throws ContractException, OrderException
+   public void testOrderUpdateEvent() throws ContractException, OrderException
    {
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o1 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      Order o2 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       
-      OcaGroup og = new OcaGroup("AAA");
-      
-      assertEquals(0, og.getOrders().size());
-      og.addOrder(o1);
-      og.addOrder(o2);
-      assertEquals(2, og.getOrders().size());
-      assertEquals(o1, og.getOrders().get(0));
-      assertEquals("OCA group AAA (2)", og.toString());
-      assertEquals("AAA", og.getTitle());
+      Object source = new Object();
+      OrderUpdatedEvent oue = new OrderUpdatedEvent(source, o);
+      assertEquals(source, oue.getSource());
+      assertEquals(o, oue.getOrder());
    }
    
-   /** Mock order.
+   /**
+    * Mock order.
     */
    private class MockOrder extends Order
    {
@@ -83,5 +63,4 @@ public class OcaGroupTest
          super(id, contract, type, direction, size);
       }
    }
-   
 }

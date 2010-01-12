@@ -15,23 +15,39 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.data;
+package lt.norma.crossbow.trading;
 
-import java.util.EventListener;
+import java.util.EventObject;
+import lt.norma.crossbow.orders.Order;
 
 /**
- * Interface for <code>TradeEvent</code> listeners.
+ * Used by trade executors to send feedback about order status changes.
  * 
  * @author Vilius Normantas <code@norma.lt>
- * @see TradeEvent
  */
-public interface TradeListener extends EventListener
+public class OrderUpdatedEvent extends EventObject
 {
+   private Order order;
+   
    /**
-    * Called by source of <code>TradeEvent</code>.
+    * Constructor.
     * 
-    * @param event
-    *           trade event data
+    * @param source
+    *           event sender
+    * @param order
+    *           order data
     */
-   public void tradeReceived(TradeEvent event);
+   public OrderUpdatedEvent(Object source, Order order)
+   {
+      super(source);
+      this.order = order;
+   }
+   
+   /**
+    * @return order data
+    */
+   public Order getOrder()
+   {
+      return order;
+   }
 }
