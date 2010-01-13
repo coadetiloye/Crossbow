@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class FilledBlock
+public class FilledBlock
 {
    /** Number of contracts filled. */
    private final int size;

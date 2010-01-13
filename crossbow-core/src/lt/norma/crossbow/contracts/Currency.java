@@ -32,29 +32,11 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 public class Currency implements Comparable<Currency>
 {
    /** ISO 4217 currency code. */
-   private String code;
+   private final String code;
    /** ISO 4217 currency name. */
-   private String name;
+   private final String name;
    /** Number of decimal digits. */
    private int digits;
-   
-   /**
-    * Constructor. Name of the currency is set to an empty string.
-    * 
-    * @param code
-    *           ISO 4217 currency code
-    */
-   public Currency(String code)
-   {
-      if (code == null || code.length() < 1)
-      {
-         throw new InvalidArgumentRuntimeException("code", code);
-      }
-      
-      this.code = code;
-      name = "";
-      digits = 2;
-   }
    
    /**
     * Constructor.
@@ -75,6 +57,17 @@ public class Currency implements Comparable<Currency>
       this.name = name != null ? name : "";
       digits = 2;
    }
+   
+   /**
+    * Constructor. Name of the currency is set to an empty string.
+    * 
+    * @param code
+    *           ISO 4217 currency code
+    */
+   public Currency(String code)
+   {
+      this(code, null);
+   }  
    
    /**
     * Set number of decimal places.
@@ -161,7 +154,7 @@ public class Currency implements Comparable<Currency>
       {
          return true;
       }
-      return this.code.equals(((Currency) object).code);
+      return this.code.equals(((Currency)object).code);
    }
    
    /**

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public abstract class TradeProvider
 {
-   private List<TradeListener> listeners = new ArrayList<TradeListener>();
+   private final List<TradeListener> listeners = new ArrayList<TradeListener>();
    
    /**
     * Adds trade listener.

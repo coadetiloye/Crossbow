@@ -27,7 +27,7 @@ import java.util.EventObject;
  */
 public class OrderExecutedEvent extends EventObject
 {
-   private ExecutionReport report;
+   private final ExecutionReport report;
    
    /**
     * Constructor.

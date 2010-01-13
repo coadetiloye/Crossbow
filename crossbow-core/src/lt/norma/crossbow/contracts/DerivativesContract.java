@@ -34,42 +34,16 @@ import org.joda.time.format.DateTimeFormatter;
 public abstract class DerivativesContract extends Contract
 {
    /** Expiration date of a derivatives contract. */
-   protected DateMidnight maturityDate;
+   protected final DateMidnight maturityDate;
    /**
     * Price multiplier. Contract`s quoted price must be multiplied by this value to get actual price
     * of one contract.
     */
-   protected BigDecimal multiplier;
+   protected final BigDecimal multiplier;
    /** Maturity date formatter. */
-   protected DateTimeFormatter dateFormatter;
+   protected final DateTimeFormatter dateFormatter;
    /** Underlying contract. */
-   protected Contract underlyingContract;
-   
-   /**
-    * Constructor.
-    * 
-    * @param symbol
-    *           symbol of an underlying asset
-    * @param type
-    *           human readable type of the contract, not used for comparison
-    * @param maturityDate
-    *           expiration date of a derivatives contract
-    * @param exchange
-    *           exchange of the contract
-    * @param currency
-    *           base currency of the contract
-    * @param multiplier
-    *           price multiplier
-    * @throws ContractException
-    *            throws an exception if invalid contract details are specified
-    */
-   public DerivativesContract(String symbol, String type, DateMidnight maturityDate,
-         Exchange exchange, Currency currency, BigDecimal multiplier)
-         throws ContractException
-   {
-      super(symbol, type, exchange, currency);
-      createDerivativesContract(symbol, maturityDate, exchange, multiplier, null);
-   }
+   protected final Contract underlyingContract;
    
    /**
     * Constructor. Sets underlying contract.
@@ -96,13 +70,7 @@ public abstract class DerivativesContract extends Contract
          Contract underlyingContract) throws ContractException
    {
       super(symbol, type, exchange, currency);
-      createDerivativesContract(symbol, maturityDate, exchange, multiplier, underlyingContract);
-   }
-   
-   private void createDerivativesContract(String symbol, DateMidnight maturityDate,
-         Exchange exchange, BigDecimal multiplier,
-         Contract underlyingContract) throws ContractException
-   {
+      
       if (maturityDate == null)
       {
          throw new ContractException("Maturity date of the contract " + symbol + " is null.");
@@ -118,6 +86,31 @@ public abstract class DerivativesContract extends Contract
       this.underlyingContract = underlyingContract;
       dateFormatter =
             DateTimeFormat.forPattern(StaticSettings.dateFormat).withZone(exchange.getTimeZone());
+   }
+   
+   /**
+    * Constructor.
+    * 
+    * @param symbol
+    *           symbol of an underlying asset
+    * @param type
+    *           human readable type of the contract, not used for comparison
+    * @param maturityDate
+    *           expiration date of a derivatives contract
+    * @param exchange
+    *           exchange of the contract
+    * @param currency
+    *           base currency of the contract
+    * @param multiplier
+    *           price multiplier
+    * @throws ContractException
+    *            throws an exception if invalid contract details are specified
+    */
+   public DerivativesContract(String symbol, String type, DateMidnight maturityDate,
+         Exchange exchange, Currency currency, BigDecimal multiplier)
+         throws ContractException
+   {
+      this(symbol, type, maturityDate, exchange, currency, multiplier, null);
    }
    
    /**
@@ -145,7 +138,7 @@ public abstract class DerivativesContract extends Contract
    @Override
    protected final boolean contractEquals(Contract contract)
    {
-      DerivativesContract derivative = (DerivativesContract) contract;
+      DerivativesContract derivative = (DerivativesContract)contract;
       return maturityDate.equals(derivative.maturityDate)
              && multiplier.compareTo(derivative.multiplier) == 0
              && (underlyingContract == null && derivative.underlyingContract == null

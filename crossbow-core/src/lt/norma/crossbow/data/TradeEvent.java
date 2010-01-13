@@ -27,7 +27,7 @@ import java.util.EventObject;
  */
 public class TradeEvent extends EventObject
 {
-   private Trade trade;
+   private final Trade trade;
    
    /**
     * Constructor.

@@ -30,8 +30,9 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  */
 public class Properties
 {
+   // TODO use generic property type
    /** Hash map of properties. */
-   private HashMap<String, Property<?>> propertyMap;
+   private final HashMap<String, Property<?>> propertyMap;
    
    /**
     * Constructor.

@@ -27,8 +27,11 @@ import lt.norma.crossbow.properties.Properties;
  * Base class for all order types. Extend this class to create new order types. Use attributes to
  * attach additional instructions to the order.
  * <p>
- * Most fields are final. To modify an order, cancel it and resubmit a new order with modified
- * properties.
+ * Most fields are final. To modify an order, cancel or remove it and create a new order with
+ * modified properties.
+ * <p>
+ * Additional attributes can be added to the order for additional instructions. Use
+ * <code>getAttributes</code> method to get list of attributes.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
@@ -55,7 +58,7 @@ public abstract class Order
    private String comment;
    /**
     * Carries additional information about this order. Make sure the order executor knows how to
-    * interpret the added attributes.
+    * interpret attributes added to the order.
     */
    protected final Properties attributes;
    

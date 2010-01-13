@@ -24,7 +24,7 @@ package lt.norma.crossbow.exceptions;
  */
 public class ValueNotSetRuntimeException extends CrossbowRuntimeException
 {
-   private String fieldName;
+   private final String fieldName;
    
    /**
     * Constructor.
@@ -39,7 +39,7 @@ public class ValueNotSetRuntimeException extends CrossbowRuntimeException
     */
    public ValueNotSetRuntimeException(String fieldName, String message, Throwable cause)
    {
-      super("Value of " + fieldName + " is not set. " + message, cause);
+      super(formatMessage(fieldName, message), cause);
       this.fieldName = String.valueOf(fieldName);
    }
    
@@ -54,8 +54,7 @@ public class ValueNotSetRuntimeException extends CrossbowRuntimeException
     */
    public ValueNotSetRuntimeException(String fieldName, String message)
    {
-      super("Value of " + fieldName + " is not set. " + message);
-      this.fieldName = String.valueOf(fieldName);
+      this(fieldName, message, null);
    }
    
    /**
@@ -66,8 +65,17 @@ public class ValueNotSetRuntimeException extends CrossbowRuntimeException
     */
    public ValueNotSetRuntimeException(String fieldName)
    {
-      super("Value of " + fieldName + " is not set.");
-      this.fieldName = String.valueOf(fieldName);
+      this(fieldName, null, null);
+   }
+   
+   private static String formatMessage(String fieldName, String message)
+   {
+      String text = "Value of " + fieldName + " is not set.";
+      
+      if (message != null && !message.isEmpty())
+         text += " " + message;
+      
+      return text;
    }
    
    /**

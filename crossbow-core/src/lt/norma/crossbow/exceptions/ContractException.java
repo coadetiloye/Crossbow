@@ -26,7 +26,7 @@ import lt.norma.crossbow.contracts.Contract;
  */
 public class ContractException extends CrossbowException
 {
-   private Contract contract;
+   private final Contract contract;
    
    /**
     * Constructor.
@@ -58,8 +58,7 @@ public class ContractException extends CrossbowException
     */
    public ContractException(Contract contract, String message)
    {
-      super("Contract " + String.valueOf(contract) + " is invalid. " + message);
-      this.contract = contract;
+      this(contract, message, null);
    }
    
    /**
@@ -74,6 +73,7 @@ public class ContractException extends CrossbowException
    public ContractException(String message)
    {
       super("Invalid contract. " + message);
+      contract = null;
    }
    
    /**

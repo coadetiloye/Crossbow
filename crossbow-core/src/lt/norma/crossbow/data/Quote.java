@@ -35,19 +35,19 @@ import org.joda.time.format.DateTimeFormatter;
 public class Quote
 {
    /** Time of the quote. */
-   private DateTime time;
+   private final DateTime time;
    /** Contract specification. */
-   private Contract contract;
+   private final Contract contract;
    /** Ask price. */
-   private BigDecimal askPrice;
+   private final BigDecimal askPrice;
    /** Ask size. */
-   private int askSize;
+   private final int askSize;
    /** Bid price. */
-   private BigDecimal bidPrice;
+   private final BigDecimal bidPrice;
    /** Bid size. */
-   private int bidSize;
+   private final int bidSize;
    /** Maturity date formatter. */
-   private DateTimeFormatter timeFormatter;
+   private final DateTimeFormatter timeFormatter;
    
    /**
     * Constructor.

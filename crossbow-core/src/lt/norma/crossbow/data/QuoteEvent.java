@@ -27,7 +27,7 @@ import java.util.EventObject;
  */
 public class QuoteEvent extends EventObject
 {
-   private Quote quote;
+   private final Quote quote;
    
    /**
     * Constructor.

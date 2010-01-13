@@ -31,9 +31,9 @@ import org.joda.time.DateMidnight;
 public class OptionContract extends DerivativesContract
 {
    /** Type of an option. */
-   protected OptionType optionType;
+   protected final OptionType optionType;
    /** Strike price of the option. */
-   protected BigDecimal strike;
+   protected final BigDecimal strike;
    
    /**
     * Constructor.

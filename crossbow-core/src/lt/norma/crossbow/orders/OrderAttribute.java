@@ -30,7 +30,7 @@ import lt.norma.crossbow.properties.Property;
 public class OrderAttribute<Type> extends Property<Type>
 {
    /** Marks importance of this attribute. */
-   private OrderAttributeFlag flag;
+   private final OrderAttributeFlag flag;
    
    /**
     * Constructor.
@@ -66,12 +66,11 @@ public class OrderAttribute<Type> extends Property<Type>
     */
    public OrderAttribute(String name, Type value, OrderAttributeFlag flag)
    {
-      super(name, value);
-      this.flag = flag;
+      this(name, value, null, flag);
    }
    
    /**
-    * Gets importance flag of this attribute.
+    * Gets importance flag of the attribute.
     * 
     * @return importance flag
     */

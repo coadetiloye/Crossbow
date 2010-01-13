@@ -30,15 +30,15 @@ import org.joda.time.LocalTime;
 public class Exchange implements Comparable<Exchange>
 {
    /** Exchange name. */
-   private String name;
+   private final String name;
    /** Time zone of the exchange. */
-   private DateTimeZone timeZone;
+   private final DateTimeZone timeZone;
    /** Beginning of trading day. */
-   private LocalTime tradingStarts;
+   private final LocalTime tradingStarts;
    /** End of trading day. */
-   private LocalTime tradingEnds;
+   private final LocalTime tradingEnds;
    /** Does the exchange have closing hours. */
-   private boolean doesClose;
+   private final boolean doesClose;
    
    /**
     * Constructor.

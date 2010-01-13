@@ -28,7 +28,7 @@ import java.util.List;
  */
 public abstract class QuoteProvider
 {
-   private List<QuoteListener> listeners = new ArrayList<QuoteListener>();
+   private final List<QuoteListener> listeners = new ArrayList<QuoteListener>();
    
    /**
     * Adds quote listener.

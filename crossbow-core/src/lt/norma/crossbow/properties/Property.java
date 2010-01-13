@@ -30,11 +30,11 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 public class Property<Type> implements Comparable<Property<?>>
 {
    /** Name by wich the property is referred. */
-   private String name;
+   private final String name;
    /** Property value. */
    private Type value;
    /** A short property description. */
-   private String description;
+   private final String description;
    
    /**
     * Constructor.

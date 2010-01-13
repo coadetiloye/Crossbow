@@ -28,9 +28,9 @@ import lt.norma.crossbow.orders.Order;
 public class ExecutionReport
 {
    /** Executed order. */
-   private Order order;
+   private final Order order;
    /** Portion of the order that has been filled. */
-   private FilledBlock block;
+   private final FilledBlock block;
    
    /**
     * Constructor.

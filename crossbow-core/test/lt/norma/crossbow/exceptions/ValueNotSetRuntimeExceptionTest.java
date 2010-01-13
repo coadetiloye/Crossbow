@@ -51,9 +51,9 @@ public class ValueNotSetRuntimeExceptionTest
       assertEquals("", e5.getFieldName());
       
       ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException("name", null, cause);
-      assertEquals("Value of name is not set. null", e6.getMessage());
+      assertEquals("Value of name is not set.", e6.getMessage());
       ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException("name", "", cause);
-      assertEquals("Value of name is not set. ", e7.getMessage());
+      assertEquals("Value of name is not set.", e7.getMessage());
       
       ValueNotSetRuntimeException e8 =
             new ValueNotSetRuntimeException("name", "Test exception.", null);
@@ -76,9 +76,9 @@ public class ValueNotSetRuntimeExceptionTest
       assertEquals("", e5.getFieldName());
       
       ValueNotSetRuntimeException e6 = new ValueNotSetRuntimeException("name", null);
-      assertEquals("Value of name is not set. null", e6.getMessage());
+      assertEquals("Value of name is not set.", e6.getMessage());
       ValueNotSetRuntimeException e7 = new ValueNotSetRuntimeException("name", "");
-      assertEquals("Value of name is not set. ", e7.getMessage());
+      assertEquals("Value of name is not set.", e7.getMessage());
       
       ValueNotSetRuntimeException e8 = new ValueNotSetRuntimeException("name", "Test exception.");
       assertNull(e8.getCause());

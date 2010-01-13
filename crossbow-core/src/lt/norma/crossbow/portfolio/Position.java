@@ -19,7 +19,7 @@ package lt.norma.crossbow.portfolio;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import lt.norma.crossbow.configuration.StaticSettings;
@@ -33,16 +33,19 @@ import lt.norma.crossbow.trading.FilledBlock;
  */
 public class Position
 {
+   // TODO not finished
    /** Contract. */
-   private Contract contract;
+   private final Contract contract;
    /** Position size. */
    private int size;
    /** List of filled blocks. */
-   private List<FilledBlock> filledBlocks;
+   private final List<FilledBlock> filledBlocks;
    
-   public Position()
+   public Position(Contract contract)
    {
-      filledBlocks = new LinkedList<FilledBlock>();
+      filledBlocks = new ArrayList<FilledBlock>();
+      this.contract = contract;
+      size = 0;
    }
    
    /**

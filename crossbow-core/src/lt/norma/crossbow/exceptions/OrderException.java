@@ -26,7 +26,7 @@ import lt.norma.crossbow.orders.Order;
  */
 public class OrderException extends Exception
 {
-   private Order order;
+   private final Order order;
    
    /**
     * Constructor.
@@ -56,8 +56,7 @@ public class OrderException extends Exception
     */
    public OrderException(Order order, String message)
    {
-      super("Order '" + String.valueOf(order) + "' is invalid. " + message);
-      this.order = order;
+      this(order, message, null);
    }
    
    /**
@@ -72,6 +71,7 @@ public class OrderException extends Exception
    public OrderException(String message)
    {
       super("Invalid order. " + message);
+      order = null;
    }
    
    /**

@@ -30,9 +30,9 @@ public class OcaGroup
    /**
     * Title of the OCA group. Titles must be unique as they are used to identify the OCA group.
     */
-   private String title;
+   private final String title;
    /** List of orders. */
-   private List<Order> orders;
+   private final List<Order> orders;
    
    /**
     * Constructor.

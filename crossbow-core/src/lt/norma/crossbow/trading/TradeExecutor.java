@@ -32,7 +32,7 @@ import lt.norma.crossbow.orders.Order;
  */
 public abstract class TradeExecutor
 {
-   private List<TradeExecutorListener> listeners = new ArrayList<TradeExecutorListener>();
+   private final List<TradeExecutorListener> listeners = new ArrayList<TradeExecutorListener>();
    
    /**
     * Adds trade executor listener.

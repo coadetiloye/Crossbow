@@ -29,17 +29,6 @@ public class CrossbowRuntimeException extends Error
     * 
     * @param message
     *           exception message
-    */
-   public CrossbowRuntimeException(String message)
-   {
-      super(message);
-   }
-   
-   /**
-    * Constructor.
-    * 
-    * @param message
-    *           exception message
     * @param cause
     *           the cause of the exception
     */
@@ -47,4 +36,15 @@ public class CrossbowRuntimeException extends Error
    {
       super(message, cause);
    }
+   
+   /**
+    * Constructor.
+    * 
+    * @param message
+    *           exception message
+    */
+   public CrossbowRuntimeException(String message)
+   {
+      super(message);
+   }  
 }

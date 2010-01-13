@@ -26,8 +26,8 @@ package lt.norma.crossbow.exceptions;
  */
 public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
 {
-   private String argumentName;
-   private Object argumentValue;
+   private final String argumentName;
+   private final Object argumentValue;
    
    /**
     * Constructor.
@@ -46,8 +46,7 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue,
          String message, Throwable cause)
    {
-      super("Invalid argument " + argumentName + "=" + String.valueOf(argumentValue) + ". "
-            + message, cause);
+      super(formatMessage(argumentName, argumentValue, message), cause);
       this.argumentName = String.valueOf(argumentName);
       this.argumentValue = argumentValue;
    }
@@ -68,10 +67,7 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
     */
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue, String message)
    {
-      super("Invalid argument " + argumentName + "=" + String.valueOf(argumentValue) + ". "
-            + message);
-      this.argumentName = String.valueOf(argumentName);
-      this.argumentValue = argumentValue;
+      this(argumentName, argumentValue, message, null);
    }
    
    /**
@@ -89,9 +85,17 @@ public class InvalidArgumentRuntimeException extends CrossbowRuntimeException
     */
    public InvalidArgumentRuntimeException(String argumentName, Object argumentValue)
    {
-      super("Invalid argument " + argumentName + "=" + String.valueOf(argumentValue) + ".");
-      this.argumentName = String.valueOf(argumentName);
-      this.argumentValue = argumentValue;
+      this(argumentName, argumentValue, null, null);
+   }
+   
+   private static String formatMessage(String argumentName, Object argumentValue, String message)
+   {
+      String text = "Invalid argument " + argumentName + "=" + String.valueOf(argumentValue) + ".";
+      
+      if (message != null && !message.isEmpty())
+         text += " " + message;
+      
+      return text;
    }
    
    /**

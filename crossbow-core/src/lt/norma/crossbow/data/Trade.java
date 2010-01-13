@@ -38,15 +38,15 @@ import org.joda.time.format.DateTimeFormatter;
 public class Trade
 {
    /** Time of the quote. */
-   private DateTime time;
+   private final DateTime time;
    /** Contract specification. */
-   private Contract contract;
+   private final Contract contract;
    /** Price of the trade. */
-   private BigDecimal price;
+   private final BigDecimal price;
    /** Size of the trade. */
-   private int size;
+   private final int size;
    /** Maturity date formatter. */
-   private DateTimeFormatter timeFormatter;
+   private final DateTimeFormatter timeFormatter;
    
    /**
     * Constructor.

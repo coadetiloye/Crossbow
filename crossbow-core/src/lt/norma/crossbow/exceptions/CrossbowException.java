@@ -30,17 +30,6 @@ public class CrossbowException extends Exception
     * 
     * @param message
     *           exception message
-    */
-   public CrossbowException(String message)
-   {
-      super(message);
-   }
-   
-   /**
-    * Constructor.
-    * 
-    * @param message
-    *           exception message
     * @param cause
     *           the cause of the exception
     */
@@ -48,4 +37,15 @@ public class CrossbowException extends Exception
    {
       super(message, cause);
    }
+   
+   /**
+    * Constructor.
+    * 
+    * @param message
+    *           exception message
+    */
+   public CrossbowException(String message)
+   {
+      super(message);
+   }  
 }

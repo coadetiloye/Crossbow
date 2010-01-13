@@ -26,8 +26,8 @@ import lt.norma.crossbow.exceptions.ContractException;
  */
 public class ForexContract extends Contract
 {
-   private Currency currency1;
-   private Currency currency2;
+   private final Currency currency1;
+   private final Currency currency2;
    // Error messages.
    private static final String FIRST_CURRENCY_ERROR =
          "The first currency of a forex contract is not set.";
