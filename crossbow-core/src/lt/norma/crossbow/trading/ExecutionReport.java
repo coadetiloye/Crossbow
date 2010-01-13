@@ -15,42 +15,50 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.orders;
+package lt.norma.crossbow.trading;
 
-import java.math.BigDecimal;
-
-import lt.norma.crossbow.orders.FilledBlock;
-
-import org.joda.time.DateTime;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import lt.norma.crossbow.orders.Order;
 
 /**
- * Test FilledBlock class.
+ * Order execution report. Sent by trade executor to the listener as the order gets completely or
+ * partially filled.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class FilledBlockTest
+public class ExecutionReport
 {
+   /** Executed order. */
+   private Order order;
+   /** Portion of the order that has been filled. */
+   private FilledBlock block;
+   
    /**
-    * Test the constructor.
+    * Constructor.
+    * 
+    * @param order
+    *           executed order
+    * @param block
+    *           portion of the order that has been filled
     */
-   @Test
-   public void testCreation()
+   public ExecutionReport(Order order, FilledBlock block)
    {
-      FilledBlock p = new FilledBlock(100, new BigDecimal("8.0"), new DateTime(500));
-      assertEquals(100, p.getSize());
-      assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
-      assertEquals(new DateTime(500), p.getTime());
+      this.order = order;
+      this.block = block;
    }
    
    /**
-    * Test of calculateValue method, of class FilledBlock.
+    * @return executed order
     */
-   @Test
-   public void testCalculateValue()
+   public Order getOrder()
    {
-      FilledBlock p = new FilledBlock(100, new BigDecimal("8.501"), new DateTime(500));
-      assertTrue((new BigDecimal("850.1")).compareTo(p.calculateValue()) == 0);
+      return order;
+   }
+   
+   /**
+    * @return portion of the order that has been filled
+    */
+   public FilledBlock getFilledBlock()
+   {
+      return block;
    }
 }

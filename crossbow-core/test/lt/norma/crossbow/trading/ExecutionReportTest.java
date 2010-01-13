@@ -29,33 +29,36 @@ import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.Order;
 import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.trading.ExecutionReport;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
 /**
+ * Test ExecutionReportTest class.
+ * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderExecutedEventTest
+public class ExecutionReportTest
 {
    /**
-    * @throws ContractException
+    * Test the constructor.
+    * 
     * @throws OrderException
+    * @throws ContractException
     */
    @Test
-   public void testOrderExecutedEvent() throws ContractException, OrderException
+   public void testCreation() throws OrderException, ContractException
    {
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
       FilledBlock b = new FilledBlock(100, new BigDecimal("88"), new DateTime());
-      ExecutionReport r = new ExecutionReport(o, b);
-      Object source = new Object();
       
-      OrderExecutedEvent oee = new OrderExecutedEvent(source, r);
-      assertEquals(source, oee.getSource());
-      assertEquals(r, oee.getExecutionReport());
+      ExecutionReport r = new ExecutionReport(o, b);
+      assertEquals(o, r.getOrder());
+      assertEquals(b, r.getFilledBlock());
    }
    
    /**
@@ -69,4 +72,5 @@ public class OrderExecutedEventTest
          super(id, contract, type, direction, size);
       }
    }
+   
 }

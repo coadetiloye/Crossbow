@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.orders;
+package lt.norma.crossbow.portfolio;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,31 +23,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 import lt.norma.crossbow.configuration.StaticSettings;
+import lt.norma.crossbow.contracts.Contract;
+import lt.norma.crossbow.trading.FilledBlock;
 
 /**
- * Order execution report. Sent by trade executor to the listener as the order gets completely or
- * partially filled.
+ * Stores information about a position.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ExecutionReport
+public class Position
 {
-   /** Order. */
-   private Order order;
-   /** Portion of the order that has been filled. */
-   private FilledBlock block;
+   /** Contract. */
+   private Contract contract;
+   /** Position size. */
+   private int size;
+   /** List of filled blocks. */
    private List<FilledBlock> filledBlocks;
-   // TODO turi pernesti tik viena bloka. bloku sarasa iskelti i Position klase
    
-   /**
-    * Constructor.
-    * 
-    * @param order
-    *           executed order
-    */
-   public ExecutionReport(Order order)
+   public Position()
    {
-      this.order = order;
       filledBlocks = new LinkedList<FilledBlock>();
    }
    
@@ -101,15 +95,5 @@ public class ExecutionReport
    public List<FilledBlock> getFilledBlocks()
    {
       return filledBlocks;
-   }
-   
-   /**
-    * Gets order attached to this report.
-    * 
-    * @return order
-    */
-   public Order getOrder()
-   {
-      return order;
    }
 }

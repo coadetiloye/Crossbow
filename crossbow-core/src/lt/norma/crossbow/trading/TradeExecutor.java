@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import lt.norma.crossbow.contracts.Contract;
-import lt.norma.crossbow.orders.ExecutionReport;
 import lt.norma.crossbow.orders.Order;
 
 /**

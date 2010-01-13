@@ -17,37 +17,40 @@
 
 package lt.norma.crossbow.trading;
 
-import java.util.EventObject;
+import java.math.BigDecimal;
 
+import lt.norma.crossbow.trading.FilledBlock;
+
+import org.joda.time.DateTime;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Used by trade executors to send order execution report on partial or complete fill of an order.
+ * Test FilledBlock class.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderExecutedEvent extends EventObject
+public class FilledBlockTest
 {
-   private ExecutionReport report;
-   
    /**
-    * Constructor.
-    * 
-    * @param source
-    *           event sender
-    * @param report
-    *           execution report
+    * Test the constructor.
     */
-   public OrderExecutedEvent(Object source, ExecutionReport report)
+   @Test
+   public void testCreation()
    {
-      super(source);
-      this.report = report;
+      FilledBlock p = new FilledBlock(100, new BigDecimal("8.0"), new DateTime(500));
+      assertEquals(100, p.getSize());
+      assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
+      assertEquals(new DateTime(500), p.getTime());
    }
    
    /**
-    * @return execution report
+    * Test of calculateValue method, of class FilledBlock.
     */
-   public ExecutionReport getExecutionReport()
+   @Test
+   public void testCalculateValue()
    {
-      return report;
+      FilledBlock p = new FilledBlock(100, new BigDecimal("8.501"), new DateTime(500));
+      assertTrue((new BigDecimal("850.1")).compareTo(p.calculateValue()) == 0);
    }
 }

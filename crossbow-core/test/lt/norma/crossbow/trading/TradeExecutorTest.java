@@ -21,6 +21,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
+
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import lt.norma.crossbow.contracts.Contract;
@@ -29,7 +32,6 @@ import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.orders.ExecutionReport;
 import lt.norma.crossbow.orders.Order;
 import lt.norma.crossbow.orders.OrderDirection;
 
@@ -96,8 +98,9 @@ public class TradeExecutorTest
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
       MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      ExecutionReport r1 = new ExecutionReport(o);
-      ExecutionReport r2 = new ExecutionReport(o);
+      FilledBlock b = new FilledBlock(100, new BigDecimal("88"), new DateTime());
+      ExecutionReport r1 = new ExecutionReport(o, b);
+      ExecutionReport r2 = new ExecutionReport(o, b);
       
       MockTradeExecutor executor = new MockTradeExecutor();
       MockTradeExecutorListener listener1 = new MockTradeExecutorListener();

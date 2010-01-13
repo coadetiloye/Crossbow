@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.orders;
+package lt.norma.crossbow.trading;
 
 import java.math.BigDecimal;
 import org.joda.time.DateTime;
