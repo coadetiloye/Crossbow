@@ -18,6 +18,9 @@
 package lt.norma.crossbow.trading;
 
 import java.math.BigDecimal;
+
+import lt.norma.crossbow.orders.Direction;
+
 import org.joda.time.DateTime;
 
 /**
@@ -27,6 +30,8 @@ import org.joda.time.DateTime;
  */
 public class FilledBlock
 {
+   /** Direction of a trade. */
+   private final Direction direction;
    /** Number of contracts filled. */
    private final int size;
    /** Average price at which the block was filled. */
@@ -37,6 +42,8 @@ public class FilledBlock
    /**
     * Constructor.
     * 
+    * @param direction
+    *           direction of a trade
     * @param size
     *           number of contracts filled
     * @param price
@@ -44,8 +51,9 @@ public class FilledBlock
     * @param time
     *           time when the block was filled
     */
-   public FilledBlock(int size, BigDecimal price, DateTime time)
+   public FilledBlock(Direction direction, int size, BigDecimal price, DateTime time)
    {
+      this.direction = direction;
       this.size = size;
       this.price = price;
       this.time = time;
@@ -62,8 +70,14 @@ public class FilledBlock
    }
    
    /**
-    * Gets number of contracts filled.
-    * 
+    * @return direction of a trade
+    */
+   public Direction getDirection()
+   {
+      return direction;
+   }
+   
+   /**
     * @return number of contracts filled
     */
    public int getSize()
@@ -72,9 +86,7 @@ public class FilledBlock
    }
    
    /**
-    * Gets average price at which the block was filled.
-    * 
-    * @return averge price
+    * @return average price
     */
    public BigDecimal getAveragePrice()
    {
@@ -82,8 +94,6 @@ public class FilledBlock
    }
    
    /**
-    * Gets time when the block was filled.
-    * 
     * @return time when the block was filled
     */
    public DateTime getTime()

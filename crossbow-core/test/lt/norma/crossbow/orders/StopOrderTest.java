@@ -24,7 +24,7 @@ import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.orders.StopOrder;
 
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class StopOrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      StopOrder o = new StopOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("-5"));
+      StopOrder o = new StopOrder(-50, c, Direction.BUY, 500, new BigDecimal("-5"));
       
       assertTrue(o.getStopPrice().compareTo(new BigDecimal("-5.0")) == 0);
       assertTrue(o.toString().endsWith(" at -5"));

@@ -25,7 +25,7 @@ import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.LimitOrder;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -49,7 +49,7 @@ public class LimitOrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      LimitOrder o = new LimitOrder(-50, c, OrderDirection.BUY, 500, new BigDecimal("15.01"));
+      LimitOrder o = new LimitOrder(-50, c, Direction.BUY, 500, new BigDecimal("15.01"));
       
       assertTrue(o.getLimitPrice().compareTo(new BigDecimal("15.010")) == 0);
       assertTrue(o.toString().endsWith(" at 15.01"));

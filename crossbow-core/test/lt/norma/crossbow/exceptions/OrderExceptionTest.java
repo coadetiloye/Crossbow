@@ -24,7 +24,7 @@ import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -48,7 +48,7 @@ public class OrderExceptionTest
    public OrderExceptionTest() throws ContractException, OrderException
    {
       c = new StockContract("MSFT", Exchange.createNyse(), Currency.createEur());
-      o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
    }
    
    /**
@@ -115,7 +115,7 @@ public class OrderExceptionTest
     */
    private class MockOrder extends Order
    {
-      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, Direction direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

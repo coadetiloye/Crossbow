@@ -16,25 +16,6 @@
  */
 package lt.norma.crossbow.portfolio;
 
-import static org.junit.Assert.*;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import lt.norma.crossbow.configuration.StaticSettings;
-import lt.norma.crossbow.contracts.Contract;
-import lt.norma.crossbow.contracts.Currency;
-import lt.norma.crossbow.contracts.Exchange;
-import lt.norma.crossbow.contracts.StockContract;
-import lt.norma.crossbow.exceptions.ContractException;
-import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
-import lt.norma.crossbow.trading.FilledBlock;
-
-
-import org.joda.time.DateTime;
-import org.junit.Test;
 
 /**
  * 

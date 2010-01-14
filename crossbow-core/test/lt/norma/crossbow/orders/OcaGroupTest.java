@@ -25,7 +25,7 @@ import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.OcaGroup;
 import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -59,8 +59,8 @@ public class OcaGroupTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o1 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      Order o2 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      Order o1 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      Order o2 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
       
       OcaGroup og = new OcaGroup("AAA");
       
@@ -77,7 +77,7 @@ public class OcaGroupTest
     */
    private class MockOrder extends Order
    {
-      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, Direction direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

@@ -34,24 +34,27 @@ import lt.norma.crossbow.exceptions.OrderException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class Order
+public abstract class Order // TODO remove comment field; concurrency
 {
-   /** Local order ID. */
    private final long id;
+   
    /** Contract of a traded instrument. */
    protected final Contract contract;
    /**
-    * Type of the order. Used only to provide human readable type of the order. Internally order
+    * type of the order. Used only to provide human readable type of the order. Internally order
     * types are identified by class and attributes.
     */
    protected final String type;
    /** Order direction. */
-   protected final OrderDirection direction;
-   /** Size of an order. */
+   protected final Direction direction;
+   /**
+    * Size of an order. Must be greater than zero. Use <code>direction</code> to set direction of
+    * the order.
+    */
    protected final int size;
    /** Order status. */
    protected OrderStatus status;
-   /** Sending time. Can be null if the order is not submited yet. */
+   /** Sending time. Can be null if the order is not submitted yet. */
    protected DateTime submitTime;
    /** Order comment. */
    private String comment;
@@ -70,16 +73,17 @@ public abstract class Order
     * @param contract
     *           contract of a traded instrument
     * @param type
-    *           type of an order
+    *           type of the order. Used only to provide human readable type of the order. Internally
+    *           order types are identified by class and attributes.
     * @param direction
     *           direction of the trade
     * @param size
-    *           size of an order. Negative value means short trade, positive - long. Cannot be
-    *           zero
+    *           size of an order. Must be greater than zero. Use <code>direction</code> to set
+    *           direction of the order.
     * @throws OrderException
     *            on invalid order details
     */
-   public Order(long id, Contract contract, String type, OrderDirection direction, int size)
+   public Order(long id, Contract contract, String type, Direction direction, int size)
          throws OrderException
    {
       // Data control.
@@ -92,7 +96,7 @@ public abstract class Order
          throw new OrderException("Type of the order for contract '" + contract.toString()
                                   + "' is not set.");
       }
-      if (direction == null || direction != OrderDirection.BUY && direction != OrderDirection.SELL)
+      if (direction == null || direction != Direction.BUY && direction != Direction.SELL)
       {
          throw new OrderException("Order for contract '" + contract.toString()
                                   + "' has invalid direction '" + String.valueOf(direction) + "'.");
@@ -120,7 +124,7 @@ public abstract class Order
     */
    public boolean isBuy()
    {
-      return direction == OrderDirection.BUY;
+      return direction == Direction.BUY;
    }
    
    /**
@@ -130,7 +134,7 @@ public abstract class Order
     */
    public boolean isSell()
    {
-      return direction == OrderDirection.SELL;
+      return direction == Direction.SELL;
    }
    
    /**

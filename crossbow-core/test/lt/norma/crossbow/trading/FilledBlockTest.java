@@ -19,6 +19,7 @@ package lt.norma.crossbow.trading;
 
 import java.math.BigDecimal;
 
+import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.trading.FilledBlock;
 
 import org.joda.time.DateTime;
@@ -38,10 +39,11 @@ public class FilledBlockTest
    @Test
    public void testCreation()
    {
-      FilledBlock p = new FilledBlock(100, new BigDecimal("8.0"), new DateTime(500));
+      FilledBlock p = new FilledBlock(Direction.BUY, 100, new BigDecimal("8.0"), new DateTime(500));
       assertEquals(100, p.getSize());
       assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
       assertEquals(new DateTime(500), p.getTime());
+      assertEquals(Direction.BUY, p.getDirection());
    }
    
    /**
@@ -50,7 +52,8 @@ public class FilledBlockTest
    @Test
    public void testCalculateValue()
    {
-      FilledBlock p = new FilledBlock(100, new BigDecimal("8.501"), new DateTime(500));
+      FilledBlock p =
+            new FilledBlock(Direction.SELL, 100, new BigDecimal("8.501"), new DateTime(500));
       assertTrue((new BigDecimal("850.1")).compareTo(p.calculateValue()) == 0);
    }
 }

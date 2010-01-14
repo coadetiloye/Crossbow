@@ -24,6 +24,7 @@ import java.util.List;
 
 import lt.norma.crossbow.configuration.StaticSettings;
 import lt.norma.crossbow.contracts.Contract;
+import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.trading.FilledBlock;
 
 /**
@@ -31,72 +32,130 @@ import lt.norma.crossbow.trading.FilledBlock;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Position
+public class Position // TODO concurrency
 {
-   // TODO not finished
-   /** Contract. */
+   /** Contract of this position. */
    private final Contract contract;
-   /** Position size. */
+   /** Position size. Can be negative if the position is short. */
    private int size;
-   /** List of filled blocks. */
-   private final List<FilledBlock> filledBlocks;
+   /**
+    * Average price at which the position was opened. If the position is partially closed, the
+    * older blocks are removed or modified and average price is recalculated. Value can be null if
+    * position size is 0.
+    */
+   private BigDecimal averagePrice;
+   /** Open blocks. */
+   private final List<FilledBlock> openBlocks;
    
+   /**
+    * Constructor.
+    * 
+    * @param contract
+    *           contract of this position
+    */
    public Position(Contract contract)
    {
-      filledBlocks = new ArrayList<FilledBlock>();
       this.contract = contract;
+      openBlocks = new ArrayList<FilledBlock>();
       size = 0;
+      averagePrice = null;
    }
    
    /**
-    * Adds a new filled block of the order.
+    * Adds a new filled block.
     * 
     * @param block
     *           filled block
     */
-   public void addFilledBlock(FilledBlock block)
+   public synchronized void addFilledBlock(FilledBlock block)
    {
-      filledBlocks.add(block);
+      if (block.getDirection() == Direction.BUY && size >= 0
+          || block.getDirection() == Direction.SELL && size <= 0)
+      {
+         // Add long block to long position or short block to short position.
+         openBlocks.add(block);
+      }
+      else
+      {
+         // Add long block to short position or short block to long position.
+         int blockSize = block.getSize();
+         while (blockSize == 0 || openBlocks.isEmpty())
+         {
+            FilledBlock firstBlock = openBlocks.get(0);
+            openBlocks.remove(0);
+            if (blockSize >= firstBlock.getSize())
+            {
+               blockSize -= firstBlock.getSize();
+            }
+            else
+            {
+               FilledBlock replaceBlock = new FilledBlock(
+                     firstBlock.getDirection(), firstBlock.getSize() - blockSize,
+                     firstBlock.getAveragePrice(), firstBlock.getTime());
+               blockSize = 0;
+               openBlocks.add(0, replaceBlock);
+            }
+         }
+         if (blockSize > 0)
+         {
+            FilledBlock replaceBlock = new FilledBlock(
+                  block.getDirection(), blockSize,
+                  block.getAveragePrice(), block.getTime());
+            openBlocks.add(replaceBlock);
+         }         
+      }
+      
+      // Update size and average price.
+      updateSizePrice();
    }
    
-   /**
-    * Gets total number of filled contracts.
-    * 
-    * @return total number of filled contracts
-    */
-   public int calculateTotalSize()
+   private void updateSizePrice()
    {
       int total = 0;
-      for (FilledBlock block : filledBlocks)
+      for (FilledBlock block : openBlocks)
       {
-         total += block.getSize();
+         if (block.getDirection() == Direction.BUY)
+            total += block.getSize();
+         else
+            total -= block.getSize();
       }
-      return total;
-   }
-   
-   /**
-    * Calculates average execution price.
-    * 
-    * @return average execution price
-    */
-   public BigDecimal calculateAveragePrice()
-   {
+      size = total;
+      
       BigDecimal totalValue = BigDecimal.ZERO;
-      for (FilledBlock block : filledBlocks)
+      for (FilledBlock block : openBlocks)
       {
          totalValue = totalValue.add(block.calculateValue());
       }
-      return totalValue.divide(new BigDecimal(calculateTotalSize()), StaticSettings.pricePrecision,
-            RoundingMode.HALF_UP);
+      if (size == 0)
+         averagePrice = null;
+      else
+         averagePrice = totalValue.divide(
+               new BigDecimal(size), StaticSettings.pricePrecision, RoundingMode.HALF_UP);
    }
    
    /**
-    * Gets list of blocks.
-    * 
-    * @return list of block
+    * @return position size. Can be negative if the position is short.
     */
-   public List<FilledBlock> getFilledBlocks()
+   public int getSize()
    {
-      return filledBlocks;
+      return size;
    }
+   
+   /**
+    * @return average price at which the position was opened. If the position is partially closed,
+    *         the older blocks are removed or modified and average price is recalculated. Value can
+    *         be null if position size is 0.
+    */
+   public BigDecimal getAveragePrice()
+   {
+      return averagePrice;
+   }
+   
+   /**
+    * @return the contract of this position
+    */
+   public Contract getContract()
+   {
+      return contract;
+   }  
 }

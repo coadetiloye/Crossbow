@@ -17,7 +17,7 @@
 
 package lt.norma.crossbow.orders;
 
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -35,9 +35,9 @@ public class OrderDirectionTest
    @Test
    public void test()
    {
-      assertEquals(OrderDirection.BUY, OrderDirection.valueOf("BUY"));
-      assertEquals(OrderDirection.SELL, OrderDirection.valueOf("SELL"));
-      assertEquals(OrderDirection.BUY, OrderDirection.valueOf(OrderDirection.BUY.name()));
+      assertEquals(Direction.BUY, Direction.valueOf("BUY"));
+      assertEquals(Direction.SELL, Direction.valueOf("SELL"));
+      assertEquals(Direction.BUY, Direction.valueOf(Direction.BUY.name()));
    }
    
    /**
@@ -46,8 +46,8 @@ public class OrderDirectionTest
    @Test
    public void testToString()
    {
-      OrderDirection b = OrderDirection.BUY;
-      OrderDirection s = OrderDirection.SELL;
+      Direction b = Direction.BUY;
+      Direction s = Direction.SELL;
       
       assertEquals("buy", b.toString());
       assertEquals("buy", b.getTitle());

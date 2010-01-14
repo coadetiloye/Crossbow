@@ -34,7 +34,7 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  * @see Properties
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class PropertyList<PropertyType extends Property<?>>
+public abstract class PropertyList<PropertyType extends Property<?>> // TODO concurrency
 {
    /** Hash map of properties. */
    private final HashMap<String, PropertyType> propertyMap;

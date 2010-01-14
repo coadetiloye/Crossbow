@@ -33,7 +33,7 @@ import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 /**
  * @author Vilius Normantas <code@norma.lt>
@@ -50,8 +50,8 @@ public class TradeExecutorTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o1 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      MockOrder o2 = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o1 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      MockOrder o2 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
       
       MockTradeExecutor executor = new MockTradeExecutor();
       MockTradeExecutorListener listener1 = new MockTradeExecutorListener();
@@ -97,8 +97,8 @@ public class TradeExecutorTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      FilledBlock b = new FilledBlock(100, new BigDecimal("88"), new DateTime());
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      FilledBlock b = new FilledBlock(Direction.SELL, 100, new BigDecimal("88"), new DateTime());
       ExecutionReport r1 = new ExecutionReport(o, b);
       ExecutionReport r2 = new ExecutionReport(o, b);
       
@@ -215,7 +215,7 @@ public class TradeExecutorTest
     */
    private class MockOrder extends Order
    {
-      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, Direction direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

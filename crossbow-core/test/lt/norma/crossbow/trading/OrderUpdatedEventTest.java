@@ -25,7 +25,7 @@ import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class OrderUpdatedEventTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
       
       Object source = new Object();
       OrderUpdatedEvent oue = new OrderUpdatedEvent(source, o);
@@ -57,7 +57,7 @@ public class OrderUpdatedEventTest
     */
    private class MockOrder extends Order
    {
-      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, Direction direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

@@ -28,7 +28,7 @@ import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
 import lt.norma.crossbow.exceptions.OrderException;
 import lt.norma.crossbow.orders.Order;
-import lt.norma.crossbow.orders.OrderDirection;
+import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.trading.ExecutionReport;
 
 import org.joda.time.DateTime;
@@ -53,8 +53,8 @@ public class ExecutionReportTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o = new MockOrder(55, c, "MYORDER", OrderDirection.SELL, 800);
-      FilledBlock b = new FilledBlock(100, new BigDecimal("88"), new DateTime());
+      Order o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      FilledBlock b = new FilledBlock(Direction.BUY, 100, new BigDecimal("88"), new DateTime());
       
       ExecutionReport r = new ExecutionReport(o, b);
       assertEquals(o, r.getOrder());
@@ -66,7 +66,7 @@ public class ExecutionReportTest
     */
    private class MockOrder extends Order
    {
-      public MockOrder(long id, Contract contract, String type, OrderDirection direction, int size)
+      public MockOrder(long id, Contract contract, String type, Direction direction, int size)
             throws OrderException
       {
          super(id, contract, type, direction, size);

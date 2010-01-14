@@ -41,12 +41,12 @@ public final class MarketOrder extends Order
     * @param direction
     *           direction of the trade
     * @param size
-    *           size of an order. Negative value means short trade, positive - long. Cannot be
-    *           zero
+    *           size of an order. Must be greater than zero. Use <code>direction</code> to set
+    *           direction of the order
     * @throws OrderException
     *            on invalid order details
     */
-   public MarketOrder(long id, Contract contract, OrderDirection direction, int size)
+   public MarketOrder(long id, Contract contract, Direction direction, int size)
          throws OrderException
    {
       super(id, contract, ORDER_TYPE, direction, size);
