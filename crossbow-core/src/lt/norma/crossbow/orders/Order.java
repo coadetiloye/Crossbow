@@ -21,7 +21,6 @@ import org.joda.time.DateTime;
 
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.exceptions.OrderException;
-import lt.norma.crossbow.properties.Properties;
 
 /**
  * Base class for all order types. Extend this class to create new order types. Use attributes to
@@ -60,7 +59,7 @@ public abstract class Order
     * Carries additional information about this order. Make sure the order executor knows how to
     * interpret attributes added to the order.
     */
-   protected final Properties attributes;
+   protected final OrderAttributes attributes;
    
    /**
     * Constructor.
@@ -110,7 +109,7 @@ public abstract class Order
       this.direction = direction;
       this.size = size;
       status = OrderStatus.NEW;
-      attributes = new Properties();
+      attributes = new OrderAttributes();
       comment = "";
    }
    
@@ -244,7 +243,7 @@ public abstract class Order
     * 
     * @return order attributes
     */
-   public Properties getAttributes()
+   public OrderAttributes getAttributes()
    {
       return attributes;
    }

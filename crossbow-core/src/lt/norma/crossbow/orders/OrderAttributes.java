@@ -15,36 +15,15 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.exceptions;
+package lt.norma.crossbow.orders;
+
+import lt.norma.crossbow.properties.Properties;
 
 /**
- * Base class for all runtime exception.
+ * List of order attributes.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class CrossbowRuntimeException extends Error
+public class OrderAttributes extends Properties<OrderAttribute<?>>
 {
-   /**
-    * Constructor.
-    * 
-    * @param message
-    *           exception message
-    * @param cause
-    *           the cause of the exception
-    */
-   public CrossbowRuntimeException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }
-   
-   /**
-    * Constructor.
-    * 
-    * @param message
-    *           exception message
-    */
-   public CrossbowRuntimeException(String message)
-   {
-      super(message);
-   }
 }

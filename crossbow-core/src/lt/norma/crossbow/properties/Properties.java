@@ -24,22 +24,24 @@ import java.util.List;
 import lt.norma.crossbow.exceptions.CrossbowException;
 
 /**
- * List of properties.
+ * Generic list of properties.
  * 
+ * @param <PropertyType>
+ *           type of properties held in this list. Must be <code>Property</code> or it's child 
+ *           class.
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Properties
+public class Properties<PropertyType extends Property<?>>
 {
-   // TODO use generic property type
    /** Hash map of properties. */
-   private final HashMap<String, Property<?>> propertyMap;
+   private final HashMap<String, PropertyType> propertyMap;
    
    /**
     * Constructor.
     */
    public Properties()
    {
-      propertyMap = new HashMap<String, Property<?>>();
+      propertyMap = new HashMap<String, PropertyType>();
    }
    
    /**
@@ -50,7 +52,7 @@ public class Properties
     * @throws CrossbowException
     *            on duplicate property names
     */
-   public void add(Property<?> property) throws CrossbowException
+   public void add(PropertyType property) throws CrossbowException
    {
       if (propertyExists(property.getName()))
       {
@@ -70,7 +72,7 @@ public class Properties
     * @throws CrossbowException
     *            on duplicate property with different type
     */
-   public void set(Property<?> property) throws CrossbowException
+   public void set(PropertyType property) throws CrossbowException
    {
       Property<?> existingProperty;
       try

@@ -42,7 +42,7 @@ public class PropertiesTest
    @Test
    public void testAddGet() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.add(p1);
@@ -63,7 +63,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testAdd() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name1", "v2");
       pl.add(p1);
@@ -78,7 +78,7 @@ public class PropertiesTest
    @Test
    public void testSet() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name1", "v2");
       pl.set(p1);
@@ -95,7 +95,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testSet2() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<Integer> p2 = new Property<Integer>("name1", 105);
       pl.set(p1);
@@ -110,7 +110,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.set(p1);
@@ -126,7 +126,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName2() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.set(p1);
@@ -142,7 +142,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName3() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       pl.getByName("name");
    }
    
@@ -154,7 +154,7 @@ public class PropertiesTest
    @Test
    public void testRemoveByName() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       Property<String> p1 = new Property<String>("name1", "v1");
       pl.add(p1);
       assertTrue(pl.propertyExists("name1"));
@@ -171,7 +171,7 @@ public class PropertiesTest
    @Test
    public void testGetList() throws Exception
    {
-      Properties pl = new Properties();
+      Properties<Property<?>> pl = new Properties<Property<?>>();
       pl.add(new Property<String>("name4", "v1"));
       pl.add(new Property<String>("name5", "v1"));
       pl.add(new Property<String>("name1", "v1"));
@@ -188,7 +188,7 @@ public class PropertiesTest
       assertEquals(5, pl.getList().size());
       
       // Test empty list.
-      Properties pl2 = new Properties();
+      Properties<Property<?>> pl2 = new Properties<Property<?>>();
       assertEquals(0, pl2.getList().size());
    }
 }

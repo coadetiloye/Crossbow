@@ -20,7 +20,6 @@ package lt.norma.crossbow.orders;
 import lt.norma.crossbow.exceptions.CrossbowException;
 import lt.norma.crossbow.orders.OrderAttribute;
 import lt.norma.crossbow.orders.OrderAttributeFlag;
-import lt.norma.crossbow.properties.Properties;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -60,7 +59,7 @@ public class OrderAttributeTest
       OrderAttribute<String> a2 =
             new OrderAttribute<String>("n2", "v", "d", OrderAttributeFlag.OBLIGATORY);
       
-      Properties pl = new Properties();
+      OrderAttributes pl = new OrderAttributes();
       pl.add(a);
       pl.add(a2);
       

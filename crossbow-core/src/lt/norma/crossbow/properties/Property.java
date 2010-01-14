@@ -20,7 +20,7 @@ package lt.norma.crossbow.properties;
 import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 
 /**
- * Generic property. Contains property value, name by wich the property is referred and a short
+ * Generic property. Contains property value, name by which the property is referred and a short
  * description.
  * 
  * @param <Type>
@@ -29,7 +29,7 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  */
 public class Property<Type> implements Comparable<Property<?>>
 {
-   /** Name by wich the property is referred. */
+   /** Name by which the property is referred. */
    private final String name;
    /** Property value. */
    private Type value;
@@ -42,7 +42,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * Throws <code>InvalidArgumentRuntimeException</code> if property name is null or empty.
     * 
     * @param name
-    *           name by wich the property is referred, cannot be null or empty.
+    *           name by which the property is referred, cannot be null or empty.
     * @param value
     *           property value, can be null
     * @param description
@@ -67,7 +67,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * Throws <code>InvalidArgumentRuntimeException</code> if property name is null or empty.
     * 
     * @param name
-    *           name by wich the property is referred, cannot be null or empty.
+    *           name by which the property is referred, cannot be null or empty.
     * @param value
     *           a short description of the property
     */
