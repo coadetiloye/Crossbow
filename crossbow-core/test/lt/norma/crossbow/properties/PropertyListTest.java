@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import lt.norma.crossbow.exceptions.CrossbowException;
-import lt.norma.crossbow.properties.Properties;
+import lt.norma.crossbow.properties.PropertyList;
 import lt.norma.crossbow.properties.Property;
 
 import org.junit.Test;
@@ -32,8 +32,28 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class PropertiesTest
+public class PropertyListTest
 {
+   /**
+    * Test concrete child class Properties.
+    * @throws CrossbowException 
+    */
+   @Test
+   public void testConcreteProperties() throws CrossbowException
+   {
+      Properties pl = new Properties();
+      Property<String> p1 = new Property<String>("name1", "v1");
+      Property<String> p2 = new Property<String>("name2", "v2");
+      pl.add(p1);
+      pl.add(p2);
+      
+      assertTrue(pl.propertyExists("name1"));
+      assertTrue(pl.propertyExists("name2"));
+      assertFalse(pl.propertyExists("name3"));
+      assertEquals(p1, pl.getByName("name1"));
+      assertEquals(p2, pl.getByName("name2"));
+   }
+   
    /**
     * Test of add and getByName methods, of class Properties.
     * 
@@ -42,7 +62,7 @@ public class PropertiesTest
    @Test
    public void testAddGet() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.add(p1);
@@ -63,7 +83,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testAdd() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name1", "v2");
       pl.add(p1);
@@ -78,7 +98,7 @@ public class PropertiesTest
    @Test
    public void testSet() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name1", "v2");
       pl.set(p1);
@@ -95,7 +115,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testSet2() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<Integer> p2 = new Property<Integer>("name1", 105);
       pl.set(p1);
@@ -110,7 +130,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.set(p1);
@@ -126,7 +146,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName2() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       Property<String> p2 = new Property<String>("name2", "v2");
       pl.set(p1);
@@ -142,7 +162,7 @@ public class PropertiesTest
    @Test(expected = CrossbowException.class)
    public void testGetByName3() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       pl.getByName("name");
    }
    
@@ -154,7 +174,7 @@ public class PropertiesTest
    @Test
    public void testRemoveByName() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       Property<String> p1 = new Property<String>("name1", "v1");
       pl.add(p1);
       assertTrue(pl.propertyExists("name1"));
@@ -171,7 +191,7 @@ public class PropertiesTest
    @Test
    public void testGetList() throws Exception
    {
-      Properties<Property<?>> pl = new Properties<Property<?>>();
+      MockProperties pl = new MockProperties();
       pl.add(new Property<String>("name4", "v1"));
       pl.add(new Property<String>("name5", "v1"));
       pl.add(new Property<String>("name1", "v1"));
@@ -188,7 +208,11 @@ public class PropertiesTest
       assertEquals(5, pl.getList().size());
       
       // Test empty list.
-      Properties<Property<?>> pl2 = new Properties<Property<?>>();
+      MockProperties pl2 = new MockProperties();
       assertEquals(0, pl2.getList().size());
+   }
+   
+   private class MockProperties extends PropertyList<Property<?>>
+   {
    }
 }

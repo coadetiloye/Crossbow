@@ -17,13 +17,13 @@
 
 package lt.norma.crossbow.orders;
 
-import lt.norma.crossbow.properties.Properties;
+import lt.norma.crossbow.properties.PropertyList;
 
 /**
  * List of order attributes.
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderAttributes extends Properties<OrderAttribute<?>>
+public class OrderAttributes extends PropertyList<OrderAttribute<?>>
 {
 }
