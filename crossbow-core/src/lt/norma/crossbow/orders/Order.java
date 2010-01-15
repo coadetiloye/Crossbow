@@ -34,7 +34,7 @@ import org.joda.time.DateTime;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class Order // TODO remove comment field; concurrency
+public abstract class Order
 {
    private final long id;
    
@@ -56,8 +56,6 @@ public abstract class Order // TODO remove comment field; concurrency
    protected OrderStatus status;
    /** Sending time. Can be null if the order is not submitted yet. */
    protected DateTime submitTime;
-   /** Order comment. */
-   private String comment;
    /**
     * Carries additional information about this order. Make sure the order executor knows how to
     * interpret attributes added to the order.
@@ -114,7 +112,6 @@ public abstract class Order // TODO remove comment field; concurrency
       this.size = size;
       status = OrderStatus.NEW;
       attributes = new OrderAttributes();
-      comment = "";
    }
    
    /**
@@ -143,7 +140,7 @@ public abstract class Order // TODO remove comment field; concurrency
     * @return order data as text
     */
    @Override
-   public String toString()
+   public synchronized String toString()
    {
       return (status + " " + type + " order to " + getOrderDirectionString() + " " + size + " of '"
               + contract.toString() + "'");
@@ -155,27 +152,6 @@ public abstract class Order // TODO remove comment field; concurrency
    protected String getOrderDirectionString()
    {
       return direction == Direction.LONG ? "buy" : "sell";
-   }
-   
-   /**
-    * Gets order comment.
-    * 
-    * @return order comment
-    */
-   public String getComment()
-   {
-      return comment;
-   }
-   
-   /**
-    * Sets order comment.
-    * 
-    * @param comment
-    *           order comment
-    */
-   public void setComment(String comment)
-   {
-      this.comment = comment;
    }
    
    /**
@@ -193,7 +169,7 @@ public abstract class Order // TODO remove comment field; concurrency
     * 
     * @return submit time
     */
-   public DateTime getSubmitTime()
+   public synchronized DateTime getSubmitTime()
    {
       return submitTime;
    }
@@ -204,7 +180,7 @@ public abstract class Order // TODO remove comment field; concurrency
     * @param time
     *           submit time
     */
-   public void setSubmitTime(DateTime time)
+   public synchronized void setSubmitTime(DateTime time)
    {
       this.submitTime = time;
    }
@@ -224,7 +200,7 @@ public abstract class Order // TODO remove comment field; concurrency
     * 
     * @return order status
     */
-   public OrderStatus getStatus()
+   public synchronized OrderStatus getStatus()
    {
       return status;
    }
@@ -235,7 +211,7 @@ public abstract class Order // TODO remove comment field; concurrency
     * @param status
     *           order status
     */
-   public void setStatus(OrderStatus status)
+   public synchronized void setStatus(OrderStatus status)
    {
       this.status = status;
    }

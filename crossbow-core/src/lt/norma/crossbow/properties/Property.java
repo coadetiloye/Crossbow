@@ -29,11 +29,8 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  */
 public class Property<Type> implements Comparable<Property<?>>
 {
-   /** Name by which the property is referred. */
    private final String name;
-   /** Property value. */
    private Type value;
-   /** A short property description. */
    private final String description;
    
    /**
@@ -100,7 +97,7 @@ public class Property<Type> implements Comparable<Property<?>>
     *           delimiter string
     * @return property as text
     */
-   public String toString(String delimiter)
+   public synchronized String toString(String delimiter)
    {
       return name + delimiter + value.toString();
    }
@@ -110,7 +107,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return class name
     */
-   public String typeToString()
+   public synchronized String typeToString()
    {
       return value.getClass().getName();
    }
@@ -120,7 +117,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return type of the value
     */
-   public Class<?> getType()
+   public synchronized Class<?> getType()
    {
       return value.getClass();
    }
@@ -155,7 +152,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return property value
     */
-   public Type getValue()
+   public synchronized Type getValue()
    {
       return value;
    }
@@ -166,7 +163,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * @param value
     *           property value
     */
-   public void setValue(Type value)
+   public synchronized void setValue(Type value)
    {
       this.value = value;
    }

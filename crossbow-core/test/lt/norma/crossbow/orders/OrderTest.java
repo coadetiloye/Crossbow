@@ -56,7 +56,6 @@ public class OrderTest
       assertEquals(800, o.getSize());
       assertEquals(OrderStatus.NEW, o.getStatus());
       assertNull(o.getSubmitTime());
-      assertEquals("", o.getComment());
       assertNotNull(o.getAttributes());
       
       MockOrder o2 = new MockOrder(55, c, "MYORDER", Direction.LONG, 800);
@@ -169,24 +168,6 @@ public class OrderTest
       StockContract c = new StockContract("ABC", exchange, currency);
       MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
       assertEquals("new MYORDER order to sell 800 of 'ABC'", o.toString());
-   }
-   
-   /**
-    * Test of setComment method, of class Order.
-    * 
-    * @throws ContractException
-    * @throws OrderException
-    */
-   @Test
-   public void testSetComment() throws ContractException, OrderException
-   {
-      Currency currency = Currency.createJpy();
-      Exchange exchange = Exchange.createNasdaq();
-      StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
-      assertEquals("", o.getComment());
-      o.setComment("my comment");
-      assertEquals("my comment", o.getComment());
    }
    
    /**

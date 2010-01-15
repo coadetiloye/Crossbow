@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  */
 public class CommissionsPerShare implements Commissions
 {
-   private BigDecimal ratePerShare;
+   private final BigDecimal ratePerShare;
    
    /**
     * Constructor.

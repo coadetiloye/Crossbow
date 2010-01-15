@@ -34,7 +34,7 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  * @see Properties
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class PropertyList<PropertyType extends Property<?>> // TODO concurrency
+public abstract class PropertyList<PropertyType extends Property<?>>
 {
    /** Hash map of properties. */
    private final HashMap<String, PropertyType> propertyMap;
@@ -55,7 +55,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     * @throws CrossbowException
     *            on duplicate property names
     */
-   public void add(PropertyType property) throws CrossbowException
+   public synchronized void add(PropertyType property) throws CrossbowException
    {
       if (propertyExists(property.getName()))
       {
@@ -75,7 +75,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     * @throws CrossbowException
     *            on duplicate property with different type
     */
-   public void set(PropertyType property) throws CrossbowException
+   public synchronized void set(PropertyType property) throws CrossbowException
    {
       Property<?> existingProperty;
       try
@@ -108,7 +108,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     * @param propertyName
     *           property name
     */
-   public void removeByName(String propertyName)
+   public synchronized void removeByName(String propertyName)
    {
       propertyMap.remove(propertyName);
    }
@@ -120,7 +120,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     *           property name
     * @return true if the property exists, false otherwise
     */
-   public boolean propertyExists(String propertyName)
+   public synchronized boolean propertyExists(String propertyName)
    {
       return propertyMap.containsKey(propertyName);
    }
@@ -134,7 +134,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     * @throws CrossbowException
     *            if no property is found by specified name
     */
-   public Property<?> getByName(String propertyName) throws CrossbowException
+   public synchronized Property<?> getByName(String propertyName) throws CrossbowException
    {
       Property<?> result = propertyMap.get(propertyName);
       
@@ -150,7 +150,7 @@ public abstract class PropertyList<PropertyType extends Property<?>> // TODO con
     * 
     * @return list
     */
-   public List<Property<?>> getList()
+   public synchronized List<Property<?>> getList()
    {
       List<Property<?>> list = new LinkedList<Property<?>>(propertyMap.values());
       return list;

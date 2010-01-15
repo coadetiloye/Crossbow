@@ -75,7 +75,7 @@ public class Currency implements Comparable<Currency>
     * @param decimalPlaces
     *           number of decimal places
     */
-   public void setDecimalPlaces(int decimalPlaces)
+   public synchronized void setDecimalPlaces(int decimalPlaces)
    {
       digits = decimalPlaces;
    }
@@ -87,7 +87,7 @@ public class Currency implements Comparable<Currency>
     *           number to be formatted
     * @return formatted number
     */
-   public String formatNumber(BigDecimal number)
+   public synchronized String formatNumber(BigDecimal number)
    {
       return number.setScale(digits, StaticSettings.priceRoundingMode).toString();
    }
@@ -99,7 +99,7 @@ public class Currency implements Comparable<Currency>
     *           number to be formatted
     * @return formatted number
     */
-   public String formatNumberWithCurrency(BigDecimal number)
+   public synchronized String formatNumberWithCurrency(BigDecimal number)
    {
       return number.setScale(digits, StaticSettings.priceRoundingMode).toString() + code;
    }

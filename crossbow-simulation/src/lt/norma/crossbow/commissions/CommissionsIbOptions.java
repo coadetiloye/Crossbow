@@ -32,12 +32,12 @@ import java.math.BigDecimal;
  */
 public class CommissionsIbOptions implements Commissions
 {
-   private BigDecimal premiumHigh = new BigDecimal("0.10");
-   private BigDecimal premiumLow = new BigDecimal("0.05");
-   private BigDecimal rateHigh = new BigDecimal("0.70");
-   private BigDecimal rateMedium = new BigDecimal("0.50");
-   private BigDecimal rateLow = new BigDecimal("0.25");
-   private BigDecimal minimumPerOrder = new BigDecimal("1.00");
+   private final BigDecimal premiumHigh = new BigDecimal("0.10");
+   private final BigDecimal premiumLow = new BigDecimal("0.05");
+   private final BigDecimal rateHigh = new BigDecimal("0.70");
+   private final BigDecimal rateMedium = new BigDecimal("0.50");
+   private final BigDecimal rateLow = new BigDecimal("0.25");
+   private final BigDecimal minimumPerOrder = new BigDecimal("1.00");
    
    @Override
    public BigDecimal calculate(int size, BigDecimal price)

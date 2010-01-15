@@ -31,6 +31,7 @@ public final class LimitOrder extends Order
 {
    /** Limit price. */
    private final BigDecimal limitPrice;
+   
    /** Order type. */
    private static final String ORDER_TYPE = "limit";
    

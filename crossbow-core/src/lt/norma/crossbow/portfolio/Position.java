@@ -32,7 +32,7 @@ import lt.norma.crossbow.trading.FilledBlock;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Position // TODO concurrency
+public class Position
 {
    /** Contract of this position. */
    private final Contract contract;
@@ -136,7 +136,7 @@ public class Position // TODO concurrency
    /**
     * @return position size. Can be negative if the position is short.
     */
-   public int getSize()
+   public synchronized int getSize()
    {
       return size;
    }
@@ -146,7 +146,7 @@ public class Position // TODO concurrency
     *         the older blocks are removed or modified and average price is recalculated. Value can
     *         be null if position size is 0.
     */
-   public BigDecimal getAveragePrice()
+   public synchronized BigDecimal getAveragePrice()
    {
       return averagePrice;
    }

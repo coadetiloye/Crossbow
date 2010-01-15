@@ -53,7 +53,7 @@ public class OcaGroup
     * @param order
     *           a new order to be added
     */
-   public void addOrder(Order order)
+   public synchronized void addOrder(Order order)
    {
       if (order != null)
       {
@@ -69,7 +69,7 @@ public class OcaGroup
     * @return a text string representing this OCA group
     */
    @Override
-   public String toString()
+   public synchronized String toString()
    {
       return "OCA group " + title + " (" + orders.size() + ")";
    }
@@ -79,7 +79,7 @@ public class OcaGroup
     * 
     * @return list of orders
     */
-   public List<Order> getOrders()
+   public synchronized List<Order> getOrders()
    {
       return orders;
    }

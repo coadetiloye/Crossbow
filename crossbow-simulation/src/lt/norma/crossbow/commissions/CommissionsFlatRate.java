@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  */
 public class CommissionsFlatRate implements Commissions
 {
-   private BigDecimal rate;
+   private final BigDecimal rate;
    
    /**
     * Constructor.

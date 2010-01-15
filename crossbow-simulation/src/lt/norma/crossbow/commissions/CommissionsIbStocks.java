@@ -33,9 +33,9 @@ import lt.norma.crossbow.configuration.StaticSettings;
  */
 public class CommissionsIbStocks implements Commissions
 {
-   private BigDecimal ratePerShare = new BigDecimal("0.005");
-   private BigDecimal minimumPerOrder = new BigDecimal("1.00");
-   private BigDecimal maximumPercentPerOrder = new BigDecimal("0.50");
+   private final BigDecimal ratePerShare = new BigDecimal("0.005");
+   private final BigDecimal minimumPerOrder = new BigDecimal("1.00");
+   private final BigDecimal maximumPercentPerOrder = new BigDecimal("0.50");
    
    @Override
    public BigDecimal calculate(int size, BigDecimal price)

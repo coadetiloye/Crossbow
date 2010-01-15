@@ -28,6 +28,7 @@ public class ForexContract extends Contract
 {
    private final Currency currency1;
    private final Currency currency2;
+   
    // Error messages.
    private static final String FIRST_CURRENCY_ERROR =
          "The first currency of a forex contract is not set.";
@@ -109,7 +110,7 @@ public class ForexContract extends Contract
    @Override
    protected boolean contractEquals(Contract contract)
    {
-      ForexContract forexContract = (ForexContract) contract;
+      ForexContract forexContract = (ForexContract)contract;
       return currency1.equals(forexContract.getCurrency1());
       // Second currency is compared as currency field of Contract class.
    }

@@ -31,11 +31,12 @@ public enum Direction
     * contracts.
     */
    LONG("long"),
-   /**
+      /**
     * Short direction. For orders it means "order to sell", for positions - negative amount of
     * contracts.
     */
    SHORT("short");
+   
    /** A human readable title. */
    private final String title;
    
