@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderDirectionTest
+public class DirectionTest
 {
    /**
     * 
@@ -35,9 +35,9 @@ public class OrderDirectionTest
    @Test
    public void test()
    {
-      assertEquals(Direction.BUY, Direction.valueOf("BUY"));
-      assertEquals(Direction.SELL, Direction.valueOf("SELL"));
-      assertEquals(Direction.BUY, Direction.valueOf(Direction.BUY.name()));
+      assertEquals(Direction.LONG, Direction.valueOf("LONG"));
+      assertEquals(Direction.SHORT, Direction.valueOf("SHORT"));
+      assertEquals(Direction.LONG, Direction.valueOf(Direction.LONG.name()));
    }
    
    /**
@@ -46,12 +46,12 @@ public class OrderDirectionTest
    @Test
    public void testToString()
    {
-      Direction b = Direction.BUY;
-      Direction s = Direction.SELL;
+      Direction b = Direction.LONG;
+      Direction s = Direction.SHORT;
       
-      assertEquals("buy", b.toString());
-      assertEquals("buy", b.getTitle());
-      assertEquals("sell", s.toString());
-      assertEquals("sell", s.getTitle());
+      assertEquals("long", b.toString());
+      assertEquals("long", b.getTitle());
+      assertEquals("short", s.toString());
+      assertEquals("short", s.getTitle());
    }
 }

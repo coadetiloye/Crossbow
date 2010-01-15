@@ -44,7 +44,7 @@ public class OrderUpdatedEventTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
       
       Object source = new Object();
       OrderUpdatedEvent oue = new OrderUpdatedEvent(source, o);

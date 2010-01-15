@@ -49,7 +49,7 @@ public class LimitOrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      LimitOrder o = new LimitOrder(-50, c, Direction.BUY, 500, new BigDecimal("15.01"));
+      LimitOrder o = new LimitOrder(-50, c, Direction.LONG, 500, new BigDecimal("15.01"));
       
       assertTrue(o.getLimitPrice().compareTo(new BigDecimal("15.010")) == 0);
       assertTrue(o.toString().endsWith(" at 15.01"));

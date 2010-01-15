@@ -45,7 +45,7 @@ public class MarketOrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MarketOrder o = new MarketOrder(0, c, Direction.BUY, 500);
+      MarketOrder o = new MarketOrder(0, c, Direction.LONG, 500);
       assertEquals("market", o.getType());
    }
 }

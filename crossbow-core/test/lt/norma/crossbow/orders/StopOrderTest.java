@@ -49,7 +49,7 @@ public class StopOrderTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      StopOrder o = new StopOrder(-50, c, Direction.BUY, 500, new BigDecimal("-5"));
+      StopOrder o = new StopOrder(-50, c, Direction.LONG, 500, new BigDecimal("-5"));
       
       assertTrue(o.getStopPrice().compareTo(new BigDecimal("-5.0")) == 0);
       assertTrue(o.toString().endsWith(" at -5"));

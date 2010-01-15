@@ -26,10 +26,16 @@ package lt.norma.crossbow.orders;
  */
 public enum Direction
 {
-   /** Buy order direction. */
-   BUY("buy"),
-      /** Sell order direction. */
-   SELL("sell");
+   /**
+    * Long direction. For orders it means "order to buy", for positions - positive amount of
+    * contracts.
+    */
+   LONG("long"),
+   /**
+    * Short direction. For orders it means "order to sell", for positions - negative amount of
+    * contracts.
+    */
+   SHORT("short");
    /** A human readable title. */
    private final String title;
    

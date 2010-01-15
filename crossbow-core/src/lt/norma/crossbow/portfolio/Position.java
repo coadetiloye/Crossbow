@@ -69,8 +69,8 @@ public class Position // TODO concurrency
     */
    public synchronized void addFilledBlock(FilledBlock block)
    {
-      if (block.getDirection() == Direction.BUY && size >= 0
-          || block.getDirection() == Direction.SELL && size <= 0)
+      if (block.getDirection() == Direction.LONG && size >= 0
+          || block.getDirection() == Direction.SHORT && size <= 0)
       {
          // Add long block to long position or short block to short position.
          openBlocks.add(block);
@@ -79,7 +79,7 @@ public class Position // TODO concurrency
       {
          // Add long block to short position or short block to long position.
          int blockSize = block.getSize();
-         while (blockSize == 0 || openBlocks.isEmpty())
+         while (blockSize != 0 && !openBlocks.isEmpty())
          {
             FilledBlock firstBlock = openBlocks.get(0);
             openBlocks.remove(0);
@@ -114,7 +114,7 @@ public class Position // TODO concurrency
       int total = 0;
       for (FilledBlock block : openBlocks)
       {
-         if (block.getDirection() == Direction.BUY)
+         if (block.getDirection() == Direction.LONG)
             total += block.getSize();
          else
             total -= block.getSize();
@@ -130,7 +130,7 @@ public class Position // TODO concurrency
          averagePrice = null;
       else
          averagePrice = totalValue.divide(
-               new BigDecimal(size), StaticSettings.pricePrecision, RoundingMode.HALF_UP);
+               new BigDecimal(Math.abs(size)), StaticSettings.pricePrecision, RoundingMode.HALF_UP);
    }
    
    /**

@@ -59,8 +59,8 @@ public class OcaGroupTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      Order o1 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
-      Order o2 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      Order o1 = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      Order o2 = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
       
       OcaGroup og = new OcaGroup("AAA");
       

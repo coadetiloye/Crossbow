@@ -50,8 +50,8 @@ public class TradeExecutorTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o1 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
-      MockOrder o2 = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
+      MockOrder o1 = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      MockOrder o2 = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
       
       MockTradeExecutor executor = new MockTradeExecutor();
       MockTradeExecutorListener listener1 = new MockTradeExecutorListener();
@@ -97,8 +97,8 @@ public class TradeExecutorTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
-      FilledBlock b = new FilledBlock(Direction.SELL, 100, new BigDecimal("88"), new DateTime());
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      FilledBlock b = new FilledBlock(Direction.SHORT, 100, new BigDecimal("88"), new DateTime());
       ExecutionReport r1 = new ExecutionReport(o, b);
       ExecutionReport r2 = new ExecutionReport(o, b);
       

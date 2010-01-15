@@ -17,10 +17,10 @@
 
 package lt.norma.crossbow.orders;
 
-import org.joda.time.DateTime;
-
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.exceptions.OrderException;
+
+import org.joda.time.DateTime;
 
 /**
  * Base class for all order types. Extend this class to create new order types. Use attributes to
@@ -96,7 +96,7 @@ public abstract class Order // TODO remove comment field; concurrency
          throw new OrderException("Type of the order for contract '" + contract.toString()
                                   + "' is not set.");
       }
-      if (direction == null || direction != Direction.BUY && direction != Direction.SELL)
+      if (direction == null || direction != Direction.LONG && direction != Direction.SHORT)
       {
          throw new OrderException("Order for contract '" + contract.toString()
                                   + "' has invalid direction '" + String.valueOf(direction) + "'.");
@@ -124,7 +124,7 @@ public abstract class Order // TODO remove comment field; concurrency
     */
    public boolean isBuy()
    {
-      return direction == Direction.BUY;
+      return direction == Direction.LONG;
    }
    
    /**
@@ -134,7 +134,7 @@ public abstract class Order // TODO remove comment field; concurrency
     */
    public boolean isSell()
    {
-      return direction == Direction.SELL;
+      return direction == Direction.SHORT;
    }
    
    /**
@@ -145,8 +145,16 @@ public abstract class Order // TODO remove comment field; concurrency
    @Override
    public String toString()
    {
-      return (status + " " + type + " order to " + direction + " " + size + " of '"
+      return (status + " " + type + " order to " + getOrderDirectionString() + " " + size + " of '"
               + contract.toString() + "'");
+   }
+   
+   /**
+    * @return "buy" for <code>LONG</code> direction; "sell" for <code>SHORT</code> direction;
+    */
+   protected String getOrderDirectionString()
+   {
+      return direction == Direction.LONG ? "buy" : "sell";
    }
    
    /**

@@ -48,8 +48,8 @@ public class OrderExecutedEventTest
       Currency currency = Currency.createJpy();
       Exchange exchange = Exchange.createNasdaq();
       StockContract c = new StockContract("ABC", exchange, currency);
-      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SELL, 800);
-      FilledBlock b = new FilledBlock(Direction.BUY, 100, new BigDecimal("88"), new DateTime());
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      FilledBlock b = new FilledBlock(Direction.LONG, 100, new BigDecimal("88"), new DateTime());
       ExecutionReport r = new ExecutionReport(o, b);
       Object source = new Object();
       
