@@ -124,22 +124,19 @@ public abstract class Contract
    @Override
    public final boolean equals(Object object)
    {
+      if (this == object)
+      {
+         return true;
+      }
       if (object == null || !getClass().equals(object.getClass()))
       {
          return false;
       }
-      if (object == this)
-      {
-         return true;
-      }
-      else
-      {
-         Contract contract = (Contract) object;
-         return symbol.equals(contract.symbol)
-                && exchange.equals(contract.exchange)
-                && currency.equals(contract.currency)
-                && contractEquals(contract);
-      }
+      Contract contract = (Contract)object;
+      return symbol.equals(contract.symbol)
+             && exchange.equals(contract.exchange)
+             && currency.equals(contract.currency)
+             && contractEquals(contract);
    }
    
    /**

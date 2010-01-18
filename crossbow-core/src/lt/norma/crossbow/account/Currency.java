@@ -146,13 +146,13 @@ public class Currency implements Comparable<Currency>
    @Override
    public boolean equals(Object object)
    {
-      if (object == null || !this.getClass().equals(object.getClass()))
-      {
-         return false;
-      }
       if (this == object)
       {
          return true;
+      }
+      if (object == null || !getClass().equals(object.getClass()))
+      {
+         return false;
       }
       return this.code.equals(((Currency)object).code);
    }

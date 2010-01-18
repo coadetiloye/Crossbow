@@ -15,26 +15,24 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.account;
+package lt.norma.crossbow.orders;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains list of positions.
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Portfolio
+public class OrderBook
 {
-   private final List<Position> positions;
+   private final List<Order> orders;
    
    /**
     * Constructor.
     */
-   public Portfolio()
+   public OrderBook()
    {
-      positions = new ArrayList<Position>();
+      orders = new ArrayList<Order>();
    }
 }
 

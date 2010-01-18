@@ -17,6 +17,8 @@
 
 package lt.norma.crossbow.account;
 
+import lt.norma.crossbow.orders.OrderBook;
+
 /**
  * Porfolio extended by account details.
  * 
@@ -26,6 +28,7 @@ public class Account
 {
    private final Money cash;
    private final Portfolio portfolio;
+   private final OrderBook orderBook;
    
    /**
     * Constructor.
@@ -37,6 +40,7 @@ public class Account
    {
       cash = new Money(baseCurrency);
       portfolio = new Portfolio();
+      orderBook = new OrderBook();
    }
    
    /**
@@ -53,6 +57,14 @@ public class Account
    public Portfolio getPortfolio()
    {
       return portfolio;
+   }
+   
+   /**
+    * @return order book
+    */
+   public OrderBook getOrderBook()
+   {
+      return orderBook;
    }
 }
 

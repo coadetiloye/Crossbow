@@ -148,19 +148,15 @@ public class Exchange implements Comparable<Exchange>
    @Override
    public boolean equals(Object object)
    {
-      if (object == null || !object.getClass().equals(this.getClass()))
-      {
-         return false;
-      }
-      Exchange exchange = (Exchange) object;
-      if (exchange == this)
+      if (this == object)
       {
          return true;
       }
-      else
+      if (object == null || !getClass().equals(object.getClass()))
       {
-         return this.compareTo(exchange) == 0;
+         return false;
       }
+      return this.compareTo((Exchange)object) == 0;
    }
    
    /**

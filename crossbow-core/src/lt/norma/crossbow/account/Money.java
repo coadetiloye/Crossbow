@@ -150,18 +150,18 @@ public class Money implements Comparable<Money>
     * @return true if both instances are the same, false otherwise
     */
    @Override
-   public synchronized boolean equals(Object obj)
+   public synchronized boolean equals(Object object)
    {
-      if (this == obj)
+      if (this == object)
       {
          return true;
       }
-      if (obj == null || !this.getClass().equals(obj.getClass()))
+      if (object == null || !getClass().equals(object.getClass()))
       {
          return false;
       }
-      return this.amount.compareTo(((Money)obj).amount) == 0 &&
-             this.currency.equals(((Money)obj).currency);
+      return amount.compareTo(((Money)object).amount) == 0 &&
+             currency.equals(((Money)object).currency);
    }
    
    /**
