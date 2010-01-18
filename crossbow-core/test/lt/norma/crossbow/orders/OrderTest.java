@@ -18,8 +18,8 @@
 package lt.norma.crossbow.orders;
 
 import static org.junit.Assert.*;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Contract;
-import lt.norma.crossbow.contracts.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;

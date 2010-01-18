@@ -18,7 +18,9 @@
 package lt.norma.crossbow.contracts;
 
 import static org.junit.Assert.*;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.exceptions.ContractException;
+
 import org.junit.Test;
 
 /**

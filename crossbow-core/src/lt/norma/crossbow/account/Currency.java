@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.contracts;
+package lt.norma.crossbow.account;
 
 import java.math.BigDecimal;
 
@@ -67,7 +67,7 @@ public class Currency implements Comparable<Currency>
    public Currency(String code)
    {
       this(code, null);
-   }  
+   }
    
    /**
     * Set number of decimal places.
@@ -101,7 +101,7 @@ public class Currency implements Comparable<Currency>
     */
    public synchronized String formatNumberWithCurrency(BigDecimal number)
    {
-      return number.setScale(digits, StaticSettings.priceRoundingMode).toString() + code;
+      return number.setScale(digits, StaticSettings.priceRoundingMode).toString() + " " + code;
    }
    
    /**
@@ -224,5 +224,4 @@ public class Currency implements Comparable<Currency>
       currency.setDecimalPlaces(0);
       return currency;
    }
-   
 }

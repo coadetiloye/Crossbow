@@ -15,11 +15,11 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.contracts;
+package lt.norma.crossbow.account;
 
 import java.math.BigDecimal;
 
-import lt.norma.crossbow.contracts.Currency;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 
 import org.junit.Test;
@@ -98,12 +98,12 @@ public class CurrencyTest
       c.setDecimalPlaces(5);
       assertEquals("2.12345", c.formatNumber(new BigDecimal("2.1234511111")));
       assertEquals("2.12346", c.formatNumber(new BigDecimal("2.1234599999")));
-      assertEquals("2.12346FFF", c.formatNumberWithCurrency(new BigDecimal("2.1234599999")));
+      assertEquals("2.12346 FFF", c.formatNumberWithCurrency(new BigDecimal("2.1234599999")));
       c.setDecimalPlaces(0);
       assertEquals("2", c.formatNumber(new BigDecimal("2.1234511111")));
       assertEquals("3", c.formatNumber(new BigDecimal("2.91234599999")));
       assertEquals("1231231231", c.formatNumber(new BigDecimal("1231231231")));
-      assertEquals("1231231231FFF", c.formatNumberWithCurrency(new BigDecimal("1231231231")));
+      assertEquals("1231231231 FFF", c.formatNumberWithCurrency(new BigDecimal("1231231231")));
    }
    
    /**

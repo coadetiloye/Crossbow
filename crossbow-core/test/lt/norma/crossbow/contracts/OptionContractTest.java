@@ -19,7 +19,7 @@ package lt.norma.crossbow.contracts;
 
 import java.math.BigDecimal;
 
-import lt.norma.crossbow.contracts.Currency;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.OptionContract;
 import lt.norma.crossbow.contracts.OptionType;

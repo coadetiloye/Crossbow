@@ -19,8 +19,8 @@ package lt.norma.crossbow.data;
 
 import java.math.BigDecimal;
 
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Contract;
-import lt.norma.crossbow.contracts.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.data.Trade;

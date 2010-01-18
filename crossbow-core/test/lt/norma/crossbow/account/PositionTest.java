@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.portfolio;
+package lt.norma.crossbow.account;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,7 +25,8 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.List;
 
-import lt.norma.crossbow.contracts.Currency;
+import lt.norma.crossbow.account.Currency;
+import lt.norma.crossbow.account.Position;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
@@ -58,7 +59,7 @@ public class PositionTest
    }
    
    /**
-    * Test method for {@link lt.norma.crossbow.portfolio.Position#Position()}.
+    * Test method for {@link lt.norma.crossbow.account.Position#Position()}.
     * 
     * @throws IllegalAccessException
     * @throws NoSuchFieldException

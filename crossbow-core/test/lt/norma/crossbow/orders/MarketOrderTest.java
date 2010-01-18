@@ -18,7 +18,7 @@
 package lt.norma.crossbow.orders;
 
 import static org.junit.Assert.assertEquals;
-import lt.norma.crossbow.contracts.Currency;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;

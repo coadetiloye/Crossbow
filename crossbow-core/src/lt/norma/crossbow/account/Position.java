@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.portfolio;
+package lt.norma.crossbow.account;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

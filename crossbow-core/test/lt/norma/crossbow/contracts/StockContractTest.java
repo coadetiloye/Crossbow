@@ -17,7 +17,7 @@
 
 package lt.norma.crossbow.contracts;
 
-import lt.norma.crossbow.contracts.Currency;
+import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
