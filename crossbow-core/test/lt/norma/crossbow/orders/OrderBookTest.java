@@ -89,7 +89,8 @@ public class OrderBookTest
     * @throws IllegalArgumentException
     */
    @Test(expected = CrossbowException.class)
-   public void testAddOrder2() throws OrderException, CrossbowException, IllegalArgumentException,
+   public void testAddOrder2() throws OrderException, CrossbowException,
+         IllegalArgumentException,
          NoSuchFieldException, IllegalAccessException
    {
       OrderBook b = new OrderBook();
@@ -116,8 +117,8 @@ public class OrderBookTest
    public void testRemoveOrder() throws OrderException, CrossbowException,
          IllegalArgumentException, NoSuchFieldException, IllegalAccessException
    {
-      final OrderBook b = new OrderBook();
-      final Order o1 = new MockOrder(8);
+      OrderBook b = new OrderBook();
+      Order o1 = new MockOrder(8);
       Order o2 = new MockOrder(16);
       Order o3 = new MockOrder(2);
       
@@ -129,6 +130,24 @@ public class OrderBookTest
       b.removeOrder(o3);
       
       assertEquals(1, ((HashMap<Long, Order>)Reflection.getField("orders", b)).size());
+   }
+   
+   /**
+    * Test method for {@link OrderBook#removeOrder(Order)}.
+    * 
+    * @throws OrderException
+    * @throws CrossbowException
+    * @throws IllegalAccessException
+    * @throws NoSuchFieldException
+    * @throws IllegalArgumentException
+    */
+   @Test(expected = NullPointerException.class)
+   public void testRemoveOrder2() throws OrderException, CrossbowException,
+         IllegalArgumentException, NoSuchFieldException, IllegalAccessException
+   {
+      OrderBook b = new OrderBook();
+      
+      b.removeOrder(null);
    }
    
    /**
@@ -152,6 +171,7 @@ public class OrderBookTest
       assertEquals(o1, b.getOrderById(8));
       assertEquals(o2, b.getOrderById(16));
       assertEquals(o3, b.getOrderById(2));
+      assertNull(b.getOrderById(55));
    }
    
    /**

@@ -18,6 +18,7 @@
 package lt.norma.crossbow.orders;
 
 import lt.norma.crossbow.contracts.Contract;
+import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 import lt.norma.crossbow.exceptions.OrderException;
 
 import org.joda.time.DateTime;
@@ -148,7 +149,7 @@ public abstract class Order
    {
       synchronized (lock)
       {
-         return status != OrderStatus.CANCELED &&
+         return status != OrderStatus.CANCELED && 
                 status != OrderStatus.FILLED &&
                 status != OrderStatus.REJECTED;
       }
@@ -203,6 +204,12 @@ public abstract class Order
     */
    public void setSubmitTime(DateTime time)
    {
+      if (time == null)
+      {
+         throw new InvalidArgumentRuntimeException("time", "null",
+               "Order submit time cannot be null.");
+      }
+      
       synchronized (lock)
       {
          this.submitTime = time;
@@ -239,6 +246,12 @@ public abstract class Order
     */
    public void setStatus(OrderStatus status)
    {
+      if (status == null)
+      {
+         throw new InvalidArgumentRuntimeException("status", "null",
+               "Order status cannot be null.");
+      }
+      
       synchronized (lock)
       {
          this.status = status;

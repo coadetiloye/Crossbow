@@ -17,11 +17,10 @@
 
 package lt.norma.crossbow.configuration;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import lt.norma.crossbow.configuration.StaticSettings;
+import java.math.BigDecimal;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -29,7 +28,6 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * @author Vilius Normantas <code@norma.lt>
@@ -95,25 +93,5 @@ public class StaticSettingsTest
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_DOWN
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_EVEN
                  || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_UP);
-   }
-   
-   /**
-    * Please Emma test coverage :)
-    * 
-    * @throws SecurityException
-    * @throws NoSuchMethodException
-    * @throws InvocationTargetException
-    * @throws IllegalAccessException
-    * @throws InstantiationException
-    * @throws IllegalArgumentException
-    */
-   @Test
-   public void testPleaseEmma() throws SecurityException, NoSuchMethodException,
-         IllegalArgumentException, InstantiationException, IllegalAccessException,
-         InvocationTargetException
-   {
-      Constructor<StaticSettings> c = StaticSettings.class.getDeclaredConstructor();
-      c.setAccessible(true);
-      c.newInstance();
-   }
+   }   
 }

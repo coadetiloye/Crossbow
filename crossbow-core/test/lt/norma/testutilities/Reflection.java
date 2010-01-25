@@ -27,12 +27,12 @@ import java.lang.reflect.Method;
 public final class Reflection
 {
    /**
-    * Get field.
+    * Get value of a private field.
     * <p>
     * Usage:
     * 
     * <pre>
-    * ValueType v = (ValueType)ReflectionUtilities.getField(&quot;fieldName&quot;, object);
+    * ValueType v = (ValueType)Reflection.getField(&quot;fieldName&quot;, object);
     * </pre>
     * 
     * @param name
@@ -50,6 +50,92 @@ public final class Reflection
       Field field = object.getClass().getDeclaredField(name);
       field.setAccessible(true);
       return field.get(object);
+   }
+   
+   /**
+    * Get value of a private field.
+    * <p>
+    * Usage:
+    * 
+    * <pre>
+    * ValueType v = (ValueType)Reflection.getField(&quot;fieldName&quot;, object, MyClass.class);
+    * </pre>
+    * 
+    * @param name
+    *           name of the field
+    * @param object
+    *           object containing the field
+    * @param type
+    *           class of the object
+    * @return value of the field
+    * @throws NoSuchFieldException
+    * @throws IllegalArgumentException
+    * @throws IllegalAccessException
+    */
+   @SuppressWarnings("unchecked")
+   public static Object getField(String name, Object object, Class type)
+         throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+   {
+      Field field = type.getField(name);
+      field.setAccessible(true);
+      return field.get(object);
+   }
+   
+   /**
+    * Sets value of a private field.
+    * <p>
+    * Usage:
+    * 
+    * <pre>
+    * Reflection.setField(&quot;fieldName&quot;, object, value);
+    * </pre>
+    * 
+    * @param name
+    *           name of the field
+    * @param object
+    *           object containing the field
+    * @param value
+    *           value to be assigned to the field
+    * @throws NoSuchFieldException
+    * @throws IllegalArgumentException
+    * @throws IllegalAccessException
+    */
+   public static void setField(String name, Object object, Object value)
+         throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+   {
+      Field field = object.getClass().getDeclaredField(name);
+      field.setAccessible(true);
+      field.set(object, value);
+   }
+   
+   /**
+    * Sets value of a private field.
+    * <p>
+    * Usage:
+    * 
+    * <pre>
+    * Reflection.setField(&quot;fieldName&quot;, object, value);
+    * </pre>
+    * 
+    * @param name
+    *           name of the field
+    * @param object
+    *           object containing the field
+    * @param value
+    *           value to be assigned to the field
+    * @param type
+    *           class of the object
+    * @throws NoSuchFieldException
+    * @throws IllegalArgumentException
+    * @throws IllegalAccessException
+    */
+   @SuppressWarnings("unchecked")
+   public static void setField(String name, Object object, Object value, Class type)
+         throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+   {
+      Field field = type.getDeclaredField(name);
+      field.setAccessible(true);
+      field.set(object, value);
    }
    
    /**

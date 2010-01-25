@@ -23,6 +23,7 @@ import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
 import lt.norma.crossbow.exceptions.ContractException;
+import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 import lt.norma.crossbow.exceptions.OrderException;
 
 import org.joda.time.DateTime;
@@ -214,6 +215,22 @@ public class OrderTest
    }
    
    /**
+    * Test of getSubmitTime and setSubmitTime methods, of class Order.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test(expected=InvalidArgumentRuntimeException.class)
+   public void testGetSetSubmitTime2() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      o.setSubmitTime(null);
+   }
+   
+   /**
     * Test of setStatus method, of class Order.
     * 
     * @throws ContractException
@@ -229,6 +246,22 @@ public class OrderTest
       assertEquals(OrderStatus.NEW, o.getStatus());
       o.setStatus(OrderStatus.CANCELLATION_PENDING);
       assertEquals(OrderStatus.CANCELLATION_PENDING, o.getStatus());
+   }
+   
+   /**
+    * Test of setStatus method, of class Order.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test(expected = InvalidArgumentRuntimeException.class)
+   public void testSetStatus2() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      MockOrder o = new MockOrder(55, c, "MYORDER", Direction.SHORT, 800);
+      o.setStatus(null);
    }
    
    /**
