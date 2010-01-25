@@ -64,6 +64,31 @@ public class OrderTest
    }
    
    /**
+    * Test method for {@link Order#isActive()}.
+    * 
+    * @throws ContractException
+    * @throws OrderException
+    */
+   @Test
+   public void testIsActive() throws ContractException, OrderException
+   {
+      Currency currency = Currency.createJpy();
+      Exchange exchange = Exchange.createNasdaq();
+      StockContract c = new StockContract("ABC", exchange, currency);
+      MockOrder o2 = new MockOrder(55, c, "MYORDER", Direction.LONG, 800);
+      
+      assertTrue(o2.isActive());
+      o2.setStatus(OrderStatus.CANCELED);
+      assertFalse(o2.isActive());
+      o2.setStatus(OrderStatus.REJECTED);
+      assertFalse(o2.isActive());
+      o2.setStatus(OrderStatus.FILLED);
+      assertFalse(o2.isActive());
+      o2.setStatus(OrderStatus.NEW);
+      assertTrue(o2.isActive());
+   }
+   
+   /**
     * Test the constructor.
     * 
     * @throws ContractException

@@ -60,8 +60,8 @@ public final class Reflection
     * <pre>
     * arguments = new Object[1];
     * arguments[0] = &quot;argument1&quot;;
-    * ResultType result = 
-    *    (ResultType)Reflection.callMethod(&quot;methodName&quot;, object, arguments);
+    * ResultType result =
+    *       (ResultType)Reflection.callMethod(&quot;methodName&quot;, object, arguments);
     * </pre>
     * 
     * @param name

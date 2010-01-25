@@ -37,11 +37,12 @@ import org.joda.time.DateTime;
 public abstract class Order
 {
    private final long id;
+   private final Object lock;
    
    /** Contract of a traded instrument. */
    protected final Contract contract;
    /**
-    * type of the order. Used only to provide human readable type of the order. Internally order
+    * type of this order. Used only to provide human readable type of the order. Internally order
     * types are identified by class and attributes.
     */
    protected final String type;
@@ -112,6 +113,7 @@ public abstract class Order
       this.size = size;
       status = OrderStatus.NEW;
       attributes = new OrderAttributes();
+      lock = new Object();
    }
    
    /**
@@ -135,19 +137,39 @@ public abstract class Order
    }
    
    /**
-    * Return order data as a text string.
+    * Checks if this order is active. Orders are active, unless they are canceled, filled or
+    * rejected.
     * 
-    * @return order data as text
+    * @return false if this order is canceled, filled or rejected; true otherwise
+    * @see #getStatus()
+    * @see OrderStatus
+    */
+   public boolean isActive()
+   {
+      synchronized (lock)
+      {
+         return status != OrderStatus.CANCELED &&
+                status != OrderStatus.FILLED &&
+                status != OrderStatus.REJECTED;
+      }
+   }
+   
+   /**
+    * @return order data as a text string
     */
    @Override
-   public synchronized String toString()
+   public String toString()
    {
-      return (status + " " + type + " order to " + getOrderDirectionString() + " " + size + " of '"
-              + contract.toString() + "'");
+      synchronized (lock)
+      {
+         return (status + " " + type + " order to " + getOrderDirectionString() + " " + size
+                 + " of '" + contract.toString() + "'");
+      }
    }
    
    /**
     * @return "buy" for <code>LONG</code> direction; "sell" for <code>SHORT</code> direction;
+    * @see Direction
     */
    protected String getOrderDirectionString()
    {
@@ -155,9 +177,7 @@ public abstract class Order
    }
    
    /**
-    * Get contract.
-    * 
-    * @return contract
+    * @return contract of the order
     */
    public Contract getContract()
    {
@@ -165,30 +185,32 @@ public abstract class Order
    }
    
    /**
-    * Get time when the order was submitted. Can be null if the order is not submited yet.
-    * 
-    * @return submit time
+    * @return time when the order was submitted. Can be null, if the order is not submitted yet.
     */
-   public synchronized DateTime getSubmitTime()
+   public DateTime getSubmitTime()
    {
-      return submitTime;
+      synchronized (lock)
+      {
+         return submitTime;
+      }
    }
    
    /**
-    * Set time when the order was submited.
+    * Set time when the order was submitted.
     * 
     * @param time
     *           submit time
     */
-   public synchronized void setSubmitTime(DateTime time)
+   public void setSubmitTime(DateTime time)
    {
-      this.submitTime = time;
+      synchronized (lock)
+      {
+         this.submitTime = time;
+      }
    }
    
    /**
-    * Get order size.
-    * 
-    * @return size of an order. Negative value means short trade, positive - long
+    * @return size of an order
     */
    public int getSize()
    {
@@ -196,30 +218,36 @@ public abstract class Order
    }
    
    /**
-    * Get order status.
-    * 
     * @return order status
+    * @see #isActive()
+    * @see OrderStatus
     */
-   public synchronized OrderStatus getStatus()
+   public OrderStatus getStatus()
    {
-      return status;
+      synchronized (lock)
+      {
+         return status;
+      }
    }
    
    /**
-    * Set order status.
+    * Sets order status.
     * 
     * @param status
     *           order status
+    * @see OrderStatus
     */
-   public synchronized void setStatus(OrderStatus status)
+   public void setStatus(OrderStatus status)
    {
-      this.status = status;
+      synchronized (lock)
+      {
+         this.status = status;
+      }
    }
    
    /**
-    * Gets type.
-    * 
-    * @return type of the order
+    * @return type of this order. Used only to provide human readable type of the order. Internally
+    *         order types are identified by class and attributes.
     */
    public String getType()
    {
@@ -227,8 +255,6 @@ public abstract class Order
    }
    
    /**
-    * Gets orders attributes.
-    * 
     * @return order attributes
     */
    public OrderAttributes getAttributes()
@@ -237,9 +263,7 @@ public abstract class Order
    }
    
    /**
-    * Get broker ID.
-    * 
-    * @return ID assigned by a broker
+    * @return order identifier
     */
    public long getId()
    {
