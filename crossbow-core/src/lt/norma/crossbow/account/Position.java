@@ -34,9 +34,13 @@ import lt.norma.crossbow.trading.FilledBlock;
  */
 public class Position
 {
-   /** Contract of this position. */
+   /**
+    * Contract of this position.
+    */
    private final Contract contract;
-   /** Position size. Can be negative if the position is short. */
+   /**
+    * Position size. Can be negative if the position is short.
+    */
    private int size;
    /**
     * Average price at which the position was opened. If the position is partially closed, the
@@ -44,7 +48,9 @@ public class Position
     * position size is 0.
     */
    private BigDecimal averagePrice;
-   /** Open blocks. */
+   /**
+    * Open blocks.
+    */
    private final List<FilledBlock> openBlocks;
    
    /**
@@ -69,8 +75,8 @@ public class Position
     */
    public synchronized void addFilledBlock(FilledBlock block)
    {
-      if (block.getDirection() == Direction.LONG && size >= 0
-          || block.getDirection() == Direction.SHORT && size <= 0)
+      if (size >= 0 && block.getDirection() == Direction.LONG ||
+          size <= 0 && block.getDirection() == Direction.SHORT)
       {
          // Add long block to long position or short block to short position.
          openBlocks.add(block);
@@ -102,7 +108,7 @@ public class Position
                   block.getDirection(), blockSize,
                   block.getAveragePrice(), block.getTime());
             openBlocks.add(replaceBlock);
-         }         
+         }
       }
       
       // Update size and average price.
@@ -157,5 +163,5 @@ public class Position
    public Contract getContract()
    {
       return contract;
-   }  
+   }
 }

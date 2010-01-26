@@ -130,25 +130,7 @@ public class OrderBookTest
       b.removeOrder(o3);
       
       assertEquals(1, ((HashMap<Long, Order>)Reflection.getField("orders", b)).size());
-   }
-   
-   /**
-    * Test method for {@link OrderBook#removeOrder(Order)}.
-    * 
-    * @throws OrderException
-    * @throws CrossbowException
-    * @throws IllegalAccessException
-    * @throws NoSuchFieldException
-    * @throws IllegalArgumentException
-    */
-   @Test(expected = NullPointerException.class)
-   public void testRemoveOrder2() throws OrderException, CrossbowException,
-         IllegalArgumentException, NoSuchFieldException, IllegalAccessException
-   {
-      OrderBook b = new OrderBook();
-      
-      b.removeOrder(null);
-   }
+   }   
    
    /**
     * Test method for {@link OrderBook#getOrderById(long)}.

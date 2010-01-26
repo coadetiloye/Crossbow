@@ -19,6 +19,7 @@ package lt.norma.crossbow.trading;
 
 import java.math.BigDecimal;
 
+import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.trading.FilledBlock;
 
@@ -39,11 +40,30 @@ public class FilledBlockTest
    @Test
    public void testCreation()
    {
-      FilledBlock p = new FilledBlock(Direction.LONG, 100, new BigDecimal("8.0"), new DateTime(500));
+      FilledBlock p =
+            new FilledBlock(Direction.LONG, 100, new BigDecimal("8.0"), new DateTime(500));
       assertEquals(100, p.getSize());
       assertTrue((new BigDecimal("8")).compareTo(p.getAveragePrice()) == 0);
       assertEquals(new DateTime(500), p.getTime());
       assertEquals(Direction.LONG, p.getDirection());
+   }
+   
+   /**
+    * Test the constructor.
+    */
+   @Test(expected = InvalidArgumentRuntimeException.class)
+   public void testCreation2()
+   {
+      new FilledBlock(Direction.LONG, 0, new BigDecimal("8.0"), new DateTime(500));
+   }
+   
+   /**
+    * Test the constructor.
+    */
+   @Test(expected = InvalidArgumentRuntimeException.class)
+   public void testCreation3()
+   {
+      new FilledBlock(Direction.LONG, -200, new BigDecimal("8.0"), new DateTime(500));
    }
    
    /**

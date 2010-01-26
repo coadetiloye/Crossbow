@@ -17,8 +17,8 @@
 
 package lt.norma.crossbow.properties;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import lt.norma.crossbow.exceptions.CrossbowException;
@@ -152,7 +152,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     */
    public synchronized List<Property<?>> getList()
    {
-      List<Property<?>> list = new LinkedList<Property<?>>(propertyMap.values());
+      List<Property<?>> list = new ArrayList<Property<?>>(propertyMap.values());
       return list;
    }
 }

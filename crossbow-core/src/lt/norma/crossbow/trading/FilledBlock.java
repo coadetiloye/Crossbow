@@ -19,6 +19,7 @@ package lt.norma.crossbow.trading;
 
 import java.math.BigDecimal;
 
+import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 import lt.norma.crossbow.orders.Direction;
 
 import org.joda.time.DateTime;
@@ -30,13 +31,9 @@ import org.joda.time.DateTime;
  */
 public class FilledBlock
 {
-   /** Direction of a trade. */
    private final Direction direction;
-   /** Number of contracts filled. */
    private final int size;
-   /** Average price at which the block was filled. */
    private final BigDecimal price;
-   /** Time when the block was filled. */
    private final DateTime time;
    
    /**
@@ -45,7 +42,7 @@ public class FilledBlock
     * @param direction
     *           direction of a trade
     * @param size
-    *           number of contracts filled
+    *           number of contracts filled. Must be greater that 0.
     * @param price
     *           average price at which the block was filled
     * @param time
@@ -53,6 +50,12 @@ public class FilledBlock
     */
    public FilledBlock(Direction direction, int size, BigDecimal price, DateTime time)
    {
+      if (size <= 0)
+      {
+         throw new InvalidArgumentRuntimeException("size", String.valueOf(size),
+               "Must be a positive integer.");
+      }
+      
       this.direction = direction;
       this.size = size;
       this.price = price;

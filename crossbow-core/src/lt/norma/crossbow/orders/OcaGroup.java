@@ -17,7 +17,7 @@
 
 package lt.norma.crossbow.orders;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public class OcaGroup
    public OcaGroup(String title)
    {
       this.title = title;
-      orders = new LinkedList<Order>();
+      orders = new ArrayList<Order>();
    }
    
    /**

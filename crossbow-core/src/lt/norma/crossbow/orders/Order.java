@@ -40,23 +40,31 @@ public abstract class Order
    private final long id;
    private final Object lock;
    
-   /** Contract of a traded instrument. */
+   /**
+    * Contract of a traded instrument.
+    */
    protected final Contract contract;
    /**
     * type of this order. Used only to provide human readable type of the order. Internally order
     * types are identified by class and attributes.
     */
    protected final String type;
-   /** Order direction. */
+   /**
+    * Order direction.
+    */
    protected final Direction direction;
    /**
     * Size of an order. Must be greater than zero. Use <code>direction</code> to set direction of
     * the order.
     */
    protected final int size;
-   /** Order status. */
+   /**
+    * Order status.
+    */
    protected OrderStatus status;
-   /** Sending time. Can be null if the order is not submitted yet. */
+   /**
+    * Sending time. Can be null if the order is not submitted yet.
+    */
    protected DateTime submitTime;
    /**
     * Carries additional information about this order. Make sure the order executor knows how to
@@ -149,7 +157,7 @@ public abstract class Order
    {
       synchronized (lock)
       {
-         return status != OrderStatus.CANCELED && 
+         return status != OrderStatus.CANCELED &&
                 status != OrderStatus.FILLED &&
                 status != OrderStatus.REJECTED;
       }

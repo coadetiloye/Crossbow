@@ -17,53 +17,25 @@
 
 package lt.norma.crossbow.account;
 
-import lt.norma.crossbow.orders.OrderBook;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 /**
- * Porfolio extended by account details.
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Account
+public class AccountTest
 {
-   private final Money cash;
-   private final Portfolio portfolio;
-   private final OrderBook orderBook;
-   
    /**
-    * Constructor.
-    * 
-    * @param baseCurrency
-    *           base currency of this account
+    * Test method for {@link Account#Account(Currency)}.
     */
-   public Account(Currency baseCurrency)
+   @Test
+   public void testAccount()
    {
-      cash = new Money(baseCurrency);
-      portfolio = new Portfolio();
-      orderBook = new OrderBook();
-   }
-   
-   /**
-    * @return amount of money in this account
-    */
-   public Money getCash()
-   {
-      return cash;
-   }
-   
-   /**
-    * @return porfolio
-    */
-   public Portfolio getPortfolio()
-   {
-      return portfolio;
-   }
-   
-   /**
-    * @return order book
-    */
-   public OrderBook getOrderBook()
-   {
-      return orderBook;
+      Account a = new Account(Currency.createEur());
+      
+      assertNotNull(a.getCash());
+      assertNotNull(a.getPortfolio());
+      assertNotNull(a.getOrderBook());
    }
 }
