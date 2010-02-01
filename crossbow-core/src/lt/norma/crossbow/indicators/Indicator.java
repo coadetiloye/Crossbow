@@ -213,7 +213,9 @@ public abstract class Indicator<Type>
          }
       }
       else
+      {
          return null;
+      }
    }
    
    /**
@@ -250,9 +252,13 @@ public abstract class Indicator<Type>
       synchronized (propertyLock)
       {
          if (title == null || title.isEmpty())
-            return title;
-         else
+         {
             return originalTitle;
+         }
+         else
+         {
+            return title;
+         }
       }
    }
    
@@ -306,5 +312,3 @@ public abstract class Indicator<Type>
       }
    }
 }
-
-// TODO Create unit tests.
