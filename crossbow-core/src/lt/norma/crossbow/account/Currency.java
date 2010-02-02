@@ -89,7 +89,7 @@ public class Currency implements Comparable<Currency>
     */
    public synchronized String formatNumber(BigDecimal number)
    {
-      return number.setScale(digits, StaticSettings.priceRoundingMode).toString();
+      return number.setScale(digits, StaticSettings.priceMathContext.getRoundingMode()).toString();
    }
    
    /**
@@ -101,7 +101,8 @@ public class Currency implements Comparable<Currency>
     */
    public synchronized String formatNumberWithCurrency(BigDecimal number)
    {
-      return number.setScale(digits, StaticSettings.priceRoundingMode).toString() + " " + code;
+      return number.setScale(
+            digits, StaticSettings.priceMathContext.getRoundingMode()).toString() + " " + code;
    }
    
    /**

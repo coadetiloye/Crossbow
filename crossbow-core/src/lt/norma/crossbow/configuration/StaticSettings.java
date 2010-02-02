@@ -17,7 +17,8 @@
 
 package lt.norma.crossbow.configuration;
 
-import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * Static project-wide settings.
@@ -39,16 +40,11 @@ public final class StaticSettings
     */
    public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
    /**
-    * Precision of price calculations. Used for price calculations with <code>BigDecimal</code>
-    * numbers.
+    * Math context for BigDecimal price calculations. Precision is set to 15 decimal places and 
+    * rounding mode to "half up".
     */
-   public static final int pricePrecision = 15;
-   /**
-    * Rounding mode of price calculations. Used for price calculations with <code>BigDecimal</code>
-    * numbers.
-    */
-   public static final int priceRoundingMode = BigDecimal.ROUND_HALF_UP;
-   
+   public static final MathContext priceMathContext = new MathContext(15, RoundingMode.HALF_UP);
+
    /**
     * A private constructor. This class cannot not be instantiated.
     */

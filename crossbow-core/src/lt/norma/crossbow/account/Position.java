@@ -18,7 +18,6 @@
 package lt.norma.crossbow.account;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,8 +134,8 @@ public class Position
       if (size == 0)
          averagePrice = null;
       else
-         averagePrice = totalValue.divide(
-               new BigDecimal(Math.abs(size)), StaticSettings.pricePrecision, RoundingMode.HALF_UP);
+         averagePrice =
+               totalValue.divide(new BigDecimal(Math.abs(size)), StaticSettings.priceMathContext);
    }
    
    /**

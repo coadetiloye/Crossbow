@@ -20,7 +20,7 @@ package lt.norma.crossbow.configuration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -77,7 +77,7 @@ public class StaticSettingsTest
    @Test
    public void testPricePrecision()
    {
-      assertTrue(StaticSettings.pricePrecision >= 0);
+      assertTrue(StaticSettings.priceMathContext.getPrecision() >= 0);
    }
    
    /**
@@ -86,12 +86,12 @@ public class StaticSettingsTest
    @Test
    public void testPriceRoundingMode()
    {
-      assertTrue(StaticSettings.priceRoundingMode == BigDecimal.ROUND_CEILING
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_DOWN
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_UP
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_FLOOR
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_DOWN
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_EVEN
-                 || StaticSettings.priceRoundingMode == BigDecimal.ROUND_HALF_UP);
-   }   
+      assertTrue(StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.CEILING
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.DOWN
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.UP
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.FLOOR
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.HALF_DOWN
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.HALF_EVEN
+                 || StaticSettings.priceMathContext.getRoundingMode() == RoundingMode.HALF_UP);
+   }
 }

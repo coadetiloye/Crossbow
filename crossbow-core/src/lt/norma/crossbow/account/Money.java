@@ -112,8 +112,7 @@ public class Money implements Comparable<Money>
     */
    public synchronized void divide(BigDecimal divisor)
    {
-      amount = amount.divide(divisor, StaticSettings.pricePrecision,
-            StaticSettings.priceRoundingMode);
+      amount = amount.divide(divisor, StaticSettings.priceMathContext);
    }
    
    /**
