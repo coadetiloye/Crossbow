@@ -39,6 +39,7 @@ public abstract class Indicator<Type>
    private String description;
    private final Properties parameters;
    private Object propertyLock;
+   private final List<Indicator<?>> dependencies;
    
    // Value.
    private Type value;
@@ -67,6 +68,7 @@ public abstract class Indicator<Type>
       description = "";
       parameters = new Properties();
       propertyLock = new Object();
+      dependencies = new ArrayList<Indicator<?>>();
       
       isValueSet = false;
       valueLock = new Object();
@@ -242,6 +244,17 @@ public abstract class Indicator<Type>
    public final Properties getParameters()
    {
       return parameters;
+   }
+   
+   /**
+    * @return list of indicators, this indicator depends on.
+    */
+   public final List<Indicator<?>> getDependencies()
+   {
+      synchronized (propertyLock)
+      {
+         return dependencies;
+      }
    }
    
    /**

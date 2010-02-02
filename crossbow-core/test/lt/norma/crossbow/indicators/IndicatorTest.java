@@ -61,6 +61,7 @@ public class IndicatorTest
    {
       MockIndicator<Double> i1 = new MockIndicator<Double>("AA", true);
       assertNotNull(i1.getParameters());
+      assertNotNull(i1.getDependencies());
    }
    
    /**
