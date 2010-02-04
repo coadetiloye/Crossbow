@@ -156,7 +156,7 @@ public class IndicatorTest
       
       // Add the first period.
       i1.setValue(18);
-      i1.updateEndOfPeriod();
+      i1.updateEndOfPeriod(new DateTime());
       assertEquals(1, i1.periodCount);
       assertEquals(1, i1.getPeriodicData().size());
       assertEquals(18, (int)i1.getPeriodicData().get(0));
@@ -165,7 +165,7 @@ public class IndicatorTest
       
       // Add the second period.
       i1.setValue(19);
-      i1.updateEndOfPeriod();
+      i1.updateEndOfPeriod(new DateTime());
       assertEquals(2, i1.periodCount);
       assertEquals(2, i1.getPeriodicData().size());
       assertEquals(19, (int)i1.getPeriodicData().get(1));
@@ -174,7 +174,7 @@ public class IndicatorTest
       
       // Unset data and add the third period.
       i1.unsetValue();
-      i1.updateEndOfPeriod();
+      i1.updateEndOfPeriod(new DateTime());
       assertEquals(3, i1.periodCount);
       assertEquals(3, i1.getPeriodicData().size());
       assertNull(i1.getPeriodicData().get(2));
@@ -183,7 +183,7 @@ public class IndicatorTest
       
       // Add the fourth period.
       i1.setValue(20);
-      i1.updateEndOfPeriod();
+      i1.updateEndOfPeriod(new DateTime());
       assertEquals(4, i1.periodCount);
       assertEquals(4, i1.getPeriodicData().size());
       assertEquals(20, (int)i1.getPeriodicData().get(3));
@@ -295,7 +295,7 @@ public class IndicatorTest
       }
       
       @Override
-      protected void endOfPeriod()
+      protected void endOfPeriod(DateTime time)
       {
          periodCount++;
       }

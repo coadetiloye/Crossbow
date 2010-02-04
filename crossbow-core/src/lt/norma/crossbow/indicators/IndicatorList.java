@@ -36,12 +36,18 @@ public final class IndicatorList implements TradeListener, QuoteListener
 {
    private final List<Indicator<?>> indicators;
    private final Object lock;
+   private final PeriodSplitter periodSplitter;
    
    /**
     * Constructor.
+    * 
+    * @param periodSplitter
+    *           used to check for end and beginning of data periods. If set to null, data periods
+    *           will not be generated for any of indicators in this list.
     */
-   public IndicatorList()
+   public IndicatorList(PeriodSplitter periodSplitter)
    {
+      this.periodSplitter = periodSplitter;
       indicators = new ArrayList<Indicator<?>>();
       lock = new Object();
    }
@@ -64,9 +70,54 @@ public final class IndicatorList implements TradeListener, QuoteListener
    {
       synchronized (lock)
       {
+         // Update period actions, if they occur before the trade.
+         if (periodSplitter != null)
+         {
+            PeriodSplitterResult result = periodSplitter.checkEndOfPeriod(event.getTrade());
+            for (Indicator<?> indicator : indicators)
+            {
+               switch (result.getAction())
+               {
+                  case START_BEFORE:
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+                  case END_BEFORE:
+                     indicator.endOfPeriod(result.getTime());
+                     break;
+                  case RESTART_BEFORE:
+                     indicator.endOfPeriod(result.getTime());
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+               }
+            }
+         }
+         
+         // Send trade.
          for (Indicator<?> indicator : indicators)
          {
             indicator.tradeReceived(event.getTrade());
+         }
+         
+         // Update period actions, if they occur after the trade.
+         if (periodSplitter != null)
+         {
+            PeriodSplitterResult result = periodSplitter.checkEndOfPeriod(event.getTrade());
+            for (Indicator<?> indicator : indicators)
+            {
+               switch (result.getAction())
+               {
+                  case START_AFTER:
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+                  case END_AFTER:
+                     indicator.endOfPeriod(result.getTime());
+                     break;
+                  case RESTART_AFTER:
+                     indicator.endOfPeriod(result.getTime());
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+               }
+            }
          }
       }
    }
@@ -76,9 +127,54 @@ public final class IndicatorList implements TradeListener, QuoteListener
    {
       synchronized (lock)
       {
+         // Update period actions, if they occur before the quote.
+         if (periodSplitter != null)
+         {
+            PeriodSplitterResult result = periodSplitter.checkEndOfPeriod(event.getQuote());
+            for (Indicator<?> indicator : indicators)
+            {
+               switch (result.getAction())
+               {
+                  case START_BEFORE:
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+                  case END_BEFORE:
+                     indicator.endOfPeriod(result.getTime());
+                     break;
+                  case RESTART_BEFORE:
+                     indicator.endOfPeriod(result.getTime());
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+               }
+            }
+         }
+         
+         // Send quote.
          for (Indicator<?> indicator : indicators)
          {
             indicator.quoteReceived(event.getQuote());
+         }
+         
+         // Update period actions, if they occur after the trade.
+         if (periodSplitter != null)
+         {
+            PeriodSplitterResult result = periodSplitter.checkEndOfPeriod(event.getQuote());
+            for (Indicator<?> indicator : indicators)
+            {
+               switch (result.getAction())
+               {
+                  case START_AFTER:
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+                  case END_AFTER:
+                     indicator.endOfPeriod(result.getTime());
+                     break;
+                  case RESTART_AFTER:
+                     indicator.endOfPeriod(result.getTime());
+                     indicator.beginningOfPeriod(result.getTime());
+                     break;
+               }
+            }
          }
       }
    }
@@ -129,5 +225,3 @@ public final class IndicatorList implements TradeListener, QuoteListener
       }
    }
 }
-
-// TODO create PeriodSplitter

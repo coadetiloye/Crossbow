@@ -55,7 +55,7 @@ public class IndicatorListTest
    @Test
    public void testIndicatorList() throws Throwable
    {
-      IndicatorList l = new IndicatorList();
+      IndicatorList l = new IndicatorList(null);
       assertNotNull(l.getIndicators());
       assertNotNull(Reflection.getField("lock", l));
    }
@@ -66,7 +66,7 @@ public class IndicatorListTest
    @Test
    public void testAdd1()
    {
-      IndicatorList l = new IndicatorList();
+      IndicatorList l = new IndicatorList(null);
       MockIndicator<String> ia = new MockIndicator<String>("A", true);
       MockIndicator<String> ib = new MockIndicator<String>("B", true);
       
@@ -87,7 +87,7 @@ public class IndicatorListTest
    @Test
    public void testAdd2()
    {
-      IndicatorList l = new IndicatorList();
+      IndicatorList l = new IndicatorList(null);
       
       List<Indicator<?>> tmpList = new ArrayList<Indicator<?>>();
       
@@ -159,7 +159,8 @@ public class IndicatorListTest
    /**
     * Test method for {@link IndicatorList#tradeReceived(TradeEvent)} and
     * {@link IndicatorList#quoteReceived(QuoteEvent)}.
-    * @throws ContractException 
+    * 
+    * @throws ContractException
     */
    @Test
    public void testTradeReceived() throws ContractException
@@ -174,7 +175,7 @@ public class IndicatorListTest
       TradeEvent te = new TradeEvent(source, trade);
       QuoteEvent qe = new QuoteEvent(source, quote);
       
-      IndicatorList l = new IndicatorList();
+      IndicatorList l = new IndicatorList(null);
       MockIndicator<String> ia = new MockIndicator<String>("A", true);
       MockIndicator<String> ib = new MockIndicator<String>("B", true);
       l.add(ia);
@@ -187,13 +188,206 @@ public class IndicatorListTest
       assertEquals(trade, ib.lastTrade);
       assertEquals(quote, ia.lastQuote);
       assertEquals(quote, ib.lastQuote);
-   }  
+   }
+   
+   /**
+    * Test method for {@link IndicatorList#tradeReceived(TradeEvent)} and
+    * {@link IndicatorList#quoteReceived(QuoteEvent)}.
+    * 
+    * @throws ContractException
+    */
+   @Test
+   public void testTradeReceived2() throws ContractException
+   {
+      Exchange e = Exchange.createNasdaq();
+      Currency c = Currency.createEur();
+      Contract s = new StockContract("B", e, c);
+      DateTime t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
+      Trade trade = new Trade(s, new BigDecimal("8.05"), 888, t);
+      Quote quote = new Quote(s, new BigDecimal("8.05"), 500, new BigDecimal("7.0"), 800, t);
+      Object source = new Object();
+      TradeEvent te = new TradeEvent(source, trade);
+      QuoteEvent qe = new QuoteEvent(source, quote);
+      
+      MockPeriodSplitter splitter = new MockPeriodSplitter();
+      IndicatorList l = new IndicatorList(splitter);
+      MockIndicator2<String> ia = new MockIndicator2<String>("A", true);
+      l.add(ia);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(0, ia.beginningOrder);
+      assertEquals(-1, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(1, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.END_BEFORE, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(-1, ia.beginningOrder);
+      assertEquals(0, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(1, ia.tradeOrder);
+      
+      splitter.value =
+            new PeriodSplitterResult(PeriodSplitterAction.RESTART_BEFORE, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(1, ia.beginningOrder);
+      assertEquals(0, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(2, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.START_AFTER, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(1, ia.beginningOrder);
+      assertEquals(-1, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(0, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.END_AFTER, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(-1, ia.beginningOrder);
+      assertEquals(1, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(0, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_AFTER, new DateTime());
+      ia.reset();
+      l.tradeReceived(te);
+      assertEquals(2, ia.beginningOrder);
+      assertEquals(1, ia.endOrder);
+      assertEquals(-1, ia.quoteOrder);
+      assertEquals(0, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(0, ia.beginningOrder);
+      assertEquals(-1, ia.endOrder);
+      assertEquals(1, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.END_BEFORE, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(-1, ia.beginningOrder);
+      assertEquals(0, ia.endOrder);
+      assertEquals(1, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+      
+      splitter.value =
+            new PeriodSplitterResult(PeriodSplitterAction.RESTART_BEFORE, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(1, ia.beginningOrder);
+      assertEquals(0, ia.endOrder);
+      assertEquals(2, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.START_AFTER, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(1, ia.beginningOrder);
+      assertEquals(-1, ia.endOrder);
+      assertEquals(0, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.END_AFTER, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(-1, ia.beginningOrder);
+      assertEquals(1, ia.endOrder);
+      assertEquals(0, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+      
+      splitter.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_AFTER, new DateTime());
+      ia.reset();
+      l.quoteReceived(qe);
+      assertEquals(2, ia.beginningOrder);
+      assertEquals(1, ia.endOrder);
+      assertEquals(0, ia.quoteOrder);
+      assertEquals(-1, ia.tradeOrder);
+   }
+   
+   private class MockPeriodSplitter implements PeriodSplitter
+   {
+      public PeriodSplitterResult value;
+      
+      @Override
+      public PeriodSplitterResult checkEndOfPeriod(Trade trade)
+      {
+         return value;
+      }
+      
+      @Override
+      public PeriodSplitterResult checkEndOfPeriod(Quote quote)
+      {
+         return value;
+      }
+   }
+   
+   private class MockIndicator2<Type> extends Indicator<Type>
+   {
+      public int counter;
+      public int quoteOrder;
+      public int tradeOrder;
+      public int endOrder;
+      public int beginningOrder;
+      
+      /**
+       * Constructor.
+       * 
+       * @param title
+       * @param collectPeriodicData
+       */
+      public MockIndicator2(String title, boolean collectPeriodicData)
+      {
+         super(title, collectPeriodicData);
+         reset();
+      }
+      
+      public void reset()
+      {
+         counter = 0;
+         quoteOrder = -1;
+         tradeOrder = -1;
+         endOrder = -1;
+         beginningOrder = -1;
+      }
+      
+      @Override
+      public void quoteReceived(Quote qoute)
+      {
+         quoteOrder = counter++;
+      }
+      
+      @Override
+      public void tradeReceived(Trade trade)
+      {
+         tradeOrder = counter++;
+      }
+      
+      @Override
+      protected void endOfPeriod(DateTime time)
+      {
+         endOrder = counter++;
+      }
+      
+      @Override
+      public void beginningOfPeriod(DateTime time)
+      {
+         beginningOrder = counter++;
+      }
+   }
    
    private class MockIndicator<Type> extends Indicator<Type>
    {
       public Trade lastTrade;
       public Quote lastQuote;
-      public int periodCount;
       
       /**
        * Constructor.
@@ -216,12 +410,6 @@ public class IndicatorListTest
       public void tradeReceived(Trade trade)
       {
          lastTrade = trade;
-      }
-      
-      @Override
-      protected void endOfPeriod()
-      {
-         periodCount++;
       }
    }
 }

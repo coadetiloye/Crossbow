@@ -20,9 +20,12 @@ package lt.norma.crossbow.indicators;
 import java.util.ArrayList;
 import java.util.List;
 
-import lt.norma.crossbow.data.*;
+import lt.norma.crossbow.data.Quote;
+import lt.norma.crossbow.data.Trade;
 import lt.norma.crossbow.exceptions.ValueNotSetRuntimeException;
 import lt.norma.crossbow.properties.Properties;
+
+import org.joda.time.DateTime;
 
 /**
  * Base class for all indicators. Extend this class to create custom indicators.
@@ -158,8 +161,11 @@ public abstract class Indicator<Type>
    
    /**
     * Updates periodic data at the end of period. Called by
+    * 
+    * @param time
+    *           time of the period action
     */
-   public final void updateEndOfPeriod()
+   public final void updateEndOfPeriod(DateTime time)
    {
       if (collectPeriodicData)
       {
@@ -177,20 +183,30 @@ public abstract class Indicator<Type>
                   periodicData.add(null);
                   periodicDataFlags.add(false);
                }
+               
+               endOfPeriod(time);
             }
          }
       }
-      
-      endOfPeriod();
    }
    
    /**
     * Override this method to update indicators value on the end of period.
     * 
-    * @param qoute
-    *           quote data
+    * @param time
+    *           time of the period action
     */
-   protected void endOfPeriod()
+   protected void endOfPeriod(DateTime time)
+   {
+   }
+   
+   /**
+    * Override this method to update indicators value on the beginning of period.
+    * 
+    * @param time
+    *           time of the period action
+    */
+   public void beginningOfPeriod(DateTime time)
    {
    }
    
