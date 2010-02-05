@@ -41,19 +41,19 @@ public abstract class Indicator<Type>
    private String title;
    private String description;
    private final Properties parameters;
-   private Object propertyLock;
+   private final Object propertyLock;
    private final List<Indicator<?>> dependencies;
    
    // Value.
    private Type value;
    private boolean isValueSet;
-   private Object valueLock;
+   private final Object valueLock;
    
    // Periodic data.
    private final boolean collectPeriodicData;
    private final List<Type> periodicData;
    private final List<Boolean> periodicDataFlags;
-   private Object periodicDataLock;
+   private final Object periodicDataLock;
    
    /**
     * Constructor.
@@ -94,13 +94,48 @@ public abstract class Indicator<Type>
    }
    
    /**
-    * Called by data provider when quote data is received. Override this method to update
-    * indicators value on new quote.
+    * Override this method to update indicators value on new quote.
     * 
     * @param qoute
     *           quote data
     */
    public void quoteReceived(Quote qoute)
+   {
+   }
+   
+   /**
+    * Override this method to update indicators value on the beginning of period.
+    * 
+    * @param time
+    *           time of the beginning of period
+    */
+   public void beginningOfPeriod(DateTime time)
+   {
+   }
+   
+   /**
+    * Override this method to update indicators value on the end of period.
+    * 
+    * @param time
+    *           time of the end of period
+    */
+   protected void endOfPeriod(DateTime time)
+   {
+   }
+   
+   /**
+    * Override this method to update indicators value or other fields on the beginning of test.
+    * This method is called before all other data updates.
+    */
+   public void beginningOfTest()
+   {
+   }
+   
+   /**
+    * Override this method to update indicators value or other fields on the end of test. This
+    * method is called after all other data updates.
+    */
+   public void endOfTest()
    {
    }
    
@@ -160,10 +195,10 @@ public abstract class Indicator<Type>
    }
    
    /**
-    * Updates periodic data at the end of period. Called by
+    * Updates periodic data at the end of period.
     * 
     * @param time
-    *           time of the period action
+    *           time of the data period
     */
    public final void updateEndOfPeriod(DateTime time)
    {
@@ -188,26 +223,6 @@ public abstract class Indicator<Type>
             }
          }
       }
-   }
-   
-   /**
-    * Override this method to update indicators value on the end of period.
-    * 
-    * @param time
-    *           time of the period action
-    */
-   protected void endOfPeriod(DateTime time)
-   {
-   }
-   
-   /**
-    * Override this method to update indicators value on the beginning of period.
-    * 
-    * @param time
-    *           time of the period action
-    */
-   public void beginningOfPeriod(DateTime time)
-   {
    }
    
    /**
