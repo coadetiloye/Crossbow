@@ -36,8 +36,8 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  */
 public abstract class PropertyList<PropertyType extends Property<?>>
 {
-   /** Hash map of properties. */
    private final HashMap<String, PropertyType> propertyMap;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -45,6 +45,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
    public PropertyList()
    {
       propertyMap = new HashMap<String, PropertyType>();
+      lock = new Object();
    }
    
    /**
@@ -55,14 +56,18 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            on duplicate property names
     */
-   public synchronized void add(PropertyType property) throws CrossbowException
+   public void add(PropertyType property) throws CrossbowException
    {
       if (propertyExists(property.getName()))
       {
          throw new CrossbowException("Unable to add property \"" + property.toString()
                                      + "\". Property with the same name already exists.");
       }
-      propertyMap.put(property.getName(), property);
+      
+      synchronized (lock)
+      {
+         propertyMap.put(property.getName(), property);
+      }
    }
    
    /**
@@ -75,30 +80,33 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            on duplicate property with different type
     */
-   public synchronized void set(PropertyType property) throws CrossbowException
+   public void set(PropertyType property) throws CrossbowException
    {
-      Property<?> existingProperty;
-      try
+      synchronized (lock)
       {
-         existingProperty = getByName(property.getName());
-      }
-      catch (CrossbowException exception)
-      {
-         // Existing property not found, insert new property.
-         propertyMap.put(property.getName(), property);
-         return;
-      }
-      
-      if (existingProperty.getType().equals(property.getType()))
-      {
-         // Override existing property.
-         propertyMap.put(property.getName(), property);
-      }
-      else
-      {
-         throw new CrossbowException("Unable to set property \"" + property.toString()
-                                     + "\". Existing property \"" + existingProperty.toString()
-                                     + "\" has the same name but different type.");
+         Property<?> existingProperty;
+         try
+         {
+            existingProperty = getByName(property.getName());
+         }
+         catch (CrossbowException exception)
+         {
+            // Existing property not found, insert new property.
+            propertyMap.put(property.getName(), property);
+            return;
+         }
+         
+         if (existingProperty.getType().equals(property.getType()))
+         {
+            // Override existing property.
+            propertyMap.put(property.getName(), property);
+         }
+         else
+         {
+            throw new CrossbowException("Unable to set property \"" + property.toString()
+                                        + "\". Existing property \"" + existingProperty.toString()
+                                        + "\" has the same name but different type.");
+         }
       }
    }
    
@@ -108,9 +116,12 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @param propertyName
     *           property name
     */
-   public synchronized void removeByName(String propertyName)
+   public void removeByName(String propertyName)
    {
-      propertyMap.remove(propertyName);
+      synchronized (lock)
+      {
+         propertyMap.remove(propertyName);
+      }
    }
    
    /**
@@ -120,9 +131,12 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     *           property name
     * @return true if the property exists, false otherwise
     */
-   public synchronized boolean propertyExists(String propertyName)
+   public boolean propertyExists(String propertyName)
    {
-      return propertyMap.containsKey(propertyName);
+      synchronized (lock)
+      {
+         return propertyMap.containsKey(propertyName);
+      }
    }
    
    /**
@@ -134,9 +148,14 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            if no property is found by specified name
     */
-   public synchronized Property<?> getByName(String propertyName) throws CrossbowException
+   public Property<?> getByName(String propertyName) throws CrossbowException
    {
-      Property<?> result = propertyMap.get(propertyName);
+      Property<?> result;
+      
+      synchronized (lock)
+      {
+         result = propertyMap.get(propertyName);
+      }
       
       if (result == null)
       {
@@ -150,9 +169,12 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * 
     * @return list
     */
-   public synchronized List<Property<?>> getList()
+   public List<Property<?>> getList()
    {
-      List<Property<?>> list = new ArrayList<Property<?>>(propertyMap.values());
-      return list;
+      synchronized (lock)
+      {
+         List<Property<?>> list = new ArrayList<Property<?>>(propertyMap.values());
+         return list;
+      }
    }
 }

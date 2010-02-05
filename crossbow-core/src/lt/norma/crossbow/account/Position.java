@@ -33,24 +33,11 @@ import lt.norma.crossbow.trading.FilledBlock;
  */
 public class Position
 {
-   /**
-    * Contract of this position.
-    */
    private final Contract contract;
-   /**
-    * Position size. Can be negative if the position is short.
-    */
    private int size;
-   /**
-    * Average price at which the position was opened. If the position is partially closed, the
-    * older blocks are removed or modified and average price is recalculated. Value can be null if
-    * position size is 0.
-    */
    private BigDecimal averagePrice;
-   /**
-    * Open blocks.
-    */
    private final List<FilledBlock> openBlocks;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -64,6 +51,7 @@ public class Position
       openBlocks = new ArrayList<FilledBlock>();
       size = 0;
       averagePrice = null;
+      lock = new Object();
    }
    
    /**
@@ -72,46 +60,49 @@ public class Position
     * @param block
     *           filled block
     */
-   public synchronized void addFilledBlock(FilledBlock block)
+   public void addFilledBlock(FilledBlock block)
    {
-      if (size >= 0 && block.getDirection() == Direction.LONG ||
-          size <= 0 && block.getDirection() == Direction.SHORT)
+      synchronized (lock)
       {
-         // Add long block to long position or short block to short position.
-         openBlocks.add(block);
-      }
-      else
-      {
-         // Add long block to short position or short block to long position.
-         int blockSize = block.getSize();
-         while (blockSize != 0 && !openBlocks.isEmpty())
+         if (size >= 0 && block.getDirection() == Direction.LONG ||
+             size <= 0 && block.getDirection() == Direction.SHORT)
          {
-            FilledBlock firstBlock = openBlocks.get(0);
-            openBlocks.remove(0);
-            if (blockSize >= firstBlock.getSize())
+            // Add long block to long position or short block to short position.
+            openBlocks.add(block);
+         }
+         else
+         {
+            // Add long block to short position or short block to long position.
+            int blockSize = block.getSize();
+            while (blockSize != 0 && !openBlocks.isEmpty())
             {
-               blockSize -= firstBlock.getSize();
+               FilledBlock firstBlock = openBlocks.get(0);
+               openBlocks.remove(0);
+               if (blockSize >= firstBlock.getSize())
+               {
+                  blockSize -= firstBlock.getSize();
+               }
+               else
+               {
+                  FilledBlock replaceBlock = new FilledBlock(
+                        firstBlock.getDirection(), firstBlock.getSize() - blockSize,
+                        firstBlock.getAveragePrice(), firstBlock.getTime());
+                  blockSize = 0;
+                  openBlocks.add(0, replaceBlock);
+               }
             }
-            else
+            if (blockSize > 0)
             {
                FilledBlock replaceBlock = new FilledBlock(
-                     firstBlock.getDirection(), firstBlock.getSize() - blockSize,
-                     firstBlock.getAveragePrice(), firstBlock.getTime());
-               blockSize = 0;
-               openBlocks.add(0, replaceBlock);
+                     block.getDirection(), blockSize,
+                     block.getAveragePrice(), block.getTime());
+               openBlocks.add(replaceBlock);
             }
          }
-         if (blockSize > 0)
-         {
-            FilledBlock replaceBlock = new FilledBlock(
-                  block.getDirection(), blockSize,
-                  block.getAveragePrice(), block.getTime());
-            openBlocks.add(replaceBlock);
-         }
+         
+         // Update size and average price.
+         updateSizePrice();
       }
-      
-      // Update size and average price.
-      updateSizePrice();
    }
    
    private void updateSizePrice()
@@ -141,9 +132,12 @@ public class Position
    /**
     * @return position size. Can be negative if the position is short.
     */
-   public synchronized int getSize()
+   public int getSize()
    {
-      return size;
+      synchronized (lock)
+      {
+         return size;
+      }
    }
    
    /**
@@ -151,9 +145,12 @@ public class Position
     *         the older blocks are removed or modified and average price is recalculated. Value can
     *         be null if position size is 0.
     */
-   public synchronized BigDecimal getAveragePrice()
+   public BigDecimal getAveragePrice()
    {
-      return averagePrice;
+      synchronized (lock)
+      {
+         return averagePrice;
+      }
    }
    
    /**

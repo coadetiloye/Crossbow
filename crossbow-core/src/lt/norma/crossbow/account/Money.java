@@ -31,6 +31,7 @@ public class Money implements Comparable<Money>
 {
    private final Currency currency;
    private BigDecimal amount;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -45,6 +46,7 @@ public class Money implements Comparable<Money>
    {
       this.amount = amount;
       this.currency = currency;
+      lock = new Object();
    }
    
    /**
@@ -67,13 +69,17 @@ public class Money implements Comparable<Money>
     * @throws CrossbowException
     *            if currencies do not match
     */
-   public synchronized void add(Money money) throws CrossbowException
+   public void add(Money money) throws CrossbowException
    {
       if (!currency.equals(money.currency))
       {
          throw new CrossbowException("Cannot add money with different currencies.");
       }
-      amount = amount.add(money.amount);
+      
+      synchronized (lock)
+      {
+         amount = amount.add(money.amount);
+      }
    }
    
    /**
@@ -84,13 +90,17 @@ public class Money implements Comparable<Money>
     * @throws CrossbowException
     *            if currencies do not match
     */
-   public synchronized void subtract(Money money) throws CrossbowException
+   public void subtract(Money money) throws CrossbowException
    {
       if (!currency.equals(money.currency))
       {
          throw new CrossbowException("Cannot subtract money with different currencies.");
       }
-      amount = amount.subtract(money.amount);
+      
+      synchronized (lock)
+      {
+         amount = amount.subtract(money.amount);
+      }
    }
    
    /**
@@ -99,9 +109,12 @@ public class Money implements Comparable<Money>
     * @param factor
     *           multiplication factor
     */
-   public synchronized void multiply(BigDecimal factor)
+   public void multiply(BigDecimal factor)
    {
-      amount = amount.multiply(factor);
+      synchronized (lock)
+      {
+         amount = amount.multiply(factor);
+      }
    }
    
    /**
@@ -110,26 +123,35 @@ public class Money implements Comparable<Money>
     * @param divisor
     *           amount will be divided by this divisor
     */
-   public synchronized void divide(BigDecimal divisor)
+   public void divide(BigDecimal divisor)
    {
-      amount = amount.divide(divisor, StaticSettings.priceMathContext);
+      synchronized (lock)
+      {
+         amount = amount.divide(divisor, StaticSettings.priceMathContext);
+      }
    }
    
    /**
     * @return this amount of money with specified currency.
     */
    @Override
-   public synchronized String toString()
+   public String toString()
    {
-      return currency.formatNumberWithCurrency(amount);
+      synchronized (lock)
+      {
+         return currency.formatNumberWithCurrency(amount);
+      }
    }
    
    /**
     * @return amount of currency units
     */
-   public synchronized BigDecimal getAmount()
+   public BigDecimal getAmount()
    {
-      return amount;
+      synchronized (lock)
+      {
+         return amount;
+      }
    }
    
    /**
@@ -149,7 +171,7 @@ public class Money implements Comparable<Money>
     * @return true if both instances are the same, false otherwise
     */
    @Override
-   public synchronized boolean equals(Object object)
+   public boolean equals(Object object)
    {
       if (this == object)
       {
@@ -159,8 +181,13 @@ public class Money implements Comparable<Money>
       {
          return false;
       }
-      return amount.compareTo(((Money)object).amount) == 0 &&
-             currency.equals(((Money)object).currency);
+      
+      boolean result;
+      synchronized (lock)
+      {
+         result = amount.compareTo(((Money)object).amount) == 0;
+      }
+      return result && currency.equals(((Money)object).currency);
    }
    
    /**
@@ -169,9 +196,14 @@ public class Money implements Comparable<Money>
     * @return hash code
     */
    @Override
-   public synchronized int hashCode()
+   public int hashCode()
    {
-      return amount.stripTrailingZeros().hashCode() * 31 + currency.hashCode();
+      int hashCode;
+      synchronized (lock)
+      {
+         hashCode = amount.stripTrailingZeros().hashCode();
+      }
+      return hashCode * 31 + currency.hashCode();
    }
    
    /**
@@ -184,13 +216,17 @@ public class Money implements Comparable<Money>
     *         a positive integer if this instance is greater;
     */
    @Override
-   public synchronized int compareTo(Money money)
+   public int compareTo(Money money)
    {
       int k = currency.compareTo(money.currency);
       if (k != 0)
       {
          return k;
       }
-      return amount.compareTo(money.amount);
+      
+      synchronized (lock)
+      {
+         return amount.compareTo(money.amount);
+      }
    }
 }

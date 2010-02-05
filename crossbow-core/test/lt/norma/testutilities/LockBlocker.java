@@ -24,8 +24,8 @@ package lt.norma.testutilities;
  */
 public class LockBlocker extends Thread
 {
-   private Object lock;
-   private long timeout;
+   private final Object lock;
+   private final long timeout;
    
    /**
     * Constructor.

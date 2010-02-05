@@ -27,12 +27,9 @@ import java.util.List;
  */
 public class OcaGroup
 {
-   /**
-    * Title of the OCA group. Titles must be unique as they are used to identify the OCA group.
-    */
    private final String title;
-   /** List of orders. */
    private final List<Order> orders;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -45,6 +42,7 @@ public class OcaGroup
    {
       this.title = title;
       orders = new ArrayList<Order>();
+      lock = new Object();
    }
    
    /**
@@ -53,11 +51,14 @@ public class OcaGroup
     * @param order
     *           a new order to be added
     */
-   public synchronized void addOrder(Order order)
+   public void addOrder(Order order)
    {
       if (order != null)
       {
-         orders.add(order);
+         synchronized (lock)
+         {
+            orders.add(order);
+         }
       }
    }
    
@@ -69,9 +70,12 @@ public class OcaGroup
     * @return a text string representing this OCA group
     */
    @Override
-   public synchronized String toString()
+   public String toString()
    {
-      return "OCA group " + title + " (" + orders.size() + ")";
+      synchronized (lock)
+      {
+         return "OCA group " + title + " (" + orders.size() + ")";
+      }
    }
    
    /**
@@ -79,9 +83,12 @@ public class OcaGroup
     * 
     * @return list of orders
     */
-   public synchronized List<Order> getOrders()
+   public List<Order> getOrders()
    {
-      return orders;
+      synchronized (lock)
+      {
+         return orders;
+      }
    }
    
    /**

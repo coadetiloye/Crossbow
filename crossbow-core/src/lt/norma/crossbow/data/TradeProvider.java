@@ -29,6 +29,7 @@ import java.util.List;
 public abstract class TradeProvider
 {
    private final List<TradeListener> listeners = new ArrayList<TradeListener>();
+   private final Object lock = new Object();
    
    /**
     * Adds trade listener.
@@ -36,9 +37,12 @@ public abstract class TradeProvider
     * @param listener
     *           trade listener
     */
-   public synchronized void addListener(TradeListener listener)
+   public void addListener(TradeListener listener)
    {
-      listeners.add(listener);
+      synchronized (lock)
+      {
+         listeners.add(listener);
+      }
    }
    
    /**
@@ -47,9 +51,12 @@ public abstract class TradeProvider
     * @param listener
     *           trade listener
     */
-   public synchronized void removeListener(TradeListener listener)
+   public void removeListener(TradeListener listener)
    {
-      listeners.remove(listener);
+      synchronized (lock)
+      {
+         listeners.remove(listener);
+      }
    }
    
    /**
@@ -58,13 +65,17 @@ public abstract class TradeProvider
     * @param trade
     *           trade data to be sent to all listeners
     */
-   protected final synchronized void fireTradeEvent(Trade trade)
+   protected final void fireTradeEvent(Trade trade)
    {
       TradeEvent tradeEvent = new TradeEvent(this, trade);
-      Iterator<TradeListener> iterator = listeners.iterator();
-      while (iterator.hasNext())
+      
+      synchronized (lock)
       {
-         ((TradeListener) iterator.next()).tradeReceived(tradeEvent);
+         Iterator<TradeListener> iterator = listeners.iterator();
+         while (iterator.hasNext())
+         {
+            ((TradeListener)iterator.next()).tradeReceived(tradeEvent);
+         }
       }
    }
 }

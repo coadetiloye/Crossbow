@@ -33,6 +33,7 @@ import lt.norma.crossbow.orders.Order;
 public abstract class TradeExecutor
 {
    private final List<TradeExecutorListener> listeners = new ArrayList<TradeExecutorListener>();
+   private final Object lock = new Object();
    
    /**
     * Adds trade executor listener.
@@ -40,9 +41,12 @@ public abstract class TradeExecutor
     * @param listener
     *           trade executor listener to be added
     */
-   public synchronized void addListener(TradeExecutorListener listener)
+   public void addListener(TradeExecutorListener listener)
    {
-      listeners.add(listener);
+      synchronized (lock)
+      {
+         listeners.add(listener);
+      }
    }
    
    /**
@@ -51,9 +55,12 @@ public abstract class TradeExecutor
     * @param listener
     *           trade executor listener to be removed
     */
-   public synchronized void removeListener(TradeExecutorListener listener)
+   public void removeListener(TradeExecutorListener listener)
    {
-      listeners.remove(listener);
+      synchronized (lock)
+      {
+         listeners.remove(listener);
+      }
    }
    
    /**
@@ -62,13 +69,17 @@ public abstract class TradeExecutor
     * @param order
     *           order to be updated
     */
-   protected final synchronized void fireOrderUpdatedEvent(Order order)
+   protected final void fireOrderUpdatedEvent(Order order)
    {
       OrderUpdatedEvent event = new OrderUpdatedEvent(this, order);
-      Iterator<TradeExecutorListener> iterator = listeners.iterator();
-      while (iterator.hasNext())
+      
+      synchronized (lock)
       {
-         ((TradeExecutorListener)iterator.next()).orderUpdated(event);
+         Iterator<TradeExecutorListener> iterator = listeners.iterator();
+         while (iterator.hasNext())
+         {
+            ((TradeExecutorListener)iterator.next()).orderUpdated(event);
+         }
       }
    }
    
@@ -78,13 +89,17 @@ public abstract class TradeExecutor
     * @param report
     *           order execution report
     */
-   protected final synchronized void fireOrderExecutedEvent(ExecutionReport report)
+   protected final void fireOrderExecutedEvent(ExecutionReport report)
    {
       OrderExecutedEvent event = new OrderExecutedEvent(this, report);
-      Iterator<TradeExecutorListener> iterator = listeners.iterator();
-      while (iterator.hasNext())
+      
+      synchronized (lock)
       {
-         ((TradeExecutorListener)iterator.next()).orderExecuted(event);
+         Iterator<TradeExecutorListener> iterator = listeners.iterator();
+         while (iterator.hasNext())
+         {
+            ((TradeExecutorListener)iterator.next()).orderExecuted(event);
+         }
       }
    }
    

@@ -31,12 +31,10 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  */
 public class Currency implements Comparable<Currency>
 {
-   /** ISO 4217 currency code. */
    private final String code;
-   /** ISO 4217 currency name. */
    private final String name;
-   /** Number of decimal digits. */
    private int digits;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -56,6 +54,7 @@ public class Currency implements Comparable<Currency>
       this.code = code;
       this.name = name != null ? name : "";
       digits = 2;
+      lock = new Object();
    }
    
    /**
@@ -75,9 +74,12 @@ public class Currency implements Comparable<Currency>
     * @param decimalPlaces
     *           number of decimal places
     */
-   public synchronized void setDecimalPlaces(int decimalPlaces)
+   public void setDecimalPlaces(int decimalPlaces)
    {
-      digits = decimalPlaces;
+      synchronized (lock)
+      {
+         digits = decimalPlaces;
+      }
    }
    
    /**
@@ -87,9 +89,13 @@ public class Currency implements Comparable<Currency>
     *           number to be formatted
     * @return formatted number
     */
-   public synchronized String formatNumber(BigDecimal number)
+   public String formatNumber(BigDecimal number)
    {
-      return number.setScale(digits, StaticSettings.priceMathContext.getRoundingMode()).toString();
+      synchronized (lock)
+      {
+         return number.setScale(
+               digits, StaticSettings.priceMathContext.getRoundingMode()).toString();
+      }
    }
    
    /**
@@ -99,10 +105,13 @@ public class Currency implements Comparable<Currency>
     *           number to be formatted
     * @return formatted number
     */
-   public synchronized String formatNumberWithCurrency(BigDecimal number)
+   public String formatNumberWithCurrency(BigDecimal number)
    {
-      return number.setScale(
-            digits, StaticSettings.priceMathContext.getRoundingMode()).toString() + " " + code;
+      synchronized (lock)
+      {
+         return number.setScale(
+               digits, StaticSettings.priceMathContext.getRoundingMode()).toString() + " " + code;
+      }
    }
    
    /**

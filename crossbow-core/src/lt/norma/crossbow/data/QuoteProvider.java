@@ -29,6 +29,7 @@ import java.util.List;
 public abstract class QuoteProvider
 {
    private final List<QuoteListener> listeners = new ArrayList<QuoteListener>();
+   private final Object lock = new Object();
    
    /**
     * Adds quote listener.
@@ -36,9 +37,12 @@ public abstract class QuoteProvider
     * @param listener
     *           quote listener
     */
-   public synchronized void addListener(QuoteListener listener)
+   public void addListener(QuoteListener listener)
    {
-      listeners.add(listener);
+      synchronized (lock)
+      {
+         listeners.add(listener);
+      }
    }
    
    /**
@@ -47,9 +51,12 @@ public abstract class QuoteProvider
     * @param listener
     *           quote listener
     */
-   public synchronized void removeListener(QuoteListener listener)
+   public void removeListener(QuoteListener listener)
    {
-      listeners.remove(listener);
+      synchronized (lock)
+      {
+         listeners.remove(listener);
+      }
    }
    
    /**
@@ -58,13 +65,17 @@ public abstract class QuoteProvider
     * @param quote
     *           quote data to be sent to all listeners
     */
-   protected final synchronized void fireQuoteEvent(Quote quote)
+   protected final void fireQuoteEvent(Quote quote)
    {
       QuoteEvent quoteEvent = new QuoteEvent(this, quote);
-      Iterator<QuoteListener> iterator = listeners.iterator();
-      while (iterator.hasNext())
+      
+      synchronized (lock)
       {
-         ((QuoteListener) iterator.next()).quoteReceived(quoteEvent);
+         Iterator<QuoteListener> iterator = listeners.iterator();
+         while (iterator.hasNext())
+         {
+            ((QuoteListener)iterator.next()).quoteReceived(quoteEvent);
+         }
       }
    }
 }

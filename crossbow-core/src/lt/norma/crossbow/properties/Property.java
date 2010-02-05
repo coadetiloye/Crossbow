@@ -32,6 +32,7 @@ public class Property<Type> implements Comparable<Property<?>>
    private final String name;
    private Type value;
    private final String description;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -56,6 +57,7 @@ public class Property<Type> implements Comparable<Property<?>>
       this.name = name;
       this.value = value;
       this.description = description == null ? "" : description;
+      lock = new Object();
    }
    
    /**
@@ -97,9 +99,12 @@ public class Property<Type> implements Comparable<Property<?>>
     *           delimiter string
     * @return property as text
     */
-   public synchronized String toString(String delimiter)
+   public String toString(String delimiter)
    {
-      return name + delimiter + value.toString();
+      synchronized (lock)
+      {
+         return name + delimiter + value.toString();
+      }
    }
    
    /**
@@ -107,9 +112,12 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return class name
     */
-   public synchronized String typeToString()
+   public String typeToString()
    {
-      return value.getClass().getName();
+      synchronized (lock)
+      {
+         return value.getClass().getName();
+      }
    }
    
    /**
@@ -117,9 +125,12 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return type of the value
     */
-   public synchronized Class<?> getType()
+   public Class<?> getType()
    {
-      return value.getClass();
+      synchronized (lock)
+      {
+         return value.getClass();
+      }
    }
    
    /**
@@ -152,9 +163,12 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return property value
     */
-   public synchronized Type getValue()
+   public Type getValue()
    {
-      return value;
+      synchronized (lock)
+      {
+         return value;
+      }
    }
    
    /**
@@ -163,9 +177,12 @@ public class Property<Type> implements Comparable<Property<?>>
     * @param value
     *           property value
     */
-   public synchronized void setValue(Type value)
+   public void setValue(Type value)
    {
-      this.value = value;
+      synchronized (lock)
+      {
+         this.value = value;
+      }
    }
    
    /**
