@@ -15,30 +15,34 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.trading;
+package lt.norma.crossbow.indicators;
 
-import java.util.EventListener;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
- * Interface for <code>TradeExecutor</code> listeners.
- * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public interface TradeExecutorListener extends EventListener
+public class MeasureTest
 {
-   /**
-    * Called by trade executor to send feedback about changes in order status.
-    * 
-    * @param event
-    *           order updated event data
-    */
-   public void orderUpdated(OrderUpdatedEvent event);
    
    /**
-    * Called by trade executor as order gets partially or completely filled.
-    * 
-    * @param event
-    *           execution details
+    * Test method for
+    * {@link lt.norma.crossbow.indicators.Measure#Measure(java.lang.String, boolean)}.
     */
-   public void orderExecuted(OrderExecutedEvent event);
+   @Test
+   public void testMeasure()
+   {
+      Measure<?> m = new MockMeasure("ttt", false);
+      assertEquals("ttt", m.getTitle());
+   }
+   
+   private class MockMeasure extends Measure<Double>
+   {
+      public MockMeasure(String title, boolean collectPeriodicData)
+      {
+         super(title, collectPeriodicData);
+      }
+   }
 }

@@ -32,9 +32,12 @@ import lt.norma.crossbow.data.TradeListener;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public final class IndicatorList implements TradeListener, QuoteListener
+public class IndicatorList implements TradeListener, QuoteListener
 {
-   private final List<Indicator<?>> indicators;
+   /**
+    * List of indicators.
+    */
+   protected final List<Indicator<?>> indicators;
    private final Object lock;
    private final PeriodSplitter periodSplitter;
    

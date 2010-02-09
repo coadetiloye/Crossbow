@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
  * Base class for all indicators. Extend this class to create custom indicators.
  * 
  * @param <Type>
- *           type of the indicators value
+ *           type of the value
  * @author Vilius Normantas <code@norma.lt>
  */
 public abstract class Indicator<Type>
@@ -60,8 +60,6 @@ public abstract class Indicator<Type>
     * 
     * @param title
     *           short human readable title of this indicator
-    * @param description
-    *           brief description of this indicator
     * @param collectPeriodicData
     *           specifies if this indicator collects periodic data
     */
