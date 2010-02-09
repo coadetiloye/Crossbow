@@ -31,18 +31,10 @@ import lt.norma.crossbow.properties.Properties;
  */
 public class Strategy implements TradeListener, QuoteListener, TradeExecutorListener
 {
-   /**
-    * Strategy title.
-    */
-   protected String title = "Unnamed strategy";
-   /**
-    * Short description.
-    */
-   protected String description = "";
-   /**
-    * Strategy version.
-    */
-   protected String version = "0.0";
+   private String title;
+   private String description;
+   private String version;
+   private final Object propertyLock;
    
    private final Properties parameters;
    private final IndicatorList indicators;
@@ -61,6 +53,11 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
    public Strategy(PeriodSplitter indicatorPeriodSplitter,
          PeriodSplitter measurePeriodSplitter, TradeExecutor tradeExecutor)
    {
+      title = "Unnamed strategy";
+      description = "";
+      version = "0.0";
+      propertyLock = new Object();
+      
       parameters = new Properties();
       indicators = new IndicatorList(indicatorPeriodSplitter);
       measures = new MeasureList(measurePeriodSplitter);
@@ -151,7 +148,22 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     */
    public final String getTitle()
    {
-      return title;
+      synchronized (propertyLock)
+      {
+         return title;
+      }
+   }
+   
+   /**
+    * @param title
+    *           title of the strategy
+    */
+   protected void setTitle(String title)
+   {
+      synchronized (propertyLock)
+      {
+         this.title = title;
+      }
    }
    
    /**
@@ -159,7 +171,22 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     */
    public final String getDescription()
    {
-      return description;
+      synchronized (propertyLock)
+      {
+         return description;
+      }
+   }
+   
+   /**
+    * @param description
+    *           short description of the strategy
+    */
+   protected void setDescription(String description)
+   {
+      synchronized (propertyLock)
+      {
+         this.description = description;
+      }
    }
    
    /**
@@ -167,7 +194,22 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     */
    public final String getVersion()
    {
-      return version;
+      synchronized (propertyLock)
+      {
+         return version;
+      }
+   }
+   
+   /**
+    * @param version
+    *           version of the strategy
+    */
+   protected void setVersion(String version)
+   {
+      synchronized (propertyLock)
+      {
+         this.version = version;
+      }
    }
    
    /**
@@ -196,5 +238,3 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
 }
 
 // TODO Create unit tests.
-// TODO Consider concurrency.
-// TODO Consider access levels and mutability of fields.

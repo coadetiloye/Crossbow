@@ -28,6 +28,8 @@ import lt.norma.crossbow.trading.TradeExecutorListener;
  */
 public class MeasureList extends IndicatorList implements TradeExecutorListener
 {
+   private final Object lock;
+   
    /**
     * Constructor.
     * 
@@ -38,16 +40,20 @@ public class MeasureList extends IndicatorList implements TradeExecutorListener
    public MeasureList(PeriodSplitter periodSplitter)
    {
       super(periodSplitter);
+      lock = new Object();
    }
    
    @Override
    public void orderExecuted(OrderExecutedEvent event)
    {
-      for (Indicator<?> indicator : indicators)
+      synchronized (lock)
       {
-         if (indicator instanceof Measure<?>)
+         for (Indicator<?> indicator : indicators)
          {
-            ((Measure<?>)indicator).orderExecuted(event.getExecutionReport());
+            if (indicator instanceof Measure<?>)
+            {
+               ((Measure<?>)indicator).orderExecuted(event.getExecutionReport());
+            }
          }
       }
    }
@@ -55,16 +61,15 @@ public class MeasureList extends IndicatorList implements TradeExecutorListener
    @Override
    public void orderUpdated(OrderUpdatedEvent event)
    {
-      for (Indicator<?> indicator : indicators)
+      synchronized (lock)
       {
-         if (indicator instanceof Measure<?>)
+         for (Indicator<?> indicator : indicators)
          {
-            ((Measure<?>)indicator).orderUpdated(event.getOrder());
+            if (indicator instanceof Measure<?>)
+            {
+               ((Measure<?>)indicator).orderUpdated(event.getOrder());
+            }
          }
       }
    }
 }
-
-// TODO Create unit tests.
-// TODO Consider concurrency.
-// TODO Consider access levels and mutability of fields.
