@@ -34,8 +34,9 @@ public final class TimePeriodSplitter implements PeriodSplitter
    private final long periodLength;
    private long previousPeriodTime;
    private boolean isFirstPeriod;
-   private final Object lock;
    private final DateTimeZone timeZone;
+   private PeriodSplitterResult lastResult;
+   private final Object lock;
    
    /**
     * Constructor.
@@ -51,7 +52,7 @@ public final class TimePeriodSplitter implements PeriodSplitter
       this.timeZone = timeZone;
       zeroDate = (new DateTime(1900, 1, 1, 0, 0, 0, 0, timeZone)).getMillis();
       isFirstPeriod = true;
-      lock = new Object();      
+      lock = new Object();
    }
    
    private PeriodSplitterResult checkEndOfPeriod(DateTime time)
@@ -61,10 +62,10 @@ public final class TimePeriodSplitter implements PeriodSplitter
          long nper = (long)Math.floor((double)(time.getMillis() - zeroDate) / periodLength);
          long periodTime = zeroDate + nper * periodLength;
          
-         PeriodSplitterAction result = PeriodSplitterAction.NO_ACTION;
+         PeriodSplitterAction action = PeriodSplitterAction.NO_ACTION;
          if (isFirstPeriod)
          {
-            result = PeriodSplitterAction.START_BEFORE;
+            action = PeriodSplitterAction.START_BEFORE;
             previousPeriodTime = periodTime;
             isFirstPeriod = false;
          }
@@ -72,12 +73,13 @@ public final class TimePeriodSplitter implements PeriodSplitter
          {
             if (periodTime != previousPeriodTime)
             {
-               result = PeriodSplitterAction.RESTART_BEFORE;
+               action = PeriodSplitterAction.RESTART_BEFORE;
                previousPeriodTime = periodTime;
             }
          }
          
-         return new PeriodSplitterResult(result, new DateTime(periodTime, timeZone));
+         lastResult = new PeriodSplitterResult(action, new DateTime(periodTime, timeZone));
+         return lastResult;
       }
    }
    
@@ -91,5 +93,14 @@ public final class TimePeriodSplitter implements PeriodSplitter
    public PeriodSplitterResult checkEndOfPeriod(Trade trade)
    {
       return checkEndOfPeriod(trade.getTime());
+   }
+   
+   @Override
+   public PeriodSplitterResult getLastResult()
+   {
+      synchronized (lock)
+      {
+         return lastResult;
+      }
    }
 }

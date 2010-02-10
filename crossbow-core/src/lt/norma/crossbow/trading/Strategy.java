@@ -18,9 +18,7 @@
 package lt.norma.crossbow.trading;
 
 import lt.norma.crossbow.data.*;
-import lt.norma.crossbow.indicators.IndicatorList;
-import lt.norma.crossbow.indicators.MeasureList;
-import lt.norma.crossbow.indicators.PeriodSplitter;
+import lt.norma.crossbow.indicators.*;
 import lt.norma.crossbow.orders.Order;
 import lt.norma.crossbow.properties.Properties;
 
@@ -29,7 +27,7 @@ import lt.norma.crossbow.properties.Properties;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Strategy implements TradeListener, QuoteListener, TradeExecutorListener
+public abstract class Strategy implements TradeListener, QuoteListener, TradeExecutorListener
 {
    private String title;
    private String description;
@@ -70,21 +68,23 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     * @param order
     *           order to be sent
     */
-   protected void sendOrder(Order order)
+   protected final void sendOrder(Order order)
    {
       tradeExecutor.sendOrder(order);
    }
    
    @Override
-   public void orderExecuted(OrderExecutedEvent event)
+   public final void orderExecuted(OrderExecutedEvent event)
    {
       measures.orderExecuted(event);
+      orderExecuted(event.getExecutionReport());
    }
    
    @Override
-   public void orderUpdated(OrderUpdatedEvent event)
+   public final void orderUpdated(OrderUpdatedEvent event)
    {
       measures.orderUpdated(event);
+      orderUpdated(event.getOrder());
    }
    
    /**
@@ -110,17 +110,99 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
    @Override
    public final void quoteReceived(QuoteEvent event)
    {
+      // Update indicators and measures.
       indicators.quoteReceived(event);
       measures.quoteReceived(event);
+      
+      // Check if any period events occurred before the quote.
+      if (indicators.getPeriodSplitter() != null)
+      {
+         PeriodSplitterResult result = indicators.getPeriodSplitter().getLastResult();
+         switch (result.getAction())
+         {
+            case START_BEFORE:
+               periodStarted();
+               break;
+            case END_BEFORE:
+               periodEnded();
+               break;
+            case RESTART_BEFORE:
+               periodEnded();
+               periodStarted();
+               break;
+         }
+      }
+      
+      // Forward quoteReceived event to child strategy.
       quoteReceived(event.getQuote());
+      
+      // Check if any period events occurred after the quote.
+      if (indicators.getPeriodSplitter() != null)
+      {
+         PeriodSplitterResult result = indicators.getPeriodSplitter().getLastResult();
+         switch (result.getAction())
+         {
+            case START_AFTER:
+               periodStarted();
+               break;
+            case END_AFTER:
+               periodEnded();
+               break;
+            case RESTART_AFTER:
+               periodEnded();
+               periodStarted();
+               break;
+         }
+      }
    }
    
    @Override
    public final void tradeReceived(TradeEvent event)
    {
+      // Update indicators and measures.
       indicators.tradeReceived(event);
       measures.tradeReceived(event);
+      
+      // Check if any period events occurred before the trade.
+      if (indicators.getPeriodSplitter() != null)
+      {
+         PeriodSplitterResult result = indicators.getPeriodSplitter().getLastResult();
+         switch (result.getAction())
+         {
+            case START_BEFORE:
+               periodStarted();
+               break;
+            case END_BEFORE:
+               periodEnded();
+               break;
+            case RESTART_BEFORE:
+               periodEnded();
+               periodStarted();
+               break;
+         }
+      }
+      
+      // Forward tradeReceived event to child strategy.
       tradeReceived(event.getTrade());
+      
+      // Check if any period events occurred after the quote.
+      if (indicators.getPeriodSplitter() != null)
+      {
+         PeriodSplitterResult result = indicators.getPeriodSplitter().getLastResult();
+         switch (result.getAction())
+         {
+            case START_AFTER:
+               periodStarted();
+               break;
+            case END_AFTER:
+               periodEnded();
+               break;
+            case RESTART_AFTER:
+               periodEnded();
+               periodStarted();
+               break;
+         }
+      }
    }
    
    /**
@@ -144,6 +226,20 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
    }
    
    /**
+    * Called at the beginning of period.
+    */
+   protected void periodStarted()
+   {
+   }
+   
+   /**
+    * Called at the end of period.
+    */
+   protected void periodEnded()
+   {
+   }
+   
+   /**
     * @return title of the strategy
     */
    public final String getTitle()
@@ -158,7 +254,7 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     * @param title
     *           title of the strategy
     */
-   protected void setTitle(String title)
+   protected final void setTitle(String title)
    {
       synchronized (propertyLock)
       {
@@ -181,7 +277,7 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     * @param description
     *           short description of the strategy
     */
-   protected void setDescription(String description)
+   protected final void setDescription(String description)
    {
       synchronized (propertyLock)
       {
@@ -204,7 +300,7 @@ public class Strategy implements TradeListener, QuoteListener, TradeExecutorList
     * @param version
     *           version of the strategy
     */
-   protected void setVersion(String version)
+   protected final void setVersion(String version)
    {
       synchronized (propertyLock)
       {

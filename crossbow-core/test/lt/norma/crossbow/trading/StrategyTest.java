@@ -20,16 +20,21 @@ package lt.norma.crossbow.trading;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.math.BigDecimal;
+
 import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
+import lt.norma.crossbow.indicators.Measure;
 import lt.norma.crossbow.indicators.PeriodSplitter;
 import lt.norma.crossbow.indicators.TimePeriodSplitter;
 import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.orders.MarketOrder;
 import lt.norma.crossbow.orders.Order;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
@@ -87,43 +92,51 @@ public class StrategyTest
     * Test method for
     * {@link lt.norma.crossbow.trading.Strategy#orderExecuted(lt.norma.crossbow.trading.OrderExecutedEvent)}
     * .
+    * 
+    * @throws Throwable
     */
    @Test
-   public void testOrderExecutedOrderExecutedEvent()
+   public void testOrderExecuted() throws Throwable
    {
-      fail("Not yet implemented");
+      TimePeriodSplitter tps1 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      TimePeriodSplitter tps2 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      MockTradeExecutor te = new MockTradeExecutor();
+      MockStrategy s = new MockStrategy(tps1, tps2, te);
+      
+      StockContract c = new StockContract("ABC", Exchange.createNasdaq(), Currency.createJpy());
+      MarketOrder o = new MarketOrder(0, c, Direction.LONG, 100);
+      
+      FilledBlock b = new FilledBlock(Direction.LONG, 100, new BigDecimal("8"), new DateTime());
+      ExecutionReport r = new ExecutionReport(o, b);
+      OrderExecutedEvent e = new OrderExecutedEvent(this, r);
+      
+      s.orderExecuted(e);
+      assertEquals(r, s.lastReport);
+      assertEquals(r, s.m.lastExecutionReport);
    }
    
    /**
     * Test method for
     * {@link lt.norma.crossbow.trading.Strategy#orderUpdated(lt.norma.crossbow.trading.OrderUpdatedEvent)}
     * .
+    * 
+    * @throws Throwable
     */
    @Test
-   public void testOrderUpdatedOrderUpdatedEvent()
+   public void testOrderUpdated() throws Throwable
    {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for
-    * {@link lt.norma.crossbow.trading.Strategy#orderExecuted(lt.norma.crossbow.trading.ExecutionReport)}
-    * .
-    */
-   @Test
-   public void testOrderExecutedExecutionReport()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for
-    * {@link lt.norma.crossbow.trading.Strategy#orderUpdated(lt.norma.crossbow.orders.Order)}.
-    */
-   @Test
-   public void testOrderUpdatedOrder()
-   {
-      fail("Not yet implemented");
+      TimePeriodSplitter tps1 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      TimePeriodSplitter tps2 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      MockTradeExecutor te = new MockTradeExecutor();
+      MockStrategy s = new MockStrategy(tps1, tps2, te);
+      
+      StockContract c = new StockContract("ABC", Exchange.createNasdaq(), Currency.createJpy());
+      MarketOrder o = new MarketOrder(0, c, Direction.LONG, 100);
+      OrderUpdatedEvent e = new OrderUpdatedEvent(this, o);
+      
+      s.orderUpdated(e);
+      assertEquals(o, s.lastUpdatedOrder);
+      assertEquals(o, s.m.lastUpdatedOrder);
    }
    
    /**
@@ -147,32 +160,19 @@ public class StrategyTest
    }
    
    /**
-    * Test method for
-    * {@link lt.norma.crossbow.trading.Strategy#quoteReceived(lt.norma.crossbow.data.Quote)}.
-    */
-   @Test
-   public void testQuoteReceivedQuote()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for
-    * {@link lt.norma.crossbow.trading.Strategy#tradeReceived(lt.norma.crossbow.data.Trade)}.
-    */
-   @Test
-   public void testTradeReceivedTrade()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
     * Test method for {@link lt.norma.crossbow.trading.Strategy#getTitle()}.
     */
    @Test
    public void testGetTitle()
    {
-      fail("Not yet implemented");
+      TimePeriodSplitter tps1 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      TimePeriodSplitter tps2 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      MockTradeExecutor te = new MockTradeExecutor();
+      MockStrategy s = new MockStrategy(tps1, tps2, te);
+      
+      assertNotNull(s.getTitle());
+      s.setTitle("ttt");
+      assertEquals("ttt", s.getTitle());
    }
    
    /**
@@ -181,7 +181,14 @@ public class StrategyTest
    @Test
    public void testGetDescription()
    {
-      fail("Not yet implemented");
+      TimePeriodSplitter tps1 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      TimePeriodSplitter tps2 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      MockTradeExecutor te = new MockTradeExecutor();
+      MockStrategy s = new MockStrategy(tps1, tps2, te);
+      
+      assertNotNull(s.getDescription());
+      s.setDescription("ddd");
+      assertEquals("ddd", s.getDescription());
    }
    
    /**
@@ -190,61 +197,46 @@ public class StrategyTest
    @Test
    public void testGetVersion()
    {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for {@link lt.norma.crossbow.trading.Strategy#getParameters()}.
-    */
-   @Test
-   public void testGetParameters()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for {@link lt.norma.crossbow.trading.Strategy#getIndicators()}.
-    */
-   @Test
-   public void testGetIndicators()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for {@link lt.norma.crossbow.trading.Strategy#getMeasures()}.
-    */
-   @Test
-   public void testGetMeasures()
-   {
-      fail("Not yet implemented");
+      TimePeriodSplitter tps1 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      TimePeriodSplitter tps2 = new TimePeriodSplitter(1000, DateTimeZone.UTC);
+      MockTradeExecutor te = new MockTradeExecutor();
+      MockStrategy s = new MockStrategy(tps1, tps2, te);
+      
+      assertNotNull(s.getVersion());
+      s.setVersion("vvv");
+      assertEquals("vvv", s.getVersion());
    }
    
    private class MockStrategy extends Strategy
    {
+      ExecutionReport lastReport;
+      Order lastUpdatedOrder;
+      MockMeasure m;
+      
       public MockStrategy(PeriodSplitter indicatorPeriodSplitter,
             PeriodSplitter measurePeriodSplitter, TradeExecutor tradeExecutor)
       {
          super(indicatorPeriodSplitter, measurePeriodSplitter, tradeExecutor);
+         m = new MockMeasure("MM", false);
+         getMeasures().add(m);
+      }
+      
+      @Override
+      protected void orderExecuted(ExecutionReport report)
+      {
+         lastReport = report;
+      }
+      
+      @Override
+      public void orderUpdated(Order order)
+      {
+         lastUpdatedOrder = order;
       }
    }
    
    private class MockTradeExecutor extends TradeExecutor
    {
       public Order lastOrder;
-      
-      /**
-       * @param order
-       */
-      public void fireOrderUpdate(Order order)
-      {
-         fireOrderUpdatedEvent(order);
-      }
-      
-      public void fireOrderExecution(ExecutionReport report)
-      {
-         fireOrderExecutedEvent(report);
-      }
       
       @Override
       public void cancelAllOrders()
@@ -271,6 +263,29 @@ public class StrategyTest
       public void sendOrder(Order order)
       {
          lastOrder = order;
+      }
+   }
+   
+   private class MockMeasure extends Measure<Integer>
+   {
+      public ExecutionReport lastExecutionReport;
+      public Order lastUpdatedOrder;
+      
+      public MockMeasure(String title, boolean collectPeriodicData)
+      {
+         super(title, collectPeriodicData);
+      }
+      
+      @Override
+      public void orderExecuted(ExecutionReport report)
+      {
+         lastExecutionReport = report;
+      }
+      
+      @Override
+      public void orderUpdated(Order order)
+      {
+         lastUpdatedOrder = order;
       }
    }
 }

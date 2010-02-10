@@ -227,4 +227,12 @@ public class IndicatorList implements TradeListener, QuoteListener
          return count;
       }
    }
+   
+   /**
+    * @return period splitter used by this list of indicators
+    */
+   public PeriodSplitter getPeriodSplitter()
+   {
+      return periodSplitter;
+   }
 }

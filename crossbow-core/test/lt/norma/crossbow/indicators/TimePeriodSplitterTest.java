@@ -67,17 +67,22 @@ public class TimePeriodSplitterTest
       
       r = s.checkEndOfPeriod(trade1);
       assertEquals(PeriodSplitterAction.START_BEFORE, r.getAction());
+      assertEquals(r, s.getLastResult());
       
       r = s.checkEndOfPeriod(trade2);
       assertEquals(PeriodSplitterAction.NO_ACTION, r.getAction());
+      assertEquals(r, s.getLastResult());
       
       r = s.checkEndOfPeriod(quote3);
       assertEquals(PeriodSplitterAction.NO_ACTION, r.getAction());
+      assertEquals(r, s.getLastResult());
       
       r = s.checkEndOfPeriod(quote4);
       assertEquals(PeriodSplitterAction.RESTART_BEFORE, r.getAction());
+      assertEquals(r, s.getLastResult());
       
       r = s.checkEndOfPeriod(trade5);
       assertEquals(PeriodSplitterAction.RESTART_BEFORE, r.getAction());
+      assertEquals(r, s.getLastResult());
    }
 }

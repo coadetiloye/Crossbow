@@ -44,4 +44,9 @@ public interface PeriodSplitter
     * @return period split result
     */
    public PeriodSplitterResult checkEndOfPeriod(Quote quote);
+   
+   /**
+    * @return result of last check
+    */
+   public PeriodSplitterResult getLastResult();
 }

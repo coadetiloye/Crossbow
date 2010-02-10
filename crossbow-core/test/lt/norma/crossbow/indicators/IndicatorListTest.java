@@ -211,6 +211,7 @@ public class IndicatorListTest
       
       MockPeriodSplitter splitter = new MockPeriodSplitter();
       IndicatorList l = new IndicatorList(splitter);
+      assertEquals(splitter, l.getPeriodSplitter());
       MockIndicator2<String> ia = new MockIndicator2<String>("A", true);
       l.add(ia);
       
@@ -327,6 +328,12 @@ public class IndicatorListTest
       public PeriodSplitterResult checkEndOfPeriod(Quote quote)
       {
          return value;
+      }
+
+      @Override
+      public PeriodSplitterResult getLastResult()
+      {
+         return null;
       }
    }
    
