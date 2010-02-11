@@ -19,7 +19,6 @@ package lt.norma.crossbow.trading;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 
@@ -27,9 +26,11 @@ import lt.norma.crossbow.account.Currency;
 import lt.norma.crossbow.contracts.Contract;
 import lt.norma.crossbow.contracts.Exchange;
 import lt.norma.crossbow.contracts.StockContract;
-import lt.norma.crossbow.indicators.Measure;
-import lt.norma.crossbow.indicators.PeriodSplitter;
-import lt.norma.crossbow.indicators.TimePeriodSplitter;
+import lt.norma.crossbow.data.Quote;
+import lt.norma.crossbow.data.QuoteEvent;
+import lt.norma.crossbow.data.Trade;
+import lt.norma.crossbow.data.TradeEvent;
+import lt.norma.crossbow.indicators.*;
 import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.orders.MarketOrder;
 import lt.norma.crossbow.orders.Order;
@@ -141,22 +142,163 @@ public class StrategyTest
    
    /**
     * Test method for
-    * {@link lt.norma.crossbow.trading.Strategy#quoteReceived(lt.norma.crossbow.data.QuoteEvent)}.
-    */
-   @Test
-   public void testQuoteReceivedQuoteEvent()
-   {
-      fail("Not yet implemented");
-   }
-   
-   /**
-    * Test method for
     * {@link lt.norma.crossbow.trading.Strategy#tradeReceived(lt.norma.crossbow.data.TradeEvent)}.
+    * 
+    * @throws Throwable
     */
    @Test
-   public void testTradeReceivedTradeEvent()
+   public void testTradeReceivedTradeEvent() throws Throwable
    {
-      fail("Not yet implemented");
+      StockContract c = new StockContract("ABC", Exchange.createNasdaq(), Currency.createJpy());
+      DateTime t = new DateTime(2005, 1, 1, 14, 0, 0, 0, DateTimeZone.forID("America/New_York"));
+      Trade trade = new Trade(c, new BigDecimal("8.05"), 888, t);
+      Quote quote = new Quote(c, new BigDecimal("8.05"), 500, new BigDecimal("7.0"), 800, t);
+      Object source = new Object();
+      TradeEvent te = new TradeEvent(source, trade);
+      QuoteEvent qe = new QuoteEvent(source, quote);
+      
+      MockPeriodSplitter tpsI = new MockPeriodSplitter();
+      MockPeriodSplitter tpsM = new MockPeriodSplitter();
+      MockTradeExecutor executor = new MockTradeExecutor();
+      MockStrategy2 s = new MockStrategy2(tpsI, tpsM, executor);
+      MockMeasure m = new MockMeasure("AA", true);
+      s.getIndicators().add(m);
+      s.getMeasures().add(m);
+      
+      // Test if trade and quote events are forwarded to indicators and measures.
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.quoteReceived(qe);
+      s.tradeReceived(te);
+      assertEquals(quote, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastQuote);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(quote, s.lastQuote);
+      assertEquals(trade, s.lastTrade);
+      
+      // Test order of periodic events.
+      // TRADE BEFORE
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(0, s.beginningOrder);
+      assertEquals(-1, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.END_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(-1, s.beginningOrder);
+      assertEquals(0, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(1, s.beginningOrder);
+      assertEquals(0, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(2, s.tradeOrder);
+      
+      // TRADE AFTER
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.START_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(1, s.beginningOrder);
+      assertEquals(-1, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(0, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.END_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(-1, s.beginningOrder);
+      assertEquals(1, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(0, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.tradeReceived(te);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(2, s.beginningOrder);
+      assertEquals(1, s.endOrder);
+      assertEquals(-1, s.quoteOrder);
+      assertEquals(0, s.tradeOrder);
+      
+      // QUOTE BEFORE
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(0, s.beginningOrder);
+      assertEquals(-1, s.endOrder);
+      assertEquals(1, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.END_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(-1, s.beginningOrder);
+      assertEquals(0, s.endOrder);
+      assertEquals(1, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_BEFORE, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(1, s.beginningOrder);
+      assertEquals(0, s.endOrder);
+      assertEquals(2, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
+      
+      // QUOTE AFTER
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.START_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(1, s.beginningOrder);
+      assertEquals(-1, s.endOrder);
+      assertEquals(0, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.END_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(-1, s.beginningOrder);
+      assertEquals(1, s.endOrder);
+      assertEquals(0, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
+      
+      tpsI.value = new PeriodSplitterResult(PeriodSplitterAction.RESTART_AFTER, new DateTime());
+      tpsM.value = new PeriodSplitterResult(PeriodSplitterAction.START_BEFORE, new DateTime());
+      s.reset();
+      s.quoteReceived(qe);
+      assertEquals(trade, ((MockMeasure)s.getMeasures().getIndicators().get(0)).lastTrade);
+      assertEquals(2, s.beginningOrder);
+      assertEquals(1, s.endOrder);
+      assertEquals(0, s.quoteOrder);
+      assertEquals(-1, s.tradeOrder);
    }
    
    /**
@@ -234,6 +376,61 @@ public class StrategyTest
       }
    }
    
+   private class MockStrategy2 extends Strategy
+   {
+      public Trade lastTrade;
+      public Quote lastQuote;
+      public int counter;
+      public int quoteOrder;
+      public int tradeOrder;
+      public int endOrder;
+      public int beginningOrder;
+      
+      public MockStrategy2(PeriodSplitter indicatorPeriodSplitter,
+            PeriodSplitter measurePeriodSplitter, TradeExecutor tradeExecutor)
+      {
+         super(indicatorPeriodSplitter, measurePeriodSplitter, tradeExecutor);
+         reset();
+      }
+      
+      public void reset()
+      {
+         counter = 0;
+         quoteOrder = -1;
+         tradeOrder = -1;
+         endOrder = -1;
+         beginningOrder = -1;
+         lastTrade = null;
+         lastQuote = null;
+      }
+      
+      @Override
+      public void quoteReceived(Quote qoute)
+      {
+         lastQuote = qoute;
+         quoteOrder = counter++;
+      }
+      
+      @Override
+      public void tradeReceived(Trade trade)
+      {
+         lastTrade = trade;
+         tradeOrder = counter++;
+      }
+      
+      @Override
+      protected void periodStarted()
+      {
+         beginningOrder = counter++;
+      }
+      
+      @Override
+      public void periodEnded()
+      {
+         endOrder = counter++;
+      }
+   }
+   
    private class MockTradeExecutor extends TradeExecutor
    {
       public Order lastOrder;
@@ -266,10 +463,35 @@ public class StrategyTest
       }
    }
    
+   private class MockPeriodSplitter implements PeriodSplitter
+   {
+      public PeriodSplitterResult value;
+      
+      @Override
+      public PeriodSplitterResult checkEndOfPeriod(Trade trade)
+      {
+         return value;
+      }
+      
+      @Override
+      public PeriodSplitterResult checkEndOfPeriod(Quote quote)
+      {
+         return value;
+      }
+      
+      @Override
+      public PeriodSplitterResult getLastResult()
+      {
+         return value;
+      }
+   }
+   
    private class MockMeasure extends Measure<Integer>
    {
       public ExecutionReport lastExecutionReport;
       public Order lastUpdatedOrder;
+      public Trade lastTrade;
+      public Quote lastQuote;
       
       public MockMeasure(String title, boolean collectPeriodicData)
       {
@@ -286,6 +508,18 @@ public class StrategyTest
       public void orderUpdated(Order order)
       {
          lastUpdatedOrder = order;
+      }
+      
+      @Override
+      public void quoteReceived(Quote qoute)
+      {
+         lastQuote = qoute;
+      }
+      
+      @Override
+      public void tradeReceived(Trade trade)
+      {
+         lastTrade = trade;
       }
    }
 }

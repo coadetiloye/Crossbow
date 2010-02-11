@@ -332,5 +332,3 @@ public abstract class Strategy implements TradeListener, QuoteListener, TradeExe
       return measures;
    }
 }
-
-// TODO Create unit tests.
