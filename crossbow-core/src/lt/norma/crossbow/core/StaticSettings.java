@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.configuration;
+package lt.norma.crossbow.core;
 
 import java.math.MathContext;
 import java.math.RoundingMode;

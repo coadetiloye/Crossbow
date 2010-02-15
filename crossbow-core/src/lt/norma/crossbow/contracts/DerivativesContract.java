@@ -20,7 +20,7 @@ package lt.norma.crossbow.contracts;
 import java.math.BigDecimal;
 
 import lt.norma.crossbow.account.Currency;
-import lt.norma.crossbow.configuration.StaticSettings;
+import lt.norma.crossbow.core.StaticSettings;
 import lt.norma.crossbow.exceptions.ContractException;
 
 import org.joda.time.DateMidnight;

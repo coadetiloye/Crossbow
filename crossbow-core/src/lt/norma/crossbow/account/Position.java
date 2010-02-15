@@ -21,8 +21,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import lt.norma.crossbow.configuration.StaticSettings;
 import lt.norma.crossbow.contracts.Contract;
+import lt.norma.crossbow.core.StaticSettings;
 import lt.norma.crossbow.orders.Direction;
 import lt.norma.crossbow.trading.FilledBlock;
 

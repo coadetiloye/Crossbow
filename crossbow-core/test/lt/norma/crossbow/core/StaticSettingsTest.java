@@ -15,12 +15,14 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-package lt.norma.crossbow.configuration;
+package lt.norma.crossbow.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.RoundingMode;
+
+import lt.norma.crossbow.core.StaticSettings;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

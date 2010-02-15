@@ -18,7 +18,8 @@
 package lt.norma.crossbow.commissions;
 
 import java.math.BigDecimal;
-import lt.norma.crossbow.configuration.StaticSettings;
+
+import lt.norma.crossbow.core.StaticSettings;
 
 /**
  * Simplified Interactive Brokers method to calculate equities commissions.

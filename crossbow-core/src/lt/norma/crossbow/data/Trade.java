@@ -19,8 +19,8 @@ package lt.norma.crossbow.data;
 
 import java.math.BigDecimal;
 
-import lt.norma.crossbow.configuration.StaticSettings;
 import lt.norma.crossbow.contracts.Contract;
+import lt.norma.crossbow.core.StaticSettings;
 import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
 
 import org.joda.time.DateTime;
