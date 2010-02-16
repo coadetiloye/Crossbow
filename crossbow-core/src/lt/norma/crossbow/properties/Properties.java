@@ -22,6 +22,6 @@ package lt.norma.crossbow.properties;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Properties extends PropertyList<Property<?>>
+public final class Properties extends PropertyList<Property<?>>
 {
 }

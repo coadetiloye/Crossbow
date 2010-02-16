@@ -35,7 +35,7 @@ import org.joda.time.format.DateTimeFormatter;
  * @see Quote
  * @see TradeEvent
  */
-public class Trade
+public final class Trade
 {
    /** Time of the quote. */
    private final DateTime time;

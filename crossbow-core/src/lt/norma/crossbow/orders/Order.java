@@ -130,7 +130,7 @@ public abstract class Order
     * 
     * @return true if buy order, false if sell
     */
-   public boolean isBuy()
+   public final boolean isBuy()
    {
       return direction == Direction.LONG;
    }
@@ -140,7 +140,7 @@ public abstract class Order
     * 
     * @return true if sell order, false if buy
     */
-   public boolean isSell()
+   public final boolean isSell()
    {
       return direction == Direction.SHORT;
    }
@@ -153,7 +153,7 @@ public abstract class Order
     * @see #getStatus()
     * @see OrderStatus
     */
-   public boolean isActive()
+   public final boolean isActive()
    {
       synchronized (lock)
       {
@@ -180,7 +180,7 @@ public abstract class Order
     * @return "buy" for <code>LONG</code> direction; "sell" for <code>SHORT</code> direction;
     * @see Direction
     */
-   protected String getOrderDirectionString()
+   public final String getOrderDirectionString()
    {
       return direction == Direction.LONG ? "buy" : "sell";
    }
@@ -188,7 +188,7 @@ public abstract class Order
    /**
     * @return contract of the order
     */
-   public Contract getContract()
+   public final Contract getContract()
    {
       return contract;
    }
@@ -196,7 +196,7 @@ public abstract class Order
    /**
     * @return time when the order was submitted. Can be null, if the order is not submitted yet.
     */
-   public DateTime getSubmitTime()
+   public final DateTime getSubmitTime()
    {
       synchronized (lock)
       {
@@ -210,7 +210,7 @@ public abstract class Order
     * @param time
     *           submit time
     */
-   public void setSubmitTime(DateTime time)
+   public final void setSubmitTime(DateTime time)
    {
       if (time == null)
       {
@@ -227,7 +227,7 @@ public abstract class Order
    /**
     * @return size of an order
     */
-   public int getSize()
+   public final int getSize()
    {
       return size;
    }
@@ -237,7 +237,7 @@ public abstract class Order
     * @see #isActive()
     * @see OrderStatus
     */
-   public OrderStatus getStatus()
+   public final OrderStatus getStatus()
    {
       synchronized (lock)
       {
@@ -252,7 +252,7 @@ public abstract class Order
     *           order status
     * @see OrderStatus
     */
-   public void setStatus(OrderStatus status)
+   public final void setStatus(OrderStatus status)
    {
       if (status == null)
       {
@@ -270,7 +270,7 @@ public abstract class Order
     * @return type of this order. Used only to provide human readable type of the order. Internally
     *         order types are identified by class and attributes.
     */
-   public String getType()
+   public final String getType()
    {
       return type;
    }
@@ -278,7 +278,7 @@ public abstract class Order
    /**
     * @return order attributes
     */
-   public OrderAttributes getAttributes()
+   public final OrderAttributes getAttributes()
    {
       return attributes;
    }
@@ -286,7 +286,7 @@ public abstract class Order
    /**
     * @return order identifier
     */
-   public long getId()
+   public final long getId()
    {
       return id;
    }

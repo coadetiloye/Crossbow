@@ -27,7 +27,7 @@ import lt.norma.crossbow.properties.Property;
  *           type of value this attribute can contain
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderAttribute<Type> extends Property<Type>
+public final class OrderAttribute<Type> extends Property<Type>
 {
    /** Marks importance of this attribute. */
    private final OrderAttributeFlag flag;
@@ -77,5 +77,16 @@ public class OrderAttribute<Type> extends Property<Type>
    public OrderAttributeFlag getFlag()
    {
       return flag;
+   }
+   
+   @Override
+   public int compareTo(Property<?> property)
+   {
+      int k = super.compareTo(property);
+      if (!(property instanceof OrderAttribute<?>) || k != 0)
+         return k;
+      
+      return flag.compareTo(((OrderAttribute<?>)property).flag);
+      // TODO tests this method
    }
 }

@@ -37,7 +37,7 @@ public abstract class TradeProvider
     * @param listener
     *           trade listener
     */
-   public void addListener(TradeListener listener)
+   public final void addListener(TradeListener listener)
    {
       synchronized (lock)
       {
@@ -51,7 +51,7 @@ public abstract class TradeProvider
     * @param listener
     *           trade listener
     */
-   public void removeListener(TradeListener listener)
+   public final void removeListener(TradeListener listener)
    {
       synchronized (lock)
       {

@@ -25,7 +25,7 @@ import lt.norma.crossbow.exceptions.ContractException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class IndexContract extends Contract
+public final class IndexContract extends Contract
 {
    /**
     * Constructor.

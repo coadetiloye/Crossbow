@@ -29,7 +29,7 @@ import org.joda.time.DateMidnight;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OptionContract extends DerivativesContract
+public final class OptionContract extends DerivativesContract
 {
    /** Type of an option. */
    protected final OptionType optionType;

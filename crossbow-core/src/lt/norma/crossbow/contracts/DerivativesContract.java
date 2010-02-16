@@ -124,7 +124,7 @@ public abstract class DerivativesContract extends Contract
     * @throws ContractException
     *            throws an exception if the contract has expired
     */
-   public double yearsToMaturity(DateMidnight now) throws ContractException
+   public final double yearsToMaturity(DateMidnight now) throws ContractException
    {
       if (now.isAfter(maturityDate))
       {
@@ -176,7 +176,7 @@ public abstract class DerivativesContract extends Contract
     * 
     * @return expiration date of the contract
     */
-   public DateMidnight getMaturityDate()
+   public final DateMidnight getMaturityDate()
    {
       return maturityDate;
    }
@@ -186,7 +186,7 @@ public abstract class DerivativesContract extends Contract
     * 
     * @return multiplier
     */
-   public BigDecimal getMultiplier()
+   public final BigDecimal getMultiplier()
    {
       return multiplier;
    }
@@ -196,7 +196,7 @@ public abstract class DerivativesContract extends Contract
     * 
     * @return underlying contract, may be null if no underlying contract is set
     */
-   public Contract getUnderlyingContract()
+   public final Contract getUnderlyingContract()
    {
       return underlyingContract;
    }

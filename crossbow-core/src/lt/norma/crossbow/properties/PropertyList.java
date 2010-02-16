@@ -34,7 +34,7 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  * @see Properties
  * @author Vilius Normantas <code@norma.lt>
  */
-public abstract class PropertyList<PropertyType extends Property<?>>
+public class PropertyList<PropertyType extends Property<?>>
 {
    private final HashMap<String, PropertyType> propertyMap;
    private final Object lock;
@@ -56,7 +56,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            on duplicate property names
     */
-   public void add(PropertyType property) throws CrossbowException
+   public final void add(PropertyType property) throws CrossbowException
    {
       if (propertyExists(property.getName()))
       {
@@ -80,7 +80,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            on duplicate property with different type
     */
-   public void set(PropertyType property) throws CrossbowException
+   public final void set(PropertyType property) throws CrossbowException
    {
       synchronized (lock)
       {
@@ -116,7 +116,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @param propertyName
     *           property name
     */
-   public void removeByName(String propertyName)
+   public final void removeByName(String propertyName)
    {
       synchronized (lock)
       {
@@ -131,7 +131,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     *           property name
     * @return true if the property exists, false otherwise
     */
-   public boolean propertyExists(String propertyName)
+   public final boolean propertyExists(String propertyName)
    {
       synchronized (lock)
       {
@@ -148,7 +148,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * @throws CrossbowException
     *            if no property is found by specified name
     */
-   public Property<?> getByName(String propertyName) throws CrossbowException
+   public final Property<?> getByName(String propertyName) throws CrossbowException
    {
       Property<?> result;
       
@@ -169,7 +169,7 @@ public abstract class PropertyList<PropertyType extends Property<?>>
     * 
     * @return list
     */
-   public List<Property<?>> getList()
+   public final List<Property<?>> getList()
    {
       synchronized (lock)
       {

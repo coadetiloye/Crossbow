@@ -32,7 +32,7 @@ import org.joda.time.format.DateTimeFormatter;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Quote
+public final class Quote
 {
    /** Time of the quote. */
    private final DateTime time;

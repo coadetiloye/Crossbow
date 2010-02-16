@@ -29,7 +29,7 @@ import org.joda.time.DateMidnight;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class FuturesContract extends DerivativesContract
+public final class FuturesContract extends DerivativesContract
 {
    /**
     * Constructor.

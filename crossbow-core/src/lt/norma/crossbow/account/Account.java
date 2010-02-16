@@ -24,7 +24,7 @@ import lt.norma.crossbow.orders.OrderBook;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Account
+public final class Account
 {
    private final Money cash;
    private final Portfolio portfolio;

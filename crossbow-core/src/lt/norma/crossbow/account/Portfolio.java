@@ -29,7 +29,7 @@ import lt.norma.crossbow.trading.TradeExecutorListener;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Portfolio implements TradeExecutorListener
+public final class Portfolio implements TradeExecutorListener
 {
    private final HashMap<Contract, Position> positions;
    private final Object lock;

@@ -274,11 +274,5 @@ public class OrderTest
       {
          super(id, contract, type, direction, size);
       }
-      
-      @Override
-      public String getOrderDirectionString()
-      {
-         return super.getOrderDirectionString();
-      }
    }
 }

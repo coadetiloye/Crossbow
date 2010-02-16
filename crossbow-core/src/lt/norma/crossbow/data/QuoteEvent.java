@@ -25,7 +25,7 @@ import java.util.EventObject;
  * @author Vilius Normantas <code@norma.lt>
  * @see Quote
  */
-public class QuoteEvent extends EventObject
+public final class QuoteEvent extends EventObject
 {
    private final Quote quote;
    

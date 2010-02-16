@@ -27,7 +27,7 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Money implements Comparable<Money>
+public final class Money implements Comparable<Money>
 {
    private final Currency currency;
    private BigDecimal amount;

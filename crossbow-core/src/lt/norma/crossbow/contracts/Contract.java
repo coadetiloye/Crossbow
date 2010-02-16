@@ -163,7 +163,7 @@ public abstract class Contract
     * 
     * @return symbol of an underlying asset
     */
-   public String getSymbol()
+   public final String getSymbol()
    {
       return symbol;
    }
@@ -173,7 +173,7 @@ public abstract class Contract
     * 
     * @return type of this contract
     */
-   public String getType()
+   public final String getType()
    {
       return type;
    }
@@ -183,7 +183,7 @@ public abstract class Contract
     * 
     * @return exchange
     */
-   public Exchange getExchange()
+   public final Exchange getExchange()
    {
       return exchange;
    }
@@ -193,7 +193,7 @@ public abstract class Contract
     * 
     * @return currency
     */
-   public Currency getCurrency()
+   public final Currency getCurrency()
    {
       return currency;
    }

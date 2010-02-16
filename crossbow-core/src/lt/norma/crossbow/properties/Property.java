@@ -84,7 +84,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * @return property as text
     */
    @Override
-   public String toString()
+   public final String toString()
    {
       return toString(": ");
    }
@@ -99,7 +99,7 @@ public class Property<Type> implements Comparable<Property<?>>
     *           delimiter string
     * @return property as text
     */
-   public String toString(String delimiter)
+   public final String toString(String delimiter)
    {
       synchronized (lock)
       {
@@ -112,7 +112,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return class name
     */
-   public String typeToString()
+   public final String typeToString()
    {
       synchronized (lock)
       {
@@ -125,7 +125,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return type of the value
     */
-   public Class<?> getType()
+   public final Class<?> getType()
    {
       synchronized (lock)
       {
@@ -153,7 +153,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return property name
     */
-   public String getName()
+   public final String getName()
    {
       return name;
    }
@@ -163,7 +163,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return property value
     */
-   public Type getValue()
+   public final Type getValue()
    {
       synchronized (lock)
       {
@@ -177,7 +177,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * @param value
     *           property value
     */
-   public void setValue(Type value)
+   public final void setValue(Type value)
    {
       synchronized (lock)
       {
@@ -190,7 +190,7 @@ public class Property<Type> implements Comparable<Property<?>>
     * 
     * @return property description
     */
-   public String getDescription()
+   public final String getDescription()
    {
       return description;
    }

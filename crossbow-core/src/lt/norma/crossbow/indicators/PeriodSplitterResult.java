@@ -22,7 +22,7 @@ import org.joda.time.DateTime;
 /**
  * @author Vilius Normantas <code@norma.lt>
  */
-public class PeriodSplitterResult
+public final class PeriodSplitterResult
 {
    private final PeriodSplitterAction action;
    private final DateTime time;

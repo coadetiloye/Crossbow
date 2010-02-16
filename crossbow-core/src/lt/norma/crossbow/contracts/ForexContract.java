@@ -25,7 +25,7 @@ import lt.norma.crossbow.exceptions.ContractException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ForexContract extends Contract
+public final class ForexContract extends Contract
 {
    private final Currency currency1;
    private final Currency currency2;

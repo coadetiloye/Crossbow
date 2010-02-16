@@ -37,7 +37,7 @@ public abstract class QuoteProvider
     * @param listener
     *           quote listener
     */
-   public void addListener(QuoteListener listener)
+   public final void addListener(QuoteListener listener)
    {
       synchronized (lock)
       {
@@ -51,7 +51,7 @@ public abstract class QuoteProvider
     * @param listener
     *           quote listener
     */
-   public void removeListener(QuoteListener listener)
+   public final void removeListener(QuoteListener listener)
    {
       synchronized (lock)
       {

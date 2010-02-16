@@ -25,7 +25,7 @@ import java.util.EventObject;
  * @author Vilius Normantas <code@norma.lt>
  * @see Trade
  */
-public class TradeEvent extends EventObject
+public final class TradeEvent extends EventObject
 {
    private final Trade trade;
    

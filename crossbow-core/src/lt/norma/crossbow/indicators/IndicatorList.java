@@ -59,7 +59,7 @@ public class IndicatorList implements TradeListener, QuoteListener
     * @param indicator
     *           indicator to be added to this list
     */
-   public void add(Indicator<?> indicator)
+   public final void add(Indicator<?> indicator)
    {
       synchronized (lock)
       {
@@ -69,7 +69,7 @@ public class IndicatorList implements TradeListener, QuoteListener
    }
    
    @Override
-   public void tradeReceived(TradeEvent event)
+   public final void tradeReceived(TradeEvent event)
    {
       synchronized (lock)
       {
@@ -126,7 +126,7 @@ public class IndicatorList implements TradeListener, QuoteListener
    }
    
    @Override
-   public void quoteReceived(QuoteEvent event)
+   public final void quoteReceived(QuoteEvent event)
    {
       synchronized (lock)
       {
@@ -185,12 +185,20 @@ public class IndicatorList implements TradeListener, QuoteListener
    /**
     * @return list of indicators
     */
-   public List<Indicator<?>> getIndicators()
+   public final List<Indicator<?>> getIndicators()
    {
       synchronized (lock)
       {
          return indicators;
       }
+   }
+   
+   /**
+    * @return period splitter used by this list of indicators
+    */
+   public final PeriodSplitter getPeriodSplitter()
+   {
+      return periodSplitter;
    }
    
    /**
@@ -226,13 +234,5 @@ public class IndicatorList implements TradeListener, QuoteListener
          
          return count;
       }
-   }
-   
-   /**
-    * @return period splitter used by this list of indicators
-    */
-   public PeriodSplitter getPeriodSplitter()
-   {
-      return periodSplitter;
    }
 }

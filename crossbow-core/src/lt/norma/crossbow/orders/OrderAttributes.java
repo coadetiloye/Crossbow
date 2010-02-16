@@ -24,6 +24,6 @@ import lt.norma.crossbow.properties.PropertyList;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderAttributes extends PropertyList<OrderAttribute<?>>
+public final class OrderAttributes extends PropertyList<OrderAttribute<?>>
 {
 }

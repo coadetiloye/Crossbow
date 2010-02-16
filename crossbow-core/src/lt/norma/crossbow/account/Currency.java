@@ -29,7 +29,7 @@ import lt.norma.crossbow.exceptions.InvalidArgumentRuntimeException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Currency implements Comparable<Currency>
+public final class Currency implements Comparable<Currency>
 {
    private final String code;
    private final String name;

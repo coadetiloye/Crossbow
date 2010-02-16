@@ -27,7 +27,7 @@ import lt.norma.crossbow.exceptions.CrossbowException;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderBook
+public final class OrderBook
 {
    private final HashMap<Long, Order> orders;
    private final Object lock;

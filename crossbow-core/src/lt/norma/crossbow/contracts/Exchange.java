@@ -27,7 +27,7 @@ import org.joda.time.LocalTime;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Exchange implements Comparable<Exchange>
+public final class Exchange implements Comparable<Exchange>
 {
    /** Exchange name. */
    private final String name;

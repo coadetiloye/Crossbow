@@ -29,7 +29,7 @@ import org.joda.time.DateTime;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class FilledBlock
+public final class FilledBlock
 {
    private final Direction direction;
    private final int size;

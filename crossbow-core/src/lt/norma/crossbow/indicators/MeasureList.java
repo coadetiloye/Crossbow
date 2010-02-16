@@ -44,7 +44,7 @@ public class MeasureList extends IndicatorList implements TradeExecutorListener
    }
    
    @Override
-   public void orderExecuted(OrderExecutedEvent event)
+   public final void orderExecuted(OrderExecutedEvent event)
    {
       synchronized (lock)
       {
@@ -59,7 +59,7 @@ public class MeasureList extends IndicatorList implements TradeExecutorListener
    }
    
    @Override
-   public void orderUpdated(OrderUpdatedEvent event)
+   public final void orderUpdated(OrderUpdatedEvent event)
    {
       synchronized (lock)
       {

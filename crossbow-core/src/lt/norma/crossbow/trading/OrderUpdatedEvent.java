@@ -25,7 +25,7 @@ import lt.norma.crossbow.orders.Order;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderUpdatedEvent extends EventObject
+public final class OrderUpdatedEvent extends EventObject
 {
    private final Order order;
    

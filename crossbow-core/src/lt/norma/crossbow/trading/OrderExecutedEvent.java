@@ -25,7 +25,7 @@ import java.util.EventObject;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OrderExecutedEvent extends EventObject
+public final class OrderExecutedEvent extends EventObject
 {
    private final ExecutionReport report;
    

@@ -25,7 +25,7 @@ import java.util.List;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class OcaGroup
+public final class OcaGroup
 {
    private final String title;
    private final List<Order> orders;

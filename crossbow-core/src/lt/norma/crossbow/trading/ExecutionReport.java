@@ -25,7 +25,7 @@ import lt.norma.crossbow.orders.Order;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class ExecutionReport
+public final class ExecutionReport
 {
    /** Executed order. */
    private final Order order;

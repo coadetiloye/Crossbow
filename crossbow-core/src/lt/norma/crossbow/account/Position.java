@@ -31,7 +31,7 @@ import lt.norma.crossbow.trading.FilledBlock;
  * 
  * @author Vilius Normantas <code@norma.lt>
  */
-public class Position
+public final class Position
 {
    private final Contract contract;
    private int size;
