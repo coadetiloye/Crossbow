@@ -19,7 +19,14 @@ package lt.norma.crossbow.datasimulation;
 
 import java.math.BigDecimal;
 
+import lt.norma.crossbow.account.Currency;
+import lt.norma.crossbow.contracts.Exchange;
+import lt.norma.crossbow.contracts.StockContract;
+import lt.norma.crossbow.data.Trade;
 import lt.norma.crossbow.data.TradeProvider;
+import lt.norma.crossbow.exceptions.ContractException;
+
+import org.joda.time.DateTime;
 
 /**
  * Simulates trade data.
@@ -28,11 +35,21 @@ import lt.norma.crossbow.data.TradeProvider;
  */
 class TradeSimulator extends TradeProvider
 {
-   public void generateTrade(BigDecimal askPrice, BigDecimal bidPrice)
+   public void generateTrade(BigDecimal askPrice, BigDecimal bidPrice) throws ContractException
    {
-      // Generate stuff.
-      // Trade trade = new Trade(contract, price, size, time);
-      // fireTradeEvent(trade);
+      // Those could be generated in constructor as they do not change.
+      Exchange exchange = Exchange.createNasdaq();
+      StockContract stock = new StockContract("ABC", Exchange.createNasdaq(), Currency.createUsd());
+      
+      // Add some seconds next time 
+      DateTime time = new DateTime(2010, 02, 18, 13, 0, 0, 0, exchange.getTimeZone());
+      
+      // Generate price within bid-ask and size.
+      BigDecimal price = new BigDecimal("100");
+      int size = 50000;
+      
+      Trade trade = new Trade(stock, price, size, time);
+      fireTradeEvent(trade);
    }
 }
 

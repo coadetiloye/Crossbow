@@ -30,6 +30,7 @@ class QuoteSimulator extends QuoteProvider
 {
    public void generateQuote(BigDecimal medianPrice)
    {
+      // See TradeSimulator for example.
       // Generate stuff.
       // Quote quote = new Quote(contract, askPrice, askSize, bidPrice, bidSize, time);
       // fireQuoteEvent(quote);
